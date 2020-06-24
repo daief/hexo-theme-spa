@@ -7,10 +7,10 @@ const prism = require('prismjs');
 const loadLanguages = require('prismjs/components/index');
 loadLanguages();
 
-const escapeHtml = str =>
+const escapeHtml = (str) =>
   str.replace(
     /[&<>'"]/g,
-    tag =>
+    (tag) =>
       ({
         '&': '&amp;',
         '<': '&lt;',
@@ -20,7 +20,7 @@ const escapeHtml = str =>
       }[tag] || tag),
   );
 
-hexo.extend.filter.register('marked:renderer', function(renderer) {
+hexo.extend.filter.register('marked:renderer', function (renderer) {
   // const { config } = this; // Skip this line if you don't need user config from _config.yml
 
   renderer.code = (sourceCode, language) => {
@@ -31,4 +31,9 @@ hexo.extend.filter.register('marked:renderer', function(renderer) {
 
     return `<pre class="line-numbers language-${language}"><code>${codeResult}</code></pre>`;
   };
+
+  // renderer.image = (href, title, text, ...args) => {
+  //   console.log('--- img', href, title, text, args);
+  //   return '';
+  // };
 });

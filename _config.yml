@@ -83,8 +83,8 @@ deploy:
   type: git
   repo:
     github: git@github.com:daief/daief.github.io.git
-    #oschina: git@git.oschina.net:defeng/pages.git
-    coding: git@git.coding.net:daief/daief.coding.me.git
+    # oschina: git@git.oschina.net:defeng/pages.git
+    # coding: git@git.coding.net:daief/daief.coding.me.git
   branch: master
 
   # Extensions
