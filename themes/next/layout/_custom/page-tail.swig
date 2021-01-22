@@ -16,3 +16,15 @@ window.Prism = window.Prism || {};
 <script src="{{ theme.prismjs }}/plugins/show-language/prism-show-language.min.js"></script>
 <script src="{{ theme.prismjs }}/plugins/show-language/prism-show-language.min.js"></script>
 <script src="{{ theme.prismjs }}/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+
+<!-- mermaid 绘图功能 -->
+<script src="{{ theme.mermaid }}"></script>
+<style>
+.mermaid {
+  /* 避免一开始显示图表代码 */
+  font-size: 0;
+}
+</style>
+<script>
+mermaid && mermaid.initialize({ startOnLoad: true });
+</script>

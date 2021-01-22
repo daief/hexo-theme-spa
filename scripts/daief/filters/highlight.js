@@ -24,6 +24,12 @@ hexo.extend.filter.register('marked:renderer', function (renderer) {
   // const { config } = this; // Skip this line if you don't need user config from _config.yml
 
   renderer.code = (sourceCode, language) => {
+    // 处理 mermaid 图表
+    if (/^mermaid$/i.test(language)) {
+      return `<div class="mermaid">${sourceCode}</div>`;
+    }
+
+    // 其他代码块
     const codeResult =
       prism.languages[language] && sourceCode
         ? prism.highlight(sourceCode, prism.languages[language])
@@ -31,9 +37,4 @@ hexo.extend.filter.register('marked:renderer', function (renderer) {
 
     return `<pre class="line-numbers language-${language}"><code>${codeResult}</code></pre>`;
   };
-
-  // renderer.image = (href, title, text, ...args) => {
-  //   console.log('--- img', href, title, text, args);
-  //   return '';
-  // };
 });
