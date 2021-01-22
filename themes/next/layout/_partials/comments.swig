@@ -14,13 +14,19 @@
     {% elseif theme.vkontakte_api.enable and theme.vkontakte_api.comments %}
       <div id="vk_comments"></div>
     {% elseif theme.disqus.enable %}
-      <div id="disqus_thread">
-        <img src="/images/loading.gif">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+      {%if env.env !== 'development' %}
+        <div id="disqus_thread">
+          <img src="/images/loading.gif">
+          <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          </noscript>
+        </div>
+      {%else%}
+        <div>
+          Disqus only display when production.
+        </div>
+      {%endif%}
     {% elseif theme.hypercomments_id %}
       <div id="hypercomments_widget"></div>
     {% elseif theme.youyan_uid %}

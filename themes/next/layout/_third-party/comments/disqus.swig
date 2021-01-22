@@ -1,6 +1,5 @@
 {% if not (theme.duoshuo and theme.duoshuo.shortname) and not theme.duoshuo_shortname %}
   {% if theme.disqus.enable %}
-
     {% if theme.disqus.count  %}
       <script id="dsq-count-scr" async defer src="https://{{theme.disqus.shortname}}.disqus.com/count.js"></script>
     {% endif %}
