@@ -75,7 +75,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+# theme: next
+theme: svelte
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
