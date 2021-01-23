@@ -51,6 +51,7 @@ async function build(filename, { ssr, locals, appHtml }) {
         plugins: [
           !ssr &&
             new HtmlWebpackPlugin({
+              filename: `${basename}.[contenthash].html`,
               publicPath: assetPublicPath,
               inject: 'body',
               template: path.resolve(__dirname, 'app/tpl/index.ejs'),
@@ -89,27 +90,21 @@ async function buildSvelte(filename, { ssr, locals }) {
   const basename = path.basename(filename);
   const { outputPath } = await build(filename, { ssr: true, locals });
 
-  const state = {
-    a: 2,
-    b: 4,
-  };
-
   const ssrfile = path.resolve(outputPath, `${basename}.js`);
-  const { html, css, head } = requireOnly(ssrfile).default.render({ state });
+  const { html, css, head } = requireOnly(ssrfile).default.render();
 
   const clientResult = await build(filename, {
     ssr: false,
     locals,
-    appHtml: html || [
-      `<script>window.__gState = window.__gState || ${JSON.stringify(
-        state,
-      )}</script>`,
-      html || '',
-    ],
+    appHtml: html,
   });
 
+  const clientHtmlAsset = clientResult.assets.find(it =>
+    /.html$/i.test(it.name),
+  );
+
   return (
-    fs.readFileSync(path.resolve(outputPath, 'index.html'), {
+    fs.readFileSync(path.resolve(outputPath, clientHtmlAsset.name), {
       encoding: 'utf-8',
     }) || ''
   );

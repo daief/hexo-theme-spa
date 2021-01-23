@@ -1,12 +1,8 @@
 'use strict';
 
-const vm = require('vm');
-const util = require('util');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const NativeModule = require('module');
-const ts = require('typescript');
-const webpack = require('webpack');
 const { requireOnly } = require('../build/utils');
 
 function evalModuleCode(loaderContext, code, filename) {
@@ -17,6 +13,8 @@ function evalModuleCode(loaderContext, code, filename) {
   return module.exports;
 }
 
+fs.emptyDirSync(path.resolve(__dirname, '../source'));
+
 async function svelteRenderer(data, locals) {
   const { buildSvelte } = requireOnly(
     path.resolve(__dirname, '../build/compile'),
@@ -26,15 +24,11 @@ async function svelteRenderer(data, locals) {
   return result;
 }
 
-// svelteRenderer.compile = function (data) {
-//   return 'xx';
-// };
-
-// module.exports = ejsRenderer;
-
 hexo.extend.renderer.register('svelte', 'html', svelteRenderer);
 
-// hexo.extend.filter.register('after_render:js', function (str, data) {
-//   hexo.load();
-//   return str;
-// });
+if (hexo.env.cmd === 'server') {
+  hexo.extend.filter.register('after_render:html', async function (str, data) {
+    await hexo.load();
+    return str;
+  });
+}
