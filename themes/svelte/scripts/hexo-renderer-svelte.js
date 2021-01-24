@@ -29,3 +29,13 @@ if (hexo.env.cmd === 'server') {
     return str;
   });
 }
+
+if (hexo.env.cmd === 'generate') {
+  hexo.extend.filter.register('before_exit', function () {
+    fs.copySync(path.resolve(hexo.theme_dir, 'source'), hexo.public_dir, {
+      filter: src =>
+        ![/\/source\/tpl\//i, /\/source\/ssr\//i].some(it => it.test(src)),
+      overwrite: true,
+    });
+  });
+}

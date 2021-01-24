@@ -8,7 +8,7 @@
   "scripts": {
     "start": "hexo server --draft --port",
     "clean": "hexo clean",
-    "build": "hexo generate --concurrency 5",
+    "build": "hexo generate --concurrency 3",
     "deploy": "hexo deploy",
     "new": "hexo new",
     "minify": "gulp",
