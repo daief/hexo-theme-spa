@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "4.2.1"
+    "version": "5.2.0"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development hexo server --draft",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "cross-env": "^6.0.0",
-    "hexo": "~4.2.0",
+    "hexo": "~5.2.0",
     "hexo-deployer-git": "^0.3.1",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-baidu-sitemap": "^0.1.2",

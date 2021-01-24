@@ -1044,7 +1044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^7.0.0, acorn@npm:^7.1.1":
+"acorn@npm:^7.1.1":
   version: 7.4.1
   resolution: "acorn@npm:7.4.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Facorn%2Fdownload%2Facorn-7.4.1.tgz"
   bin:
@@ -2002,7 +2002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.0.0, chalk@npm:^2.4.1":
+"chalk@npm:^2.0.0":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fchalk%2Fdownload%2Fchalk-2.4.2.tgz"
   dependencies:
@@ -2032,16 +2032,6 @@ __metadata:
     escape-string-regexp: ^1.0.5
     supports-color: ^5.3.0
   checksum: 22c7b7b5bc761c882bb6516454a1a671923f1c53ff972860065aa0b28a195f230163c1d46ee88bcc7a03e5539177d896457d8bc727de7f244c6e87032743038e
-  languageName: node
-  linkType: hard
-
-"chalk@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "chalk@npm:3.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fchalk%2Fdownload%2Fchalk-3.0.0.tgz"
-  dependencies:
-    ansi-styles: ^4.1.0
-    supports-color: ^7.1.0
-  checksum: 4018b0c812880da595d0d7b8159939527b72f58d3370e2fdc1a24d9abd460bab851695d7eca014082f110d5702d1221b05493fec430ccce375de907d50cc48c1
   languageName: node
   linkType: hard
 
@@ -4488,26 +4478,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo-bunyan@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "hexo-bunyan@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-bunyan%2Fdownload%2Fhexo-bunyan-2.0.0.tgz"
-  dependencies:
-    moment: ^2.10.6
-    mv: ~2
-    safe-json-stringify: ~1
-  dependenciesMeta:
-    moment:
-      optional: true
-    mv:
-      optional: true
-    safe-json-stringify:
-      optional: true
-  bin:
-    bunyan: ./bin/bunyan
-  checksum: dd470ac664a1a656ec9757dbcf1c371eb1de0d2ca76862360ac81e205da5145bb8298cb1fe8a73344ada6a53982ed38068010883b717ade6c4b05d490588af0b
-  languageName: node
-  linkType: hard
-
 "hexo-cli@npm:^1.1.0":
   version: 1.1.0
   resolution: "hexo-cli@npm:1.1.0"
@@ -4529,24 +4499,23 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo-cli@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "hexo-cli@npm:3.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-cli%2Fdownload%2Fhexo-cli-3.1.0.tgz"
+"hexo-cli@npm:^4.0.0":
+  version: 4.2.0
+  resolution: "hexo-cli@npm:4.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-cli%2Fdownload%2Fhexo-cli-4.2.0.tgz"
   dependencies:
     abbrev: ^1.1.1
-    acorn: ^7.0.0
     bluebird: ^3.5.5
-    chalk: ^2.4.2
+    chalk: ^4.0.0
     command-exists: ^1.2.8
-    hexo-fs: ^2.0.0
-    hexo-log: ^1.0.0
-    hexo-util: ^1.4.0
-    minimist: ^1.2.0
+    hexo-fs: ^3.0.1
+    hexo-log: ^2.0.0
+    hexo-util: ^2.0.0
+    minimist: ^1.2.5
     resolve: ^1.11.0
     tildify: ^2.0.0
   bin:
-    hexo: ./bin/hexo
-  checksum: b24c8ff218abede0029cd1b9f6fcf8a4324a2b9cee7d1a8fffe57bb86b7f0196e7904b356f4107bdfb271a27ac91db92f9b5bc5ca2e3d52e585bdc38e3fd68ec
+    hexo: bin/hexo
+  checksum: 4137f5ec7c1ed86d9b6333345560df1d0e0589df94620f61519259439d03b5d180b23dc6f34749d3f484f5429eeecb19b0c23607c769d2e5d1d67448b72951b4
   languageName: node
   linkType: hard
 
@@ -4574,12 +4543,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo-front-matter@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "hexo-front-matter@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-front-matter%2Fdownload%2Fhexo-front-matter-1.0.0.tgz"
+"hexo-front-matter@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "hexo-front-matter@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-front-matter%2Fdownload%2Fhexo-front-matter-2.0.0.tgz"
   dependencies:
     js-yaml: ^3.13.1
-  checksum: b72bb09f2dd85e4efb31c643218aaaeda08cfc1407f1fbadda8aba10cefc46c03cb5048111fc5529d98c561273d8309d4d3ad2973a54afbd4ebea42f28183235
+  checksum: ada8e77ee6dfa708c2c7eafb877e5c71f67269b6a69d7b233153473ea23c3b4f6d74880ccb8f0197262773e5be0e6d0e4d76228b172653bab2b5c9f178797f68
   languageName: node
   linkType: hard
 
@@ -4595,15 +4564,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo-fs@npm:^2.0.0, hexo-fs@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "hexo-fs@npm:2.0.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-fs%2Fdownload%2Fhexo-fs-2.0.1.tgz"
+"hexo-fs@npm:^3.0.1, hexo-fs@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "hexo-fs@npm:3.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-fs%2Fdownload%2Fhexo-fs-3.1.0.tgz"
   dependencies:
     bluebird: ^3.5.1
     chokidar: ^3.0.0
-    escape-string-regexp: ^2.0.0
     graceful-fs: ^4.1.11
-  checksum: a819ef34c3a6910b6e567fe278340a966542814ba7441320a29056a3aedc6ef3da29b5ca39cb61aae3a55f2d8608172ad4db56c1960e4d5d2fb77d8d24fdc103
+    hexo-util: ^2.0.0
+  checksum: 462c84569b76df07f917203c74ea3d97b36eb3aea4891fa7307bb4dc45199d8dbed0f6b9764c57cbf4cd5bdb826dcbd4b3ac69c7a65bab775e87fa73760c1206
   languageName: node
   linkType: hard
 
@@ -4735,13 +4704,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo-log@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "hexo-log@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-log%2Fdownload%2Fhexo-log-1.0.0.tgz"
+"hexo-log@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "hexo-log@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-log%2Fdownload%2Fhexo-log-2.0.0.tgz"
   dependencies:
-    chalk: ^2.4.1
-    hexo-bunyan: ^2.0.0
-  checksum: e99ca1d25853fae97b9b37c26af7a448a8d83d9054b9f859491421c87385e64198335d45e37c115f5bf69b9fc81c25f96ca58d347229981f4165aed5fb9e697c
+    chalk: ^4.0.0
+  checksum: edd6999255be21971304ea1673b5ca210ed6315f8b21e7a96ef2eff9ae2942afd2835cc123e403d165e8dc05d9b59c9cd154f376cf9eb6985cb0dd878ef5f930
   languageName: node
   linkType: hard
 
@@ -4811,7 +4779,7 @@ fsevents@~2.1.2:
     gulp-cli: ^2.2.0
     gulp-htmlmin: ^5.0.1
     gulp-terser: ^1.2.0
-    hexo: ~4.2.0
+    hexo: ~5.2.0
     hexo-deployer-git: ^0.3.1
     hexo-generator-archive: ^1.0.0
     hexo-generator-baidu-sitemap: ^0.1.2
@@ -4872,25 +4840,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo-util@npm:^1.4.0, hexo-util@npm:^1.9.1":
-  version: 1.9.1
-  resolution: "hexo-util@npm:1.9.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-util%2Fdownload%2Fhexo-util-1.9.1.tgz"
-  dependencies:
-    bluebird: ^3.5.2
-    camel-case: ^4.0.0
-    cross-spawn: ^7.0.0
-    deepmerge: ^4.2.2
-    highlight.js: ^9.13.1
-    htmlparser2: ^4.0.0
-    prismjs: ^1.17.1
-    punycode.js: ^2.1.0
-    strip-indent: ^3.0.0
-    striptags: ^3.1.1
-  checksum: 1148ef235dc4622ec931d4c243ead36860ded2005fcb6528d5fa11f53f055abdc3174f07ff72932b327272629140cf921a014342d21d0e7cafe6b7c22e487a47
-  languageName: node
-  linkType: hard
-
-"hexo-util@npm:^2.1.0":
+"hexo-util@npm:^2.0.0, hexo-util@npm:^2.1.0, hexo-util@npm:^2.4.0":
   version: 2.4.0
   resolution: "hexo-util@npm:2.4.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-util%2Fdownload%2Fhexo-util-2.4.0.tgz"
   dependencies:
@@ -4951,39 +4901,35 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo@npm:~4.2.0":
-  version: 4.2.1
-  resolution: "hexo@npm:4.2.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo%2Fdownload%2Fhexo-4.2.1.tgz"
+"hexo@npm:~5.2.0":
+  version: 5.2.0
+  resolution: "hexo@npm:5.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo%2Fdownload%2Fhexo-5.2.0.tgz"
   dependencies:
     abbrev: ^1.1.1
     archy: ^1.0.0
     bluebird: ^3.5.2
-    chalk: ^3.0.0
-    hexo-cli: ^3.0.0
-    hexo-front-matter: ^1.0.0
-    hexo-fs: ^2.0.1
+    chalk: ^4.0.0
+    hexo-cli: ^4.0.0
+    hexo-front-matter: ^2.0.0
+    hexo-fs: ^3.1.0
     hexo-i18n: ^1.0.0
-    hexo-log: ^1.0.0
-    hexo-util: ^1.9.1
+    hexo-log: ^2.0.0
+    hexo-util: ^2.4.0
     js-yaml: ^3.12.0
-    lodash: ^4.17.11
     micromatch: ^4.0.2
     moment: ^2.22.2
     moment-timezone: ^0.5.21
-    nunjucks: ^3.1.3
+    nunjucks: ^3.2.1
     pretty-hrtime: ^1.0.3
     resolve: ^1.8.1
     strip-ansi: ^6.0.0
-    strip-indent: ^3.0.0
-    swig-extras: 0.0.1
-    swig-templates: ^2.0.3
     text-table: ^0.2.0
     tildify: ^2.0.0
     titlecase: ^1.1.2
-    warehouse: ^3.0.1
+    warehouse: ^4.0.0
   bin:
     hexo: bin/hexo
-  checksum: cf496b6f930ec5b0a5427968c298128580cb055d411e92765196997176dd5d1afba4240905df3f45dd923702d169cfe1eabcea76c5597d4a7621cda83395add3
+  checksum: 1bce1fe79d05cc2392b3cf16572c0f40f7198a467cb85b1a5e6647b94de947b1fe3d7728e28d558e50f604a70e0e2c541d6ac55204cdac23a6011ea82723b8fc
   languageName: node
   linkType: hard
 
@@ -6683,7 +6629,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.11, lodash@npm:^4.17.19, lodash@npm:^4.17.20":
+"lodash@npm:^4.17.19, lodash@npm:^4.17.20":
   version: 4.17.20
   resolution: "lodash@npm:4.17.20::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.20.tgz"
   checksum: c62101d2500c383b5f174a7e9e6fe8098149ddd6e9ccfa85f36d4789446195f5c4afd3cfba433026bcaf3da271256566b04a2bf2618e5a39f6e67f8c12030cb6
@@ -7576,7 +7522,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nunjucks@npm:^3.1.3":
+"nunjucks@npm:^3.2.1":
   version: 3.2.2
   resolution: "nunjucks@npm:3.2.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fnunjucks%2Fdownload%2Fnunjucks-3.2.2.tgz"
   dependencies:
@@ -9769,18 +9715,6 @@ resolve@^1.5.0:
   languageName: node
   linkType: hard
 
-"swig-templates@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "swig-templates@npm:2.0.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fswig-templates%2Fdownload%2Fswig-templates-2.0.3.tgz"
-  dependencies:
-    optimist: ~0.6
-    uglify-js: 2.6.0
-  bin:
-    swig: ./bin/swig.js
-  checksum: fa3affd646fc1d6d68be5d316801238974c18fdea3329048912abb6dded31c7d32588f16c8feaf8a7aa6822e53a9fa37a2456a3b8f4210e52c42a2de336de08c
-  languageName: node
-  linkType: hard
-
 "swig@npm:^1.4.2":
   version: 1.4.2
   resolution: "swig@npm:1.4.2"
@@ -10624,9 +10558,9 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"warehouse@npm:^3.0.1":
-  version: 3.0.2
-  resolution: "warehouse@npm:3.0.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwarehouse%2Fdownload%2Fwarehouse-3.0.2.tgz"
+"warehouse@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "warehouse@npm:4.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwarehouse%2Fdownload%2Fwarehouse-4.0.0.tgz"
   dependencies:
     JSONStream: ^1.0.7
     bluebird: ^3.2.2
@@ -10634,7 +10568,7 @@ typescript@^4.1.3:
     graceful-fs: ^4.1.3
     is-plain-object: ^3.0.0
     rfdc: ^1.1.4
-  checksum: 018994d975fd60cf479cdf9f6bef8b222cdf967307c44f5d78f61f939df101fdeceba4e87410187f10054a0469cdc85a92df278d6e61c39359e0bc7a5d4e220f
+  checksum: 17c4cbf5f1d56cad4acc09b02e7eddeb7ddeccc67ef70a5de03b56e7d4ae95250f9c1f4b733133ec86991643e1c8679d2fc887752fb4dd3333d9464a5fbbc3a5
   languageName: node
   linkType: hard
 
