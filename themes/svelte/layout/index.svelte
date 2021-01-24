@@ -1,10 +1,12 @@
 <Layout>
-  <div on:click={() => (x += '1')}>
-    global: {JSON.stringify(__$$state__)}
-
-    <hr />
-    {x}
-  </div>
+  <section id="posts" class="posts-expand">
+    <!-- {#each __scoped.posts as item}
+      <div>{item.title}</div>
+    {/each} -->
+    <!-- {% for post in page.posts %}
+      {{ post_template.render(post, true) }}
+    {% endfor %} -->
+  </section>
 </Layout>
 
 <script lang="ts">

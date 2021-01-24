@@ -7,11 +7,10 @@
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <title>
-      <%= __$$state__.title %>
+      <%= __baseConfig.title %>
     </title>
-    <title>dd</title>
     <script>
-      window.__$$state__ = <%= JSON.stringify(__$$state__) %>;
+      window.__scoped = <%= JSON.stringify(__scoped) %>;
     </script>
   </head>
   <body

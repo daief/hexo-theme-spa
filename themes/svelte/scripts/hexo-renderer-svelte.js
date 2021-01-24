@@ -20,7 +20,7 @@ async function svelteRenderer(data, locals) {
     path.resolve(__dirname, '../build/compile'),
   );
   const filename = data.path;
-  const result = await buildSvelte(filename, { ssr: true, locals });
+  const result = await buildSvelte.call(this, filename, { ssr: true, locals });
   return result;
 }
 

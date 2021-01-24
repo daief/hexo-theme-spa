@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { requireOnly, getCommonData } = require('./utils');
+const { requireOnly, getBaseConfig } = require('./utils');
 const fs = require('fs-extra');
 
-async function build(filename, { ssr, locals, appHtml, $state }) {
+async function build(filename, { ssr, locals, appHtml, pageData }) {
   const basename = path.basename(filename);
   const entry = path.resolve(__dirname, 'app/entry.js');
 
@@ -57,11 +57,20 @@ async function build(filename, { ssr, locals, appHtml, $state }) {
               template: path.resolve(__dirname, 'app/tpl/index.ejs'),
               templateParameters: Object.assign({}, locals, { appHtml }),
             }),
-          new webpack.DefinePlugin({
-            __SSR__: JSON.stringify(ssr),
-            __PAGE_PATH__: JSON.stringify(filename),
-            __$$state__: JSON.stringify($state),
-          }),
+          new webpack.DefinePlugin(
+            Object.assign(
+              {
+                __IS_GENERATE__: JSON.stringify(this.env.cmd === 'generate'),
+                __SSR__: JSON.stringify(ssr),
+                __PAGE_PATH__: JSON.stringify(filename),
+
+                // some data inject
+                __baseConfig: JSON.stringify(getBaseConfig(locals)),
+                __theme: JSON.stringify(locals.theme),
+              },
+              ssr ? { __scoped: JSON.stringify(pageData) } : {},
+            ),
+          ),
         ].filter(Boolean),
       },
       (err, stats) => {
@@ -88,20 +97,24 @@ async function buildSvelte(filename, { ssr, locals }) {
       path.resolve(path.dirname(filename), `_${basename.split('.')[0]}.js`),
     );
     pageData = await getData({ locals });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 
-  const $state = Object.assign({}, pageData, getCommonData(locals));
-
-  const { outputPath } = await build(filename, { ssr: true, locals, $state });
+  const { outputPath } = await build.call(this, filename, {
+    ssr: true,
+    locals,
+    pageData,
+  });
 
   const ssrfile = path.resolve(outputPath, `${basename}.js`);
   const { html, css, head } = requireOnly(ssrfile).default.render();
 
-  const clientResult = await build(filename, {
+  const clientResult = await build.call(this, filename, {
     ssr: false,
     locals,
     appHtml: html,
-    $state,
+    pageData,
   });
 
   const clientHtmlAsset = clientResult.assets.find(it =>

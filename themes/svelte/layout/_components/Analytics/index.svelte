@@ -1,5 +1,5 @@
 <!-- svelte-ignore missing-declaration -->
-{#if __$$state__.theme.google_analytics.ga_measurement_id}
+{#if __theme.google_analytics.ga_measurement_id}
   <GoogleAnalytics />
 {/if}
 

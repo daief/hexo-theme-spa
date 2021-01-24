@@ -20,7 +20,7 @@
       'ga',
     );
 
-    ga('create', __$$state__.theme.google_analytics.ga_measurement_id, 'auto');
+    ga('create', __theme.google_analytics.ga_measurement_id, 'auto');
     ga('send', 'pageview');
   }
 </script>
