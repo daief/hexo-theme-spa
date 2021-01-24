@@ -6,9 +6,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
-    <title><%= config.title %></title>
+    <title>
+      <%= __$$state__.title %>
+    </title>
+    <title>dd</title>
     <script>
-      window.__gState = <%= JSON.stringify(__$$state__) %>;
+      window.__$$state__ = <%= JSON.stringify(__$$state__) %>;
     </script>
   </head>
   <body

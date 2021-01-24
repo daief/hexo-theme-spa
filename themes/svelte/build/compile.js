@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { requireOnly } = require('./utils');
+const { requireOnly, getCommonData } = require('./utils');
 const fs = require('fs-extra');
 
-async function build(filename, { ssr, locals, appHtml }) {
+async function build(filename, { ssr, locals, appHtml, $state }) {
   const basename = path.basename(filename);
   const entry = path.resolve(__dirname, 'app/entry.js');
 
@@ -60,14 +60,7 @@ async function build(filename, { ssr, locals, appHtml }) {
           new webpack.DefinePlugin({
             __SSR__: JSON.stringify(ssr),
             __PAGE_PATH__: JSON.stringify(filename),
-            __$$state__: JSON.stringify({
-              a: {
-                name: 'name',
-                hos: {
-                  asd: 2,
-                },
-              },
-            }),
+            __$$state__: JSON.stringify($state),
           }),
         ].filter(Boolean),
       },
@@ -88,7 +81,18 @@ async function build(filename, { ssr, locals, appHtml }) {
 
 async function buildSvelte(filename, { ssr, locals }) {
   const basename = path.basename(filename);
-  const { outputPath } = await build(filename, { ssr: true, locals });
+
+  let pageData = {};
+  try {
+    const { getData } = requireOnly(
+      path.resolve(path.dirname(filename), `_${basename.split('.')[0]}.js`),
+    );
+    pageData = await getData({ locals });
+  } catch (error) {}
+
+  const $state = Object.assign({}, pageData, getCommonData(locals));
+
+  const { outputPath } = await build(filename, { ssr: true, locals, $state });
 
   const ssrfile = path.resolve(outputPath, `${basename}.js`);
   const { html, css, head } = requireOnly(ssrfile).default.render();
@@ -97,6 +101,7 @@ async function buildSvelte(filename, { ssr, locals }) {
     ssr: false,
     locals,
     appHtml: html,
+    $state,
   });
 
   const clientHtmlAsset = clientResult.assets.find(it =>

@@ -1,13 +1,12 @@
-<div on:click={() => (x += '1')} data-x={x}>
+<div on:click={() => (x += '1')}>
   global: {JSON.stringify(__$$state__)}
+
+  <hr />
+  {x}
 </div>
 
 <script lang="ts">
-  import { getContext } from 'svelte';
-
-  import A from './_components/A.svelte';
-
-  let x: string = '{{ page.lang || page.language || config.language }}';
+  let x = '1';
 </script>
 
 <style>
