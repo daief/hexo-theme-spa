@@ -22,7 +22,9 @@ async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
         entry,
         output: {
           publicPath: assetPublicPath,
-          filename: ssr ? `${basename}.js` : `${basename}.[contenthash].js`,
+          filename: ssr
+            ? `ssr/${basename}.[contenthash].js`
+            : `js/${basename}.[contenthash].js`,
           path: path.resolve(__dirname, '../source'),
           libraryTarget: ssr ? 'commonjs' : 'umd',
           library: ssr ? void 0 : '__app',
@@ -57,7 +59,7 @@ async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
         plugins: [
           !ssr &&
             new HtmlWebpackPlugin({
-              filename: `${basename}.[contenthash].html`,
+              filename: `tpl/${basename}.[contenthash].html`,
               inject: 'body',
               template: path.resolve(__dirname, 'app/tpl/index.ejs'),
               templateParameters: Object.assign({}, locals, {
@@ -125,17 +127,20 @@ async function buildSvelte(filename, { locals }) {
 
   const baseConfig = getBaseConfig(locals);
 
-  const { outputPath } = await build.call(this, filename, {
+  // build ssr
+  const ssrResult = await build.call(this, filename, {
     ssr: true,
     locals,
     pageData,
     baseConfig,
   });
-
-  const ssrfile = path.resolve(outputPath, `${basename}.js`);
-
+  const { outputPath } = ssrResult;
+  const ssrBundleAsset = ssrResult.assets.find(it => /.js$/i.test(it.name));
+  const ssrfile = path.resolve(outputPath, ssrBundleAsset.name);
+  // pre render
   const { html } = requireOnly(ssrfile).default.render();
 
+  // build client
   const clientResult = await build.call(this, filename, {
     ssr: false,
     locals,
