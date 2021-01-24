@@ -6,7 +6,7 @@ const fs = require('fs-extra');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackBar = require('webpackbar');
 
-async function build(filename, { ssr, locals, appHtml, pageData }) {
+async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
   const basename = path.basename(filename);
   const entry = path.resolve(__dirname, 'app/entry.js');
 
@@ -21,6 +21,7 @@ async function build(filename, { ssr, locals, appHtml, pageData }) {
         context: __dirname,
         entry,
         output: {
+          publicPath: assetPublicPath,
           filename: ssr ? `${basename}.js` : `${basename}.[contenthash].js`,
           path: path.resolve(__dirname, '../source'),
           libraryTarget: ssr ? 'commonjs' : 'umd',
@@ -57,7 +58,6 @@ async function build(filename, { ssr, locals, appHtml, pageData }) {
           !ssr &&
             new HtmlWebpackPlugin({
               filename: `${basename}.[contenthash].html`,
-              publicPath: assetPublicPath,
               inject: 'body',
               template: path.resolve(__dirname, 'app/tpl/index.ejs'),
               templateParameters: Object.assign({}, locals, {
@@ -73,7 +73,7 @@ async function build(filename, { ssr, locals, appHtml, pageData }) {
                 __PAGE_PATH__: JSON.stringify(filename),
 
                 // some data inject
-                __baseConfig: JSON.stringify(getBaseConfig(locals)),
+                __baseConfig: JSON.stringify(baseConfig),
                 __theme: JSON.stringify(locals.theme),
               },
               ssr ? { __scoped: JSON.stringify(pageData) } : {},
@@ -108,7 +108,7 @@ async function build(filename, { ssr, locals, appHtml, pageData }) {
   });
 }
 
-async function buildSvelte(filename, { ssr, locals }) {
+async function buildSvelte(filename, { locals }) {
   const basename = path.basename(filename);
 
   let pageData = {};
@@ -123,20 +123,25 @@ async function buildSvelte(filename, { ssr, locals }) {
     }
   }
 
+  const baseConfig = getBaseConfig(locals);
+
   const { outputPath } = await build.call(this, filename, {
     ssr: true,
     locals,
     pageData,
+    baseConfig,
   });
 
   const ssrfile = path.resolve(outputPath, `${basename}.js`);
-  const { html, css, head } = requireOnly(ssrfile).default.render();
+
+  const { html } = requireOnly(ssrfile).default.render();
 
   const clientResult = await build.call(this, filename, {
     ssr: false,
     locals,
     appHtml: html,
     pageData,
+    baseConfig,
   });
 
   const clientHtmlAsset = clientResult.assets.find(it =>

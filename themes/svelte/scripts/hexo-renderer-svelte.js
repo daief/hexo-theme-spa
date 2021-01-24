@@ -3,7 +3,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const NativeModule = require('module');
-const { requireOnly } = require('../build/utils');
+const { buildSvelte } = require('../build/compile');
 
 function evalModuleCode(loaderContext, code, filename) {
   const module = new NativeModule(filename, loaderContext);
@@ -16,9 +16,6 @@ function evalModuleCode(loaderContext, code, filename) {
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
 async function svelteRenderer(data, locals) {
-  const { buildSvelte } = requireOnly(
-    path.resolve(__dirname, '../build/compile'),
-  );
   const filename = data.path;
   const result = await buildSvelte.call(this, filename, { ssr: true, locals });
   return result;
