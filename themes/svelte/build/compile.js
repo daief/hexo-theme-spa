@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { requireOnly, getBaseConfig } = require('./utils');
 const fs = require('fs-extra');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const WebpackBar = require('webpackbar');
 
 async function build(filename, { ssr, locals, appHtml, pageData }) {
   const basename = path.basename(filename);
@@ -10,9 +12,12 @@ async function build(filename, { ssr, locals, appHtml, pageData }) {
 
   const assetPublicPath = locals.url_for('/');
 
+  const isGenerate = this.env.cmd === 'generate';
+
   return new Promise((resolve, reject) => {
     webpack(
       {
+        mode: isGenerate ? 'production' : 'development',
         context: __dirname,
         entry,
         output: {
@@ -55,12 +60,15 @@ async function build(filename, { ssr, locals, appHtml, pageData }) {
               publicPath: assetPublicPath,
               inject: 'body',
               template: path.resolve(__dirname, 'app/tpl/index.ejs'),
-              templateParameters: Object.assign({}, locals, { appHtml }),
+              templateParameters: Object.assign({}, locals, {
+                globalData: pageData,
+                appHtml,
+              }),
             }),
           new webpack.DefinePlugin(
             Object.assign(
               {
-                __IS_GENERATE__: JSON.stringify(this.env.cmd === 'generate'),
+                __IS_GENERATE__: JSON.stringify(isGenerate),
                 __SSR__: JSON.stringify(ssr),
                 __PAGE_PATH__: JSON.stringify(filename),
 
@@ -71,6 +79,18 @@ async function build(filename, { ssr, locals, appHtml, pageData }) {
               ssr ? { __scoped: JSON.stringify(pageData) } : {},
             ),
           ),
+          !isGenerate && new FriendlyErrorsWebpackPlugin(),
+          !isGenerate &&
+            new WebpackBar(
+              ssr
+                ? {
+                    name: 'server',
+                    color: 'orange',
+                  }
+                : {
+                    name: 'client',
+                  },
+            ),
         ].filter(Boolean),
       },
       (err, stats) => {
@@ -98,7 +118,9 @@ async function buildSvelte(filename, { ssr, locals }) {
     );
     pageData = await getData({ locals });
   } catch (error) {
-    console.log(error);
+    if (error.code !== 'MODULE_NOT_FOUND') {
+      throw error;
+    }
   }
 
   const { outputPath } = await build.call(this, filename, {

@@ -1110,7 +1110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-escapes@npm:^4.2.1":
+"ansi-escapes@npm:^4.2.1, ansi-escapes@npm:^4.3.1":
   version: 4.3.1
   resolution: "ansi-escapes@npm:4.3.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fansi-escapes%2Fdownload%2Fansi-escapes-4.3.1.tgz"
   dependencies:
@@ -2035,7 +2035,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0":
+"chalk@npm:^4.0.0, chalk@npm:^4.1.0":
   version: 4.1.0
   resolution: "chalk@npm:4.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fchalk%2Fdownload%2Fchalk-4.1.0.tgz"
   dependencies:
@@ -2178,6 +2178,13 @@ __metadata:
   dependencies:
     tslib: ^1.9.0
   checksum: 926fe23bc92e35c7fb666711c1dc1f342f289a728eb37d23bc4371df7587fe58152569eb57d657e2377f2e56093513939cab5a5a8f3589743938cc0b61527c02
+  languageName: node
+  linkType: hard
+
+"ci-info@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "ci-info@npm:1.6.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fci-info%2Fdownload%2Fci-info-1.6.0.tgz"
+  checksum: c53d8ead84b00b44a26099b9afbe25d07d1cf02a0b2e354f97e4765ab965525d5d831d264b045737ac03076be3c34e87b64dee0d94cfd87cfc227299cb1c0137
   languageName: node
   linkType: hard
 
@@ -2508,6 +2515,13 @@ __metadata:
     parseurl: ~1.3.3
     utils-merge: 1.0.1
   checksum: 25b827ceb48e6355f6395b44b1ad09ac46002b89e3789952ca0372fd3ef04b81ad40fdc5896ecc21577a0583304731d86c050331575fbde398b2a6fd27c4a643
+  languageName: node
+  linkType: hard
+
+"consola@npm:^2.15.0":
+  version: 2.15.0
+  resolution: "consola@npm:2.15.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fconsola%2Fdownload%2Fconsola-2.15.0.tgz"
+  checksum: 9a20844425061e100eb81cc9eb6ed05b54c38630151c6419c6a8526bd6b1eaaa7d61d37618cf7a1dee0e2052548fee41a99b8856f351733c12c6d85f20a3199c
   languageName: node
   linkType: hard
 
@@ -3221,6 +3235,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"error-stack-parser@npm:^2.0.0":
+  version: 2.0.6
+  resolution: "error-stack-parser@npm:2.0.6::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ferror-stack-parser%2Fdownload%2Ferror-stack-parser-2.0.6.tgz"
+  dependencies:
+    stackframe: ^1.1.1
+  checksum: 7abf762c20054310d33f0c0a34a2ea38f93a1b0169f5289feb96cf94d7b30d277a0df09567469be79ccfcfa49df37cddc8c59e0bc5b682a1e7e3c234e67b25c8
+  languageName: node
+  linkType: hard
+
 "es-module-lexer@npm:^0.3.26":
   version: 0.3.26
   resolution: "es-module-lexer@npm:0.3.26::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fes-module-lexer%2Fdownload%2Fes-module-lexer-0.3.26.tgz"
@@ -3618,6 +3641,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"figures@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "figures@npm:3.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ffigures%2Fdownload%2Ffigures-3.2.0.tgz"
+  dependencies:
+    escape-string-regexp: ^1.0.5
+  checksum: 6c8acb1c17c4d27eeb6ff06801b5ae39a999c4794ec50eacf858a1e32746d92af77a9a907c3e1865e2e6ac7d9f1aa765f0f8a01a16a4676b79b6e90a7cc23f44
+  languageName: node
+  linkType: hard
+
 "filename-regex@npm:^2.0.0":
   version: 2.0.1
   resolution: "filename-regex@npm:2.0.1"
@@ -3814,6 +3846,19 @@ __metadata:
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
   checksum: 2f76c8505d1ea5a6d5accea3e7aff0b796bfa43364c84929254f33909fa08640948bd1728220d1ff5f4c2b378a65e97da647f2fe0f2b7ddb44001f6e0dc2e91f
+  languageName: node
+  linkType: hard
+
+"friendly-errors-webpack-plugin@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "friendly-errors-webpack-plugin@npm:1.7.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ffriendly-errors-webpack-plugin%2Fdownload%2Ffriendly-errors-webpack-plugin-1.7.0.tgz"
+  dependencies:
+    chalk: ^1.1.3
+    error-stack-parser: ^2.0.0
+    string-width: ^2.0.0
+  peerDependencies:
+    webpack: ^2.0.0 || ^3.0.0 || ^4.0.0
+  checksum: ae1c7d99dfb314eb87b87140b269a7c9c4792e3d4fc4d84480f2ff96f6007e2ef0551182650b4e68d135625f9232c3d2afe492d7d19faae5489c2ecb6ce69f63
   languageName: node
   linkType: hard
 
@@ -4773,6 +4818,7 @@ fsevents@~2.1.2:
     "@types/fs-extra": ^9.0.6
     "@types/jest": ^26.0.20
     cross-env: ^6.0.0
+    friendly-errors-webpack-plugin: ^1.7.0
     fs-extra: ^9.1.0
     gulp: ^4.0.2
     gulp-clean-css: ^4.2.0
@@ -4807,6 +4853,7 @@ fsevents@~2.1.2:
     typescript: ^4.1.3
     uuid: ^8.3.2
     webpack: ^5.17.0
+    webpackbar: ^5.0.0-3
   languageName: unknown
   linkType: soft
 
@@ -8168,6 +8215,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"pretty-time@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "pretty-time@npm:1.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fpretty-time%2Fdownload%2Fpretty-time-1.1.0.tgz"
+  checksum: 1467cfb88f0478c277dd4b47419d536f92e417ce17da927390145f9e69ba3ac5c36e54b2a5244538c64e3ed8d299c604117c3018b3a15772c5d030030adbdef6
+  languageName: node
+  linkType: hard
+
 "prismjs@npm:^1.17.1, prismjs@npm:^1.19.0":
   version: 1.19.0
   resolution: "prismjs@npm:1.19.0"
@@ -9349,6 +9403,13 @@ resolve@^1.5.0:
   languageName: node
   linkType: hard
 
+"stackframe@npm:^1.1.1":
+  version: 1.2.0
+  resolution: "stackframe@npm:1.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstackframe%2Fdownload%2Fstackframe-1.2.0.tgz"
+  checksum: 71e2868a529123e9ca1cf510192a7de879b8d92b5829c7f58d5576e1500cbedf22b5d9cc86589c547b6842abcf01cea13979ab8301b51e85bdb6267a6f9288f2
+  languageName: node
+  linkType: hard
+
 "static-extend@npm:^0.1.1":
   version: 0.1.2
   resolution: "static-extend@npm:0.1.2"
@@ -9363,6 +9424,15 @@ resolve@^1.5.0:
   version: 1.5.0
   resolution: "statuses@npm:1.5.0"
   checksum: 57735269bf231176a60deb80f6d60214cb4a87663b0937e79497afe9aebe2597f8377fd28893f4d1776205f18dd0b927774a26b72051411ac5108e9e2dfc77d2
+  languageName: node
+  linkType: hard
+
+"std-env@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "std-env@npm:2.2.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstd-env%2Fdownload%2Fstd-env-2.2.1.tgz"
+  dependencies:
+    ci-info: ^1.6.0
+  checksum: b778cd317198f14e9d4cd6d36a225554ba3498c004c5217874b82f5bd08d5d43bc47bca9b5bcb9386b87844f1f5de4ee588539a25e79ef10be3a4a67093a9f41
   languageName: node
   linkType: hard
 
@@ -9411,6 +9481,16 @@ resolve@^1.5.0:
 "string-width@npm:^1.0.2 || 2":
   version: 2.1.1
   resolution: "string-width@npm:2.1.1"
+  dependencies:
+    is-fullwidth-code-point: ^2.0.0
+    strip-ansi: ^4.0.0
+  checksum: 906b4887c39d247e9d12dfffb42bfe68655b52d27758eb13e069dce0f4cf2e7f82441dbbe44f7279298781e6f68e1c659451bd4d9e2bbe9d487a157ad14ae1bd
+  languageName: node
+  linkType: hard
+
+"string-width@npm:^2.0.0":
+  version: 2.1.1
+  resolution: "string-width@npm:2.1.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstring-width%2Fdownload%2Fstring-width-2.1.1.tgz"
   dependencies:
     is-fullwidth-code-point: ^2.0.0
     strip-ansi: ^4.0.0
@@ -10643,6 +10723,24 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
+"webpackbar@npm:^5.0.0-3":
+  version: 5.0.0-3
+  resolution: "webpackbar@npm:5.0.0-3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpackbar%2Fdownload%2Fwebpackbar-5.0.0-3.tgz"
+  dependencies:
+    ansi-escapes: ^4.3.1
+    chalk: ^4.1.0
+    consola: ^2.15.0
+    figures: ^3.2.0
+    pretty-time: ^1.1.0
+    std-env: ^2.2.1
+    text-table: ^0.2.0
+    wrap-ansi: ^7.0.0
+  peerDependencies:
+    webpack: 3 || 4 || 5
+  checksum: 0c69f0998551a7218c43f65ba1f11e6c3262141011047a77434af013cf543c12916050a419c7528970dd2181d3d5339d28d1bb77d4d77d6a8c89a658286c3335
+  languageName: node
+  linkType: hard
+
 "whatwg-encoding@npm:^1.0.5":
   version: 1.0.5
   resolution: "whatwg-encoding@npm:1.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwhatwg-encoding%2Fdownload%2Fwhatwg-encoding-1.0.5.tgz"
@@ -10770,6 +10868,17 @@ typescript@^4.1.3:
     string-width: ^4.1.0
     strip-ansi: ^6.0.0
   checksum: ee4ed8b2994cfbdcd571f4eadde9d8ba00b8a74113483fe5d0c5f9e84054e43df8e9092d7da35c5b051faeca8fe32bd6cea8bf5ae8ad4896d6ea676a347e90af
+  languageName: node
+  linkType: hard
+
+"wrap-ansi@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "wrap-ansi@npm:7.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwrap-ansi%2Fdownload%2Fwrap-ansi-7.0.0.tgz"
+  dependencies:
+    ansi-styles: ^4.0.0
+    string-width: ^4.1.0
+    strip-ansi: ^6.0.0
+  checksum: 09939dd775ae565bb99a25a6c072fe3775a95fa71751b5533c94265fe986ba3e3ab071a027ab76cf26876bd9afd10ac3c2d06d7c4bcce148bf7d2d9514e3a0df
   languageName: node
   linkType: hard
 
