@@ -1,1 +1,3 @@
-a: true
+# 谷歌分析
+google_analytics:
+  ga_measurement_id: 'UA-146082840-1'
