@@ -15,7 +15,7 @@ timezone:
 url: https://daief.tech
 root: /
 #permalink: :year/:month/:day/:title/
-permalink: :year-:month-:day/:id.html
+permalink: post/:year:month:day-:id/index.html
 permalink_defaults:
 
 # Directory

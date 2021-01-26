@@ -4,6 +4,11 @@ const fs = require('fs-extra');
 const path = require('path');
 const NativeModule = require('module');
 const { buildSvelte } = require('../build/compile');
+const memoize = require('lodash/memoize');
+const nunjucks = require('nunjucks');
+
+const tplPath = path.resolve(__dirname, '../build/tpl.html');
+const env = nunjucks.configure(tplPath, { autoescape: false });
 
 function evalModuleCode(loaderContext, code, filename) {
   const module = new NativeModule(filename, loaderContext);
@@ -15,10 +20,30 @@ function evalModuleCode(loaderContext, code, filename) {
 
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
+const singleInsBuild = memoize(buildSvelte, () => 'SINGLE');
+
 async function svelteRenderer(data, locals) {
   const filename = data.path;
-  const result = await buildSvelte.call(this, filename, { ssr: true, locals });
-  return result;
+  const { ssrResult, clientResult } = await singleInsBuild(filename, {
+    locals,
+    hexo: this,
+  });
+  const { outputPath } = ssrResult;
+  const ssrBundleAsset = ssrResult.assets.find(it => /.js$/i.test(it.name));
+  const ssrfile = path.resolve(outputPath, ssrBundleAsset.name);
+  const renderUrl = '/' + locals.page.path.replace('/index.html', '');
+
+  // pre render
+  const { html } = require(ssrfile).default.render({
+    url: renderUrl,
+  });
+
+  const resultHtml = env.render(tplPath, {
+    appHtml: html,
+    bundleScripts: `<script src="/${clientResult.assets[0].name}"></script>`,
+  });
+
+  return resultHtml;
 }
 
 hexo.extend.renderer.register('svelte', 'html', svelteRenderer);

@@ -9,15 +9,17 @@
     <title>
       <%= __baseConfig.title %>
     </title>
-    <script>
+    <!-- <script>
       window.__scoped = <%= JSON.stringify(globalData) %>;
-    </script>
+    </script> -->
   </head>
   <body
     itemscope
     itemtype="http://schema.org/WebPage"
     lang="<%= page.lang || page.language || config.language %>"
   >
-    <div id="app"><%= appHtml %></div>
+    <div id="app">{{ appHtml }}</div>
+
+    {{ bundleScripts }}
   </body>
 </html>

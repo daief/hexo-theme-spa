@@ -3,16 +3,18 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { requireOnly, getBaseConfig } = require('./utils');
 const fs = require('fs-extra');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackBar = require('webpackbar');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
-async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
+async function build(
+  filename,
+  { hexo, ssr, locals, appHtml, pageData, baseConfig },
+) {
   const basename = path.basename(filename);
   const entry = path.resolve(__dirname, 'app/entry.js');
 
   const assetPublicPath = locals.url_for('/');
-
-  const isGenerate = this.env.cmd === 'generate';
+  const isGenerate = hexo.env.cmd === 'generate';
 
   return new Promise((resolve, reject) => {
     webpack(
@@ -31,6 +33,9 @@ async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
         },
         target: ssr ? 'node' : 'web',
         resolve: {
+          alias: {
+            '@': path.resolve(__dirname, '../src'),
+          },
           extensions: ['.mjs', '.js', '.svelte', '.ts', '.json'],
           mainFields: ['svelte', 'browser', 'module', 'main'],
         },
@@ -54,19 +59,57 @@ async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
                 },
               },
             },
-          ],
+            {
+              test: /\.tsx?$/i,
+              use: {
+                loader: 'ts-loader',
+                options: {
+                  transpileOnly: true,
+                  configFile: path.resolve(__dirname, '../tsconfig.json'),
+                  appendTsSuffixTo: [/\.svelte$/],
+                },
+              },
+            },
+            !ssr && {
+              test: /\.less$/i,
+              use: [
+                {
+                  loader: 'style-loader',
+                },
+                {
+                  loader: 'css-loader',
+                },
+                {
+                  loader: 'less-loader',
+                  options: {
+                    lessOptions: {
+                      javascriptEnabled: true,
+                    },
+                  },
+                },
+              ],
+            },
+            !ssr && {
+              test: /\.css$/i,
+              use: ['style-loader', 'css-loader'],
+            },
+            ssr && {
+              test: /\.(css)|(less)$/i,
+              loader: 'null-loader',
+            },
+          ].filter(Boolean),
         },
         plugins: [
-          !ssr &&
-            new HtmlWebpackPlugin({
-              filename: `tpl/${basename}.[contenthash].html`,
-              inject: 'body',
-              template: path.resolve(__dirname, 'app/tpl/index.ejs'),
-              templateParameters: Object.assign({}, locals, {
-                globalData: pageData,
-                appHtml,
-              }),
-            }),
+          // !ssr &&
+          //   new HtmlWebpackPlugin({
+          //     filename: `tpl/${basename}.[contenthash].html`,
+          //     inject: 'body',
+          //     template: path.resolve(__dirname, 'app/tpl/index.ejs'),
+          //     templateParameters: Object.assign({}, locals, {
+          //       globalData: pageData,
+          //       appHtml,
+          //     }),
+          //   }),
           new webpack.DefinePlugin(
             Object.assign(
               {
@@ -81,18 +124,17 @@ async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
               ssr ? { __scoped: JSON.stringify(pageData) } : {},
             ),
           ),
-          !isGenerate && new FriendlyErrorsWebpackPlugin(),
-          !isGenerate &&
-            new WebpackBar(
-              ssr
-                ? {
-                    name: 'server',
-                    color: 'orange',
-                  }
-                : {
-                    name: 'client',
-                  },
-            ),
+          new FriendlyErrorsWebpackPlugin(),
+          new WebpackBar(
+            ssr
+              ? {
+                  name: 'server',
+                  color: 'orange',
+                }
+              : {
+                  name: 'client',
+                },
+          ),
         ].filter(Boolean),
       },
       (err, stats) => {
@@ -110,54 +152,57 @@ async function build(filename, { ssr, locals, appHtml, pageData, baseConfig }) {
   });
 }
 
-async function buildSvelte(filename, { locals }) {
-  const basename = path.basename(filename);
-
-  let pageData = {};
-  try {
-    const { getData } = requireOnly(
-      path.resolve(path.dirname(filename), `_${basename.split('.')[0]}.js`),
-    );
-    pageData = await getData({ locals });
-  } catch (error) {
-    if (error.code !== 'MODULE_NOT_FOUND') {
-      throw error;
-    }
-  }
-
-  const baseConfig = getBaseConfig(locals);
-
-  // build ssr
-  const ssrResult = await build.call(this, filename, {
+async function buildSvelte(filename, { locals, hexo }) {
+  const ssrResult = await build(filename, {
+    hexo,
     ssr: true,
     locals,
-    pageData,
-    baseConfig,
+    pageData: {},
+    baseConfig: {},
   });
-  const { outputPath } = ssrResult;
-  const ssrBundleAsset = ssrResult.assets.find(it => /.js$/i.test(it.name));
-  const ssrfile = path.resolve(outputPath, ssrBundleAsset.name);
-  // pre render
-  const { html } = requireOnly(ssrfile).default.render();
 
-  // build client
   const clientResult = await build.call(this, filename, {
+    hexo,
     ssr: false,
     locals,
-    appHtml: html,
-    pageData,
-    baseConfig,
+    appHtml: '',
+    pageData: {},
+    baseConfig: {},
   });
 
-  const clientHtmlAsset = clientResult.assets.find(it =>
-    /.html$/i.test(it.name),
-  );
+  return { ssrResult, clientResult };
 
-  return (
-    fs.readFileSync(path.resolve(outputPath, clientHtmlAsset.name), {
-      encoding: 'utf-8',
-    }) || ''
-  );
+  // const basename = path.basename(filename);
+  // const pageData = {};
+  // const baseConfig = getBaseConfig(locals);
+  // // build ssr
+  // const ssrResult = await build.call(this, filename, {
+  //   ssr: true,
+  //   locals,
+  //   pageData,
+  //   baseConfig: {},
+  // });
+  // const { outputPath } = ssrResult;
+  // const ssrBundleAsset = ssrResult.assets.find(it => /.js$/i.test(it.name));
+  // const ssrfile = path.resolve(outputPath, ssrBundleAsset.name);
+  // // pre render
+  // const { html } = requireOnly(ssrfile).default.render();
+  // // build client
+  // const clientResult = await build.call(this, filename, {
+  //   ssr: false,
+  //   locals,
+  //   appHtml: html,
+  //   pageData,
+  //   baseConfig,
+  // });
+  // const clientHtmlAsset = clientResult.assets.find(it =>
+  //   /.html$/i.test(it.name),
+  // );
+  // return (
+  //   fs.readFileSync(path.resolve(outputPath, clientHtmlAsset.name), {
+  //     encoding: 'utf-8',
+  //   }) || ''
+  // );
 }
 
 exports.build = build;

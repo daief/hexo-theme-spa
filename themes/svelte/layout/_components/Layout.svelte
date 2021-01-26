@@ -31,5 +31,6 @@
 </div>
 
 <script lang="ts">
+  import '@/base';
   import Analytics from './Analytics/index.svelte';
 </script>
