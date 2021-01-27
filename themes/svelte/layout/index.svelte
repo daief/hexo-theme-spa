@@ -15,12 +15,22 @@
 </Layout>
 
 <script lang="ts">
+  import { setContext } from 'svelte';
+
   import { Router, Link, Route } from 'svelte-routing';
   import Layout from './_components/Layout.svelte';
   import Home from './_pages/index.svelte';
   import Post from './_pages/post.svelte';
 
   export let url = '';
+
+  export let data: any = {};
+
+  if (__SSR__) {
+    setContext('$', data || {});
+  } else {
+    setContext('$', __scoped);
+  }
 </script>
 
 <style>

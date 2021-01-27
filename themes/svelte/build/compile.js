@@ -110,20 +110,15 @@ async function build(
           //       appHtml,
           //     }),
           //   }),
-          new webpack.DefinePlugin(
-            Object.assign(
-              {
-                __IS_GENERATE__: JSON.stringify(isGenerate),
-                __SSR__: JSON.stringify(ssr),
-                __PAGE_PATH__: JSON.stringify(filename),
+          new webpack.DefinePlugin({
+            __IS_GENERATE__: JSON.stringify(isGenerate),
+            __SSR__: JSON.stringify(ssr),
+            __PAGE_PATH__: JSON.stringify(filename),
 
-                // some data inject
-                __baseConfig: JSON.stringify(baseConfig),
-                __theme: JSON.stringify(locals.theme),
-              },
-              ssr ? { __scoped: JSON.stringify(pageData) } : {},
-            ),
-          ),
+            // some data inject
+            __baseConfig: JSON.stringify(baseConfig),
+            __theme: JSON.stringify(locals.theme),
+          }),
           new FriendlyErrorsWebpackPlugin(),
           new WebpackBar(
             ssr

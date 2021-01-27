@@ -2170,17 +2170,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "chalk@npm:2.4.2"
-  dependencies:
-    ansi-styles: ^3.2.1
-    escape-string-regexp: ^1.0.5
-    supports-color: ^5.3.0
-  checksum: 22c7b7b5bc761c882bb6516454a1a671923f1c53ff972860065aa0b28a195f230163c1d46ee88bcc7a03e5539177d896457d8bc727de7f244c6e87032743038e
-  languageName: node
-  linkType: hard
-
 "chalk@npm:^4.0.0, chalk@npm:^4.1.0":
   version: 4.1.0
   resolution: "chalk@npm:4.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fchalk%2Fdownload%2Fchalk-4.1.0.tgz"
@@ -5045,19 +5034,19 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hexo-server@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "hexo-server@npm:1.0.0"
+"hexo-server@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "hexo-server@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhexo-server%2Fdownload%2Fhexo-server-2.0.0.tgz"
   dependencies:
     bluebird: ^3.5.5
-    chalk: ^2.4.2
+    chalk: ^4.0.0
     compression: ^1.7.4
     connect: ^3.7.0
     mime: ^2.4.3
     morgan: ^1.9.1
-    open: ^6.3.0
+    open: ^7.0.0
     serve-static: ^1.14.1
-  checksum: 42d14eb615c30d4c707cee359f745afc96fda92b11bd9f73f53f67ce04f9e7ce11efe0baa374a7b0eb8696cbbe96aecb7d3a960b3f3cf70778380175c61b9126
+  checksum: 6f0e50bf8ab9c0f8ad9f9d1e779e85b075fd18fc54c213fd5b7e8a40a5995e643901ddf9a91b08a61c80df8051e4e92dcd52ac534561bdbb86e9f8b45ceccfaa
   languageName: node
   linkType: hard
 
@@ -5092,7 +5081,7 @@ fsevents@~2.1.2:
     hexo-renderer-ejs: ^1.0.0
     hexo-renderer-marked: ^3.3.0
     hexo-renderer-stylus: ^1.0.0
-    hexo-server: ^1.0.0
+    hexo-server: ^2.0.0
     hexo-wordcount: ^6.0.1
     html-webpack-plugin: next
     jest: ^26.6.3
@@ -5951,14 +5940,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"is-wsl@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "is-wsl@npm:1.1.0"
-  checksum: 0f15cf5d5ff025afb0ba9cb49fd425b5d533b2af700533d343b7fa9aaca2f6c8242ba1c1a4e30c925522816bf0172fec2ae7cacaae682c91ffa0cd3f88ff1e8e
-  languageName: node
-  linkType: hard
-
-"is-wsl@npm:^2.2.0":
+"is-wsl@npm:^2.1.1, is-wsl@npm:^2.2.0":
   version: 2.2.0
   resolution: "is-wsl@npm:2.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-wsl%2Fdownload%2Fis-wsl-2.2.0.tgz"
   dependencies:
@@ -8176,12 +8158,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"open@npm:^6.3.0":
-  version: 6.4.0
-  resolution: "open@npm:6.4.0"
+"open@npm:^7.0.0":
+  version: 7.3.1
+  resolution: "open@npm:7.3.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fopen%2Fdownload%2Fopen-7.3.1.tgz"
   dependencies:
-    is-wsl: ^1.1.0
-  checksum: 53044871e74b292262ff5b506b4912f1a0a2d9bcc5b955f059985349cfaa12da1b33cf85ec3dd8b2e59335094464b16899c145e65603e1c04dd4b62135aac807
+    is-docker: ^2.0.0
+    is-wsl: ^2.1.1
+  checksum: 102d5ee88467663ee9d5883b3487e3cac147cc8e39128029978c54b8f9c3e868e8e65aba88fbc2444ee98787b217554559019678793631203c1d87474caecb7e
   languageName: node
   linkType: hard
 

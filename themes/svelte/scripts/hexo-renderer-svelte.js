@@ -7,7 +7,7 @@ const { buildSvelte } = require('../build/compile');
 const memoize = require('lodash/memoize');
 const nunjucks = require('nunjucks');
 
-const tplPath = path.resolve(__dirname, '../build/tpl.html');
+const tplPath = path.resolve(__dirname, '../build/app/tpl.html');
 const env = nunjucks.configure(tplPath, { autoescape: false });
 
 function evalModuleCode(loaderContext, code, filename) {
@@ -20,11 +20,14 @@ function evalModuleCode(loaderContext, code, filename) {
 
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
+// 单例缓存
 const singleInsBuild = memoize(buildSvelte, () => 'SINGLE');
+const isDev = hexo.env.env === 'development';
 
 async function svelteRenderer(data, locals) {
   const filename = data.path;
-  const { ssrResult, clientResult } = await singleInsBuild(filename, {
+  const buildHandler = isDev ? buildSvelte : singleInsBuild;
+  const { ssrResult, clientResult } = await buildHandler(filename, {
     locals,
     hexo: this,
   });
@@ -41,21 +44,26 @@ async function svelteRenderer(data, locals) {
   const resultHtml = env.render(tplPath, {
     appHtml: html,
     bundleScripts: `<script src="/${clientResult.assets[0].name}"></script>`,
+    serverData: JSON.stringify({
+      a: 1,
+      b: 2,
+      c: '<div>x</div>',
+    }),
   });
+
+  if (isDev) {
+    try {
+      // source 下的目录在启动后生成，手动 load 一下
+      await hexo.load();
+    } catch (error) {}
+  }
 
   return resultHtml;
 }
 
 hexo.extend.renderer.register('svelte', 'html', svelteRenderer);
 
-if (hexo.env.cmd === 'server') {
-  hexo.extend.filter.register('after_render:html', async function (str, data) {
-    await hexo.load();
-    return str;
-  });
-}
-
-if (hexo.env.cmd === 'generate') {
+if (hexo.env.env === 'production') {
   hexo.extend.filter.register('before_exit', function () {
     fs.copySync(path.resolve(hexo.theme_dir, 'source'), hexo.public_dir, {
       filter: src =>

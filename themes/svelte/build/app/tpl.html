@@ -7,11 +7,11 @@
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <title>
-      <%= __baseConfig.title %>
+      title
     </title>
-    <!-- <script>
-      window.__scoped = <%= JSON.stringify(globalData) %>;
-    </script> -->
+    <script>
+      window.__scoped = {{ serverData }};
+    </script>
   </head>
   <body
     itemscope
