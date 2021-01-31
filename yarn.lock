@@ -1616,6 +1616,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.21.1":
+  version: 0.21.1
+  resolution: "axios@npm:0.21.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Faxios%2Fdownload%2Faxios-0.21.1.tgz"
+  dependencies:
+    follow-redirects: ^1.10.0
+  checksum: 864fb7b5d077d236737f10adca53bf451a93f35a15271f56fba8da07265a02d26b7d881b935a6697dc6adb0549ea3e56d2eecb403edaa3bb78f6479901c10f69
+  languageName: node
+  linkType: hard
+
 "babel-code-frame@npm:^6.22.0, babel-code-frame@npm:^6.26.0":
   version: 6.26.0
   resolution: "babel-code-frame@npm:6.26.0"
@@ -3012,6 +3021,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dedent-js@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "dedent-js@npm:1.0.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fdedent-js%2Fdownload%2Fdedent-js-1.0.1.tgz"
+  checksum: d105eb4ea93baf9a19e8d2bd0dd67efa1339261fb5190dd5d48ff2a98a041435be991034242d5faccc893fbf6e03b92ac1eede3b4bfaed1170b28c2e252f241b
+  languageName: node
+  linkType: hard
+
 "deep-extend@npm:^0.6.0":
   version: 0.6.0
   resolution: "deep-extend@npm:0.6.0"
@@ -4027,6 +4043,16 @@ __metadata:
     inherits: ^2.0.3
     readable-stream: ^2.3.6
   checksum: b8fa1fbfadd5c4b6df3cf2c34b3c408fe508a2899c536bafa339f679de545689997e907bd4ff61dd292942f8044fb2f293a5956dd8b601f6a5601617842d0dda
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.10.0":
+  version: 1.13.2
+  resolution: "follow-redirects@npm:1.13.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.13.2.tgz"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 76a23a75e5eedb872fc223fcce5b267fd315b123e0fc38f8d7701283445418d9ead72c7ff8a468d95042526a34e5677bfe76b85f973aa0563890c695c975c451
   languageName: node
   linkType: hard
 
@@ -5058,6 +5084,7 @@ fsevents@~2.1.2:
     "@tsconfig/svelte": ^1.0.10
     "@types/fs-extra": ^9.0.6
     "@types/jest": ^26.0.20
+    axios: ^0.21.1
     cross-env: ^6.0.0
     css-loader: ^5.0.1
     friendly-errors-webpack-plugin: ^1.7.0
@@ -5094,12 +5121,14 @@ fsevents@~2.1.2:
     style-loader: ^2.0.0
     svelte: ^3.31.2
     svelte-loader: ^3.0.0
+    svelte-navigator: ^3.1.5
     svelte-preprocess: ^4.6.3
     svelte-routing: ^1.5.0
     terser: ^4.6.3
     ts-jest: ^26.4.4
     ts-loader: ^8.0.14
     typescript: ^4.1.3
+    url-pattern: ^1.0.3
     uuid: ^8.3.2
     webpack: ^5.17.0
     webpackbar: ^5.0.0-3
@@ -10275,6 +10304,17 @@ resolve@^1.5.0:
   languageName: node
   linkType: hard
 
+"svelte-navigator@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "svelte-navigator@npm:3.1.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsvelte-navigator%2Fdownload%2Fsvelte-navigator-3.1.5.tgz"
+  dependencies:
+    svelte2tsx: ^0.1.151
+  peerDependencies:
+    svelte: 3.x
+  checksum: 33f1740044151fe88c7acc690ae8a27f53889fab1a453916aa86490ed7d6b62fe1a62eb16f7105ab3de6012577f5ea7a58ffa7b516ea6ebbe45aef59893536c8
+  languageName: node
+  linkType: hard
+
 "svelte-preprocess@npm:^4.6.3":
   version: 4.6.3
   resolution: "svelte-preprocess@npm:4.6.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsvelte-preprocess%2Fdownload%2Fsvelte-preprocess-4.6.3.tgz"
@@ -10328,6 +10368,19 @@ resolve@^1.5.0:
   peerDependencies:
     svelte: ^3.20.x
   checksum: 1dd39bb28de30a1041930415bdee1b5fe9528192b540dafd7fc5b4b00d4abd00e4786e1e5cb26d86e23a74ef9206620b36165177743b90804040676ed103d43b
+  languageName: node
+  linkType: hard
+
+"svelte2tsx@npm:^0.1.151":
+  version: 0.1.164
+  resolution: "svelte2tsx@npm:0.1.164::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsvelte2tsx%2Fdownload%2Fsvelte2tsx-0.1.164.tgz"
+  dependencies:
+    dedent-js: ^1.0.1
+    pascal-case: ^3.1.1
+  peerDependencies:
+    svelte: ^3.24
+    typescript: ^4.1.2
+  checksum: fd8ce0e98e7a2c0a3710a8cafab90af0830eb767468b3c5ec3c5e5ce87d8e27c2ce4f95c835e1bd63bf6b90815f16a9af00c51f813f8960d0e942077f910a078
   languageName: node
   linkType: hard
 
@@ -11034,6 +11087,13 @@ typescript@^4.1.3:
   version: 0.1.0
   resolution: "urix@npm:0.1.0"
   checksum: 6bdfca4e7fb7d035537068a47a04ace1bacfa32e6b1aaf54c5a0340c83125a186d59109a19b9a3a1c1f986d3eb718b82faf9ad03d53cb99cf868068580b15b3b
+  languageName: node
+  linkType: hard
+
+"url-pattern@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "url-pattern@npm:1.0.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Furl-pattern%2Fdownload%2Furl-pattern-1.0.3.tgz"
+  checksum: 55e1c22dbebfa67329e70159eda837b7c92df672ca4651931c1c9a205fde569b19656fbda35668eb2c0f0fab4c04f24af6850740092dc5d69eb897eeb439b000
   languageName: node
   linkType: hard
 

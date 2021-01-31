@@ -6,17 +6,12 @@ const NativeModule = require('module');
 const { buildSvelte } = require('../build/compile');
 const memoize = require('lodash/memoize');
 const nunjucks = require('nunjucks');
+const { requireOnly } = require('../build/utils');
+const { renderData, saveToJsons } = require('../build/renderData');
+const { formatHtmlPath } = require('../shared');
 
 const tplPath = path.resolve(__dirname, '../build/app/tpl.html');
 const env = nunjucks.configure(tplPath, { autoescape: false });
-
-function evalModuleCode(loaderContext, code, filename) {
-  const module = new NativeModule(filename, loaderContext);
-  module.paths = NativeModule._nodeModulePaths(loaderContext.context);
-  module.filename = filename;
-  module._compile(code, filename);
-  return module.exports;
-}
 
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
@@ -25,6 +20,8 @@ const singleInsBuild = memoize(buildSvelte, () => 'SINGLE');
 const isDev = hexo.env.env === 'development';
 
 async function svelteRenderer(data, locals) {
+  saveToJsons(this);
+
   const filename = data.path;
   const buildHandler = isDev ? buildSvelte : singleInsBuild;
   const { ssrResult, clientResult } = await buildHandler(filename, {
@@ -34,21 +31,23 @@ async function svelteRenderer(data, locals) {
   const { outputPath } = ssrResult;
   const ssrBundleAsset = ssrResult.assets.find(it => /.js$/i.test(it.name));
   const ssrfile = path.resolve(outputPath, ssrBundleAsset.name);
-  const renderUrl = '/' + locals.page.path.replace('/index.html', '');
+  const renderUrl = formatHtmlPath(locals.page.path);
+
+  const prerenderData = requireOnly('../build/renderData').renderData(
+    renderUrl,
+    this,
+  );
 
   // pre render
   const { html } = require(ssrfile).default.render({
     url: renderUrl,
+    data: prerenderData,
   });
 
   const resultHtml = env.render(tplPath, {
     appHtml: html,
     bundleScripts: `<script src="/${clientResult.assets[0].name}"></script>`,
-    serverData: JSON.stringify({
-      a: 1,
-      b: 2,
-      c: '<div>x</div>',
-    }),
+    serverData: JSON.stringify(prerenderData),
   });
 
   if (isDev) {
@@ -71,4 +70,12 @@ if (hexo.env.env === 'production') {
       overwrite: true,
     });
   });
+}
+
+function evalModuleCode(loaderContext, code, filename) {
+  const module = new NativeModule(filename, loaderContext);
+  module.paths = NativeModule._nodeModulePaths(loaderContext.context);
+  module.filename = filename;
+  module._compile(code, filename);
+  return module.exports;
 }

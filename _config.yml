@@ -14,8 +14,8 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://daief.tech
 root: /
-#permalink: :year/:month/:day/:title/
-permalink: post/:year:month:day-:id/index.html
+# permalink: :year/:month/:day/:title/
+permalink: post/:id/index.html
 permalink_defaults:
 
 # Directory

@@ -1,3 +1,7 @@
 # 谷歌分析
 google_analytics:
   ga_measurement_id: 'UA-146082840-1'
+
+generator:
+  per_page: 10
+  order_by: '-date'

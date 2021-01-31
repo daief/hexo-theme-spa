@@ -1,35 +1,48 @@
 <Layout>
-  <Router {url}>
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="about">About</Link>
-      <Link to="post/dsd">Blog</Link>
-    </nav>
-    <div>
-      <Route path="post/:id" component={Post} />
-      <!-- <Route path="blog" component={Blog} /> -->
-      <!-- <Route path="about" component={About} /> -->
-      <Route path="/" component={Home} />
-    </div>
-  </Router>
+  <nav>
+    <Link to="/">Home</Link>
+    <Link to="about">About</Link>
+    <Link to="post/compile-vue-file-to-js-file">Blog</Link>
+    <Link to="page/2">Page</Link>
+  </nav>
+  <PageWrap>
+    <Route path="/post/:id" primary={false} component={Post} />
+    <Route path="/page/:no" primary={false} component={Pagination} />
+    <Route path="/" primary={false} component={Pagination} />
+  </PageWrap>
 </Layout>
 
 <script lang="ts">
-  import { setContext } from 'svelte';
-
-  import { Router, Link, Route } from 'svelte-routing';
+  import { useAxios } from '@/hooks/useAxios';
+  import { gStore } from '@/store/global';
+  import { Link, Route, useLocation } from 'svelte-navigator';
   import Layout from './_components/Layout.svelte';
-  import Home from './_pages/index.svelte';
-  import Post from './_pages/post.svelte';
+  import PageWrap from './_components/PageWrap.svelte';
+  import Pagination from './_pages/Pagination.svelte';
+  import Post from './_pages/Post.svelte';
+  import { toBase64, formatHtmlPath } from '../shared';
+  import { useIsMounted } from '@/hooks/useIsMounted';
+  import { onMount } from 'svelte';
 
-  export let url = '';
+  let skipFirstFlag = true;
 
-  export let data: any = {};
+  const loc = useLocation();
 
-  if (__SSR__) {
-    setContext('$', data || {});
-  } else {
-    setContext('$', __scoped);
+  $: pathname = $loc.pathname;
+
+  const [, fetchPageData, { cancel }] = useAxios('');
+
+  $: if (!__SSR__ && pathname) {
+    if (skipFirstFlag) {
+      skipFirstFlag = false;
+    } else {
+      cancel();
+      fetchPageData({
+        url: '/json/' + toBase64(formatHtmlPath(pathname)) + '.json',
+      }).then(resp => {
+        $gStore = resp.data || {};
+      });
+    }
   }
 </script>
 

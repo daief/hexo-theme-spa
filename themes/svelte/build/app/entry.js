@@ -1,6 +1,6 @@
-// import App from './wrap.svelte';
+import App from './wrap.svelte';
 
-const App = require(__PAGE_PATH__).default;
+// const App = require(__PAGE_PATH__).default;
 
 if (!__SSR__) {
   window.__app = new App({

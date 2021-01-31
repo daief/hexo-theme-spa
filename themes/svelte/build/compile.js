@@ -120,16 +120,16 @@ async function build(
             __theme: JSON.stringify(locals.theme),
           }),
           new FriendlyErrorsWebpackPlugin(),
-          new WebpackBar(
-            ssr
-              ? {
-                  name: 'server',
-                  color: 'orange',
-                }
-              : {
-                  name: 'client',
-                },
-          ),
+          // new WebpackBar(
+          //   ssr
+          //     ? {
+          //         name: 'server',
+          //         color: 'orange',
+          //       }
+          //     : {
+          //         name: 'client',
+          //       },
+          // ),
         ].filter(Boolean),
       },
       (err, stats) => {
