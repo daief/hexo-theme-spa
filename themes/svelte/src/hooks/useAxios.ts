@@ -62,7 +62,6 @@ export function useAxios<T = any>(
 
       return data;
     } catch (error) {
-      console.log(error);
       const isCancelled = error instanceof axios.Cancel;
 
       res.update(pre => {

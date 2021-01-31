@@ -3,18 +3,20 @@
   <Link to={page.next_link}>Next</Link>
 
   <div>
-    {JSON.stringify($gStore)}
+    {#each page.posts || [] as post}
+      <div>
+        <Link to={post.path}>
+          {post.title}
+        </Link>
+      </div>
+    {/each}
   </div>
 </div>
 
 <script lang="ts">
   import { gStore } from '@/store/global';
-  import { Router, Link, Route } from 'svelte-navigator';
+  import Link from '../_components/widgets/Link.svelte';
   import { getContext } from 'svelte';
 
   $: page = $gStore.page;
-
-  $: {
-    !__SSR__ && console.log(page);
-  }
 </script>

@@ -72,6 +72,12 @@ manager.register([INDEX_FLAG, '/page/:no'], ({ query }, hexo) => {
   return {
     posts: posts.slice((no - 1) * per_page, per_page * no).map(post => ({
       id: post.id,
+      excerpt: post.excerpt,
+      title: post.title,
+      comments: post.comments,
+      link: post.link,
+      path: formatHtmlPath(post.path),
+      current_url: post.current_url,
     })),
     total: totalPage,
     current: no,

@@ -1,7 +1,7 @@
 <div>post</div>
 
-<div>{JSON.stringify(getContext('$'))}</div>
+<div>{JSON.stringify($gStore)}</div>
 
 <script lang="ts">
-  import { getContext } from 'svelte';
+  import { gStore } from '@/store/global';
 </script>
