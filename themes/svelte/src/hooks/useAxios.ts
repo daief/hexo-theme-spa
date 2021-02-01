@@ -24,7 +24,7 @@ export function useAxios<T = any>(
     cancel(msg?: string): void;
   },
 ] {
-  const { defaultValue, skip, ...axiosConfig } = { ...config };
+  const { defaultValue, skip = true, ...axiosConfig } = { ...config };
 
   let cancel: Canceler | null = null;
 

@@ -6,7 +6,10 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@shared": ["shared"],
+      "@shared/*": ["shared/*"],
+      "@components/*": ["layout/_components/*"]
     },
     "importsNotUsedAsValues": "remove"
   },

@@ -35,6 +35,8 @@ async function build(
         resolve: {
           alias: {
             '@': path.resolve(__dirname, '../src'),
+            '@shared': path.resolve(__dirname, '../shared'),
+            '@components': path.resolve(__dirname, '../layout/_components'),
           },
           extensions: ['.mjs', '.js', '.svelte', '.ts', '.json'],
           mainFields: ['svelte', 'browser', 'module', 'main'],

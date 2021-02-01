@@ -12,38 +12,17 @@
   </PageWrap>
 </Layout>
 
+<LoadGlobalData />
+
 <script lang="ts">
   import { useAxios } from '@/hooks/useAxios';
   import { gStore } from '@/store/global';
-  import { Link, Route, useLocation } from 'svelte-navigator';
-  import Layout from './_components/Layout.svelte';
-  import PageWrap from './_components/PageWrap.svelte';
+  import { Link, Route } from 'svelte-navigator';
+  import Layout from '@components/Layout.svelte';
+  import PageWrap from '@components/PageWrap.svelte';
+  import LoadGlobalData from '@components/LoadGlobalData.svelte';
   import Pagination from './_pages/Pagination.svelte';
   import Post from './_pages/Post.svelte';
-  import { toBase64, formatHtmlPath } from '../shared';
-  import { useIsMounted } from '@/hooks/useIsMounted';
-  import { onMount } from 'svelte';
-
-  let skipFirstFlag = true;
-
-  const loc = useLocation();
-
-  $: pathname = $loc.pathname;
-
-  const [, fetchPageData, { cancel }] = useAxios('');
-
-  $: if (!__SSR__ && pathname) {
-    if (skipFirstFlag) {
-      skipFirstFlag = false;
-    } else {
-      cancel();
-      fetchPageData({
-        url: '/json/' + toBase64(formatHtmlPath(pathname)) + '.json',
-      }).then(resp => {
-        $gStore = resp.data || {};
-      });
-    }
-  }
 </script>
 
 <style>

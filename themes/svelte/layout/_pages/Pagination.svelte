@@ -3,7 +3,7 @@
   <Link to={page.next_link}>Next</Link>
 
   <div>
-    {#each page.posts || [] as post}
+    {#each posts as post}
       <div>
         <Link to={post.path}>
           {post.title}
@@ -16,7 +16,7 @@
 <script lang="ts">
   import { gStore } from '@/store/global';
   import Link from '../_components/widgets/Link.svelte';
-  import { getContext } from 'svelte';
 
   $: page = $gStore.page;
+  $: posts = (page.posts as any[]) || [];
 </script>
