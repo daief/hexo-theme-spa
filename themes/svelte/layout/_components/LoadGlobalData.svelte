@@ -12,11 +12,13 @@
   import { useLocation } from 'svelte-navigator';
   import { toBase64, formatHtmlPath } from '@shared';
 
-  $gLoading = true;
-
   const loc = useLocation();
   $: pathname = $loc.pathname;
   const [resp, fetchPageData, { cancel }] = useAxios('');
+
+  $: {
+    $gLoading = $resp.loading;
+  }
 
   $: if (!__SSR__ && pathname) {
     if (!skipFirstFlag) {

@@ -1,3 +1,4 @@
+<LoadGlobalData />
 <Layout>
   <nav>
     <Link to="/">Home</Link>
@@ -12,11 +13,7 @@
   </PageWrap>
 </Layout>
 
-<LoadGlobalData />
-
 <script lang="ts">
-  import { useAxios } from '@/hooks/useAxios';
-  import { gStore } from '@/store/global';
   import { Link, Route } from 'svelte-navigator';
   import Layout from '@components/Layout.svelte';
   import PageWrap from '@components/PageWrap.svelte';
