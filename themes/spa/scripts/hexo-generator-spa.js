@@ -18,5 +18,16 @@ hexo.extend.generator.register('spa', function (locals) {
     layout: ['index'],
   });
 
-  return [...paginationPages];
+  return [
+    ...paginationPages,
+    // TODO 404 page
+    {
+      path: '404',
+      layout: ['index'],
+    },
+    {
+      path: '404-dev',
+      layout: ['index'],
+    },
+  ];
 });

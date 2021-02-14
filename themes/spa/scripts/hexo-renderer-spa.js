@@ -12,8 +12,8 @@ const { requireOnly } = require('../build/utils');
 const { renderData, saveToJsons } = require('../build/renderData');
 const { formatHtmlPath } = require('../shared');
 
-const tplPath = path.resolve(__dirname, '../build/app/tpl.html');
-const env = nunjucks.configure(tplPath, { autoescape: false });
+const TEMPLATE_PATH = path.resolve(__dirname, '../build/app/tpl.html');
+const env = nunjucks.configure(TEMPLATE_PATH, { autoescape: false });
 
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
@@ -33,6 +33,9 @@ async function spaRenderer(data, locals) {
     hexo: this,
   });
   const { outputPath } = ssrResult;
+  const clientManifestJson = requireOnly(
+    path.resolve(outputPath, 'manifest.client.json'),
+  );
   const ssrBundleAsset = ssrResult.assets.find(it => /.js$/i.test(it.name));
   const ssrfile = path.resolve(outputPath, ssrBundleAsset.name);
   const renderUrl = formatHtmlPath(locals.page.path);
@@ -46,10 +49,12 @@ async function spaRenderer(data, locals) {
 
   const { app } = await createSSRBlogApp(renderUrl, prerenderData);
   const html = await renderToString(app);
-  const resultHtml = env.render(tplPath, {
+  const resultHtml = env.render(TEMPLATE_PATH, {
     appHtml: html,
-    bundleScripts: `<script src="/${clientResult.assets[0].name}"></script>`,
+    bundleScripts: `<script src="${clientManifestJson['main.js']}"></script>`,
+    headPartial: `<link href="${clientManifestJson['main.css']}" rel="stylesheet">`,
     serverData: JSON.stringify(prerenderData),
+    config: locals.config,
   });
 
   if (isDev) {

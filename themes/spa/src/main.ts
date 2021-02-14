@@ -1,6 +1,8 @@
 import { createSSRApp, createApp } from 'vue';
 import { createRouterIns } from './routes';
 import { createStoreIns } from './store';
+import './styles/tailwind.css';
+
 const App = require(__PAGE_PATH__).default;
 
 export function createBlogApp() {

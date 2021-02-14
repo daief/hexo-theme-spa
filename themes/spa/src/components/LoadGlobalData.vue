@@ -1,10 +1,8 @@
-<template>
-  <div>xx - {{ resp.loading }} - {{ xs }}</div>
-</template>
+<template />
 
 <script lang="ts">
 import { useAxios } from '@/hooks/useAxios';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { toBase64, formatHtmlPath } from '@shared';
 import { useStore } from 'vuex';
@@ -17,6 +15,14 @@ export default defineComponent({
     const router = useRouter();
     const [resp, fetchPageData, { cancel }] = useAxios('');
     const store = useStore();
+
+    watch(
+      () => resp.value.loading,
+      loading => {
+        // sync loading state
+        store.commit('global/setLoading', loading);
+      },
+    );
 
     router.afterEach((to, from) => {
       if (__SSR__ || to.path === from.path || isPreRender) {
@@ -32,10 +38,7 @@ export default defineComponent({
       });
     });
 
-    return {
-      resp,
-      xs: computed(() => JSON.stringify(resp.value.data)),
-    };
+    return {};
   },
 });
 </script>

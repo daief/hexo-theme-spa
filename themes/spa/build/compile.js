@@ -1,12 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { requireOnly, getBaseConfig } = require('./utils');
-const fs = require('fs-extra');
 const WebpackBar = require('webpackbar');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const nodeExternals = require('webpack-node-externals');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 async function build(filename, { hexo, ssr, locals, baseConfig }) {
   const basename = path.basename(filename);
@@ -61,11 +60,15 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
             !ssr && {
               test: /\.less$/i,
               use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader',
                 {
-                  loader: 'style-loader',
-                },
-                {
-                  loader: 'css-loader',
+                  loader: 'postcss-loader',
+                  options: {
+                    postcssOptions: {
+                      config: path.resolve(__dirname, 'postcss.config.js'),
+                    },
+                  },
                 },
                 {
                   loader: 'less-loader',
@@ -79,7 +82,18 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
             },
             !ssr && {
               test: /\.css$/i,
-              use: ['style-loader', 'css-loader'],
+              use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader',
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    postcssOptions: {
+                      config: path.resolve(__dirname, 'postcss.config.js'),
+                    },
+                  },
+                },
+              ],
             },
             ssr && {
               test: /\.(css)|(less)$/i,
@@ -99,6 +113,9 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
             __theme: JSON.stringify(locals.theme),
           }),
           new FriendlyErrorsWebpackPlugin(),
+          new WebpackManifestPlugin({
+            fileName: `manifest.${ssr ? 'ssr' : 'client'}.json`,
+          }),
           // new WebpackBar(
           //   ssr
           //     ? {
@@ -109,7 +126,23 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
           //         name: 'client',
           //       },
           // ),
+          !ssr &&
+            new MiniCssExtractPlugin({
+              filename: 'css/dist.[contenthash].css',
+            }),
         ].filter(Boolean),
+        optimization: ssr
+          ? {}
+          : {
+              splitChunks: {
+                cacheGroups: {
+                  libs: {
+                    test: /\/node_modules\//,
+                    enforce: true,
+                  },
+                },
+              },
+            },
       },
       (err, stats) => {
         const error = err || stats.hasErrors();
@@ -131,14 +164,14 @@ async function buildSPA(filename, { locals, hexo }) {
     hexo,
     ssr: true,
     locals,
-    baseConfig: {},
+    baseConfig: locals.config,
   });
 
   const clientResult = await build.call(this, filename, {
     hexo,
     ssr: false,
     locals,
-    baseConfig: {},
+    baseConfig: locals.config,
   });
 
   return { ssrResult, clientResult };

@@ -1,6 +1,7 @@
 <template>
   <div>
     Pagination
+    <router-link to="/asd/jj">to 404</router-link>
   </div>
 </template>
 

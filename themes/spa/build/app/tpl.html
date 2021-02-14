@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= config.language %>">
+<html lang="{{ config.language }}">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -12,11 +12,12 @@
     <script>
       window.__PAGE_DATA__ = {{ serverData }};
     </script>
+    {{ headPartial }}
   </head>
   <body
     itemscope
     itemtype="http://schema.org/WebPage"
-    lang="<%= page.lang || page.language || config.language %>"
+    lang="{{ config.language }}"
   >
     <div id="app">{{ appHtml }}</div>
 
