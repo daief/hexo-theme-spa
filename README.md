@@ -25,7 +25,7 @@ Some git submodule commands.
 $ git submodule status
 
 # rm cache of submodules
-git rm --cached themes/spa
+$ git rm --cached themes/spa
 
 ```
 
