@@ -1,7 +1,7 @@
 import { createSSRApp, createApp } from 'vue';
 import { createRouterIns } from './routes';
 import { createStoreIns } from './store';
-import './styles/tailwind.css';
+import './styles';
 
 const App = require(__PAGE_PATH__).default;
 
@@ -42,4 +42,9 @@ export async function createSSRBlogApp(url: string, preRenderData: any) {
   return { app, router };
 }
 
-export default () => null;
+if (!__PROD__ && !__SSR__) {
+  // @ts-ignore
+  window.__baseConfig = __baseConfig;
+  // @ts-ignore
+  window.__theme = __theme;
+}

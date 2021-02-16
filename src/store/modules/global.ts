@@ -20,6 +20,11 @@ const module: Module<
       state.loading = !!loading;
     },
   },
+  getters: {
+    page(state) {
+      return state.pageData?.page || {};
+    },
+  },
 };
 
 export default module;

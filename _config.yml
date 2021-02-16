@@ -5,3 +5,26 @@ google_analytics:
 generator:
   per_page: 10
   order_by: '-date'
+
+menu:
+  home:
+    link: /
+    icon: home
+  archives:
+    link: /archives/
+    icon: archive
+  categories:
+    link: /categories/
+    icon: th
+  about:
+    link: /about/
+    icon: user
+  tags:
+    link: /tags/
+    icon: tag
+  # schedule:
+  #   icon: calendar
+  # sitemap:
+  #   icon: sitemap
+  # commonweal:
+  #   icon: heartbeat

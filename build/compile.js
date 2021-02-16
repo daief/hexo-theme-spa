@@ -39,7 +39,16 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
           extensions: ['.mjs', '.js', '.ts', '.json'],
           mainFields: ['main', 'module'],
         },
-        externals: ssr ? [nodeExternals({ allowlist: /\.(css|vue)$/ })] : [],
+        externals: ssr
+          ? [
+              nodeExternals({
+                allowlist: /\.(css|vue)$/,
+                additionalModuleDirs: [
+                  path.resolve(__dirname, '../node_modules'),
+                ],
+              }),
+            ]
+          : [],
         module: {
           rules: [
             {
@@ -66,7 +75,7 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
                   loader: 'postcss-loader',
                   options: {
                     postcssOptions: {
-                      config: path.resolve(__dirname, 'postcss.config.js'),
+                      config: path.resolve(__dirname, '../postcss.config.js'),
                     },
                   },
                 },
@@ -89,7 +98,7 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
                   loader: 'postcss-loader',
                   options: {
                     postcssOptions: {
-                      config: path.resolve(__dirname, 'postcss.config.js'),
+                      config: path.resolve(__dirname, '../postcss.config.js'),
                     },
                   },
                 },
@@ -98,6 +107,21 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
             ssr && {
               test: /\.(css)|(less)$/i,
               loader: 'null-loader',
+            },
+            {
+              test: [
+                /\.(png|jpe?g|gif|webp|svg)$/,
+                /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/,
+                /\.(woff2?|eot|ttf|otf)$/i,
+              ],
+              use: [
+                {
+                  loader: 'url-loader',
+                  options: {
+                    limit: 8192,
+                  },
+                },
+              ],
             },
           ].filter(Boolean),
         },
