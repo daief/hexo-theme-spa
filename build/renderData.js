@@ -1,62 +1,86 @@
 const { writeJsonToSource } = require('./utils');
 const { formatHtmlPath, INDEX_FLAG, toBase64 } = require('../shared');
-const UrlPattern = require('url-pattern');
+const { createRouterMatcher } = require('vue-router');
+const _ = require('lodash');
 
-function renderData(renderUrl, hexo) {
+const pathMatcher = createRouterMatcher(
+  [
+    {
+      path: INDEX_FLAG,
+      meta: {
+        getData: getPostPaginationData,
+      },
+    },
+    {
+      path: '/page/:no',
+      meta: {
+        getData: getPostPaginationData,
+      },
+    },
+    {
+      path: '/categories/:categories+',
+      redirect: to => ({
+        name: 'CategoriesPagination',
+        params: {
+          categories: to.params.categories,
+          no: 1,
+        },
+      }),
+    },
+    {
+      name: 'CategoriesPagination',
+      path: '/categories/:categories+/page/:no',
+      meta: {
+        getData: getCategoriesPaginationData,
+      },
+    },
+  ],
+  // avoid error
+  {},
+);
+
+// hexo.locals 只读取数据
+// locals 合并了各种 helper 的方法
+function renderData(renderUrl, hexo, locals) {
+  let res = {};
+  try {
+    const { matched, params } = pathMatcher.resolve({
+      path: renderUrl,
+    });
+    const { meta } = matched[0];
+    res = meta.getData({ params: { ...params } }, hexo, locals);
+  } catch (error) {
+    // console.log('renderData error', `[${renderUrl}]`, error);
+  }
   return {
     pathKey: renderUrl,
-    page: manager.call(renderUrl, hexo) || {},
+    page: res,
   };
 }
 
-function saveToJsons(hexo) {
+function saveToJsons(hexo, locals) {
   /**
    * @type {string[]}
    */
   const routeList = hexo.route
     .list()
-    // filter only index.html
+    // filter only index.html, page route
     .filter(it => /index\.html$/i.test(it));
+
+  console.log(routeList);
 
   routeList.forEach(urlPath => {
     urlPath = formatHtmlPath(urlPath);
-    writeJsonToSource(toBase64(urlPath), renderData(urlPath, hexo));
+    writeJsonToSource(toBase64(urlPath), renderData(urlPath, hexo, locals));
   });
 }
 
-const manager = {
-  cache: [],
-  register(patternString, fn) {
-    if (!Array.isArray(patternString)) {
-      patternString = [patternString];
-    }
-
-    patternString.forEach(str => {
-      this.cache.push({
-        pattern: new UrlPattern(str),
-        fn,
-      });
-    });
-  },
-  call(path, hexo) {
-    let query = null;
-    const target = this.cache.find(it => {
-      query = it.pattern.match(path);
-      return query;
-    });
-    if (!target) {
-      return {};
-    }
-    return target.fn.call(null, { query, path }, hexo);
-  },
-};
-
-manager.register([INDEX_FLAG, '/page/:no'], ({ query }, hexo) => {
+function getPostPaginationData({ params }, hexo, locals) {
   const { generator } = hexo.theme.config;
   const { per_page, order_by } = generator;
   const posts = hexo.locals.get('posts').sort(order_by);
   const length = posts.length;
-  let { no } = query;
+  let { no } = params;
   no = +no;
   no = no || 1;
   const totalPage = per_page ? Math.ceil(length / per_page) : 1;
@@ -69,16 +93,22 @@ manager.register([INDEX_FLAG, '/page/:no'], ({ query }, hexo) => {
   const prev = no > 1 ? no - 1 : null;
   const next = no < totalPage ? no + 1 : null;
 
+  /* [
+    'title',     'date',      'id',
+    '_content',  'source',    'raw',
+    'slug',      'published', 'updated',
+    'comments',  'layout',    'photos',
+    'link',      '_id',       'content',
+    'site',      'excerpt',   'more',
+    'path',      'permalink', 'full_source',
+    'asset_dir', 'tags',      'categories',
+    'prev',      'next',      '__post'
+  ] */
+
   return {
-    posts: posts.slice((no - 1) * per_page, per_page * no).map(post => ({
-      id: post.id,
-      excerpt: post.excerpt,
-      title: post.title,
-      comments: post.comments,
-      link: post.link,
-      path: formatHtmlPath(post.path),
-      current_url: post.current_url,
-    })),
+    posts: posts
+      .slice((no - 1) * per_page, per_page * no)
+      .map(post => stringifyPost(locals, post, { content: null })),
     total: totalPage,
     current: no,
     prev,
@@ -86,7 +116,68 @@ manager.register([INDEX_FLAG, '/page/:no'], ({ query }, hexo) => {
     next,
     next_link: formt(next || totalPage),
   };
-});
+}
+
+function getCategoriesPaginationData({ params }, hexo, locals) {
+  const { generator } = hexo.theme.config;
+  const { per_page, order_by } = generator;
+
+  let { categories, no } = params;
+
+  const category = hexo.locals
+    .get('categories')
+    .find({ name: _.last(categories) });
+
+  const posts = category.length
+    ? category.toArray()[0].posts.sort(order_by)
+    : [];
+
+  return {
+    posts: posts
+      .slice((no - 1) * per_page, per_page * no)
+      .map(post => stringifyPost(locals, post, { content: null })),
+  };
+}
+
+function stringifyPost(locals, post, extra = {}) {
+  if (!post) {
+    return null;
+  }
+  return {
+    id: post.id,
+    excerpt: post.excerpt,
+    title: post.title,
+    comments: post.comments,
+    link: post.link,
+    path: formatHtmlPath(post.path),
+    published: post.published,
+    comments: post.comments,
+    photos: post.photos,
+    date: post.date,
+    updated: post.updated,
+    tags: (post.tags || []).map(tag => ({
+      name: tag.name,
+      id: tag._id,
+      slug: tag.slug,
+      path: tag.path,
+      // permalink: tag.permalink,
+    })),
+    categories: (post.categories || []).map(category => ({
+      name: category.name,
+      id: category._id,
+      slug: category.slug,
+      path: category.path,
+      parent: category.parent,
+    })),
+    min2read: locals.min2read(post.content),
+    wordCount: locals.wordcount(post.content),
+    prev:
+      'prev' in extra
+        ? null
+        : stringifyPost(locals, post.prev, { ...extra, prev: null }),
+    ...extra,
+  };
+}
 
 exports.renderData = renderData;
 exports.saveToJsons = saveToJsons;

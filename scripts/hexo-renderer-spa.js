@@ -24,7 +24,7 @@ const isDev = hexo.env.env === 'development';
 
 async function spaRenderer(data, locals) {
   const saveHandler = isDev ? saveToJsons : singleInsSaveToJsons;
-  saveHandler(this);
+  saveHandler(this, locals);
 
   const filename = data.path;
   const buildHandler = isDev ? buildSPA : singleInsBuild;
@@ -43,6 +43,7 @@ async function spaRenderer(data, locals) {
   const prerenderData = requireOnly('../build/renderData').renderData(
     renderUrl,
     this,
+    locals,
   );
 
   const { createSSRBlogApp } = require(ssrfile);

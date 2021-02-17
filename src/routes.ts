@@ -17,6 +17,24 @@ const routes: RouteRecordRaw[] = [
   { path: '/page/:no', component: PostPagination },
   { path: '/post/:id', component: Post },
   {
+    path: '/categories/:categories+',
+    redirect: to => ({
+      name: 'CategoriesPagination',
+      params: {
+        categories: to.params.categories,
+        no: 1,
+      },
+    }),
+  },
+  {
+    name: 'CategoriesPagination',
+    path: '/categories/:categories+/page/:no',
+    component: {
+      template: '222',
+    },
+  },
+
+  {
     path: '/:pathMatch(.*)*',
     name: '404',
     component: {
@@ -29,5 +47,12 @@ export function createRouterIns() {
   return createRouter({
     history: __SSR__ ? createMemoryHistory() : createWebHistory(),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition;
+      } else {
+        return { top: 0 };
+      }
+    },
   });
 }

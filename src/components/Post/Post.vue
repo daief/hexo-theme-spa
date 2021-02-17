@@ -5,7 +5,27 @@
         {{ post.title }}
       </router-link>
     </h1>
-    <div class="text-center">1</div>
+    <!-- meta -->
+    <div class="text-center">
+      <span class="inline-block text-xs mx-1 text-gray-500" v-if="dateStr">
+        <FaIcon name="calendar" />
+        <span>
+          {{ dateStr }}
+        </span>
+      </span>
+      <span
+        class="inline-block text-xs mx-1 text-gray-500"
+        v-if="post.categories.length"
+      >
+        <FaIcon name="folder" />
+        <template v-for="(category, index) in post.categories" :key="index">
+          <span v-if="index > 0">，</span>
+          <router-link :to="`/categories/${category.slug}`" class="underline">
+            {{ category.name }}
+          </router-link>
+        </template>
+      </span>
+    </div>
     <RichText v-if="!!post.excerpt" :html-text="post.excerpt" />
     <a id="more" v-if="post.excerpt && post.content" class="w-0 h-0"></a>
     <RichText v-if="!!post.content" :html-text="post.content" />
@@ -22,15 +42,20 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import RichText from './RichText.vue';
+import FaIcon from '@/components/FaIcon.vue';
 
 const props = defineProps({
   post: {
     type: Object,
-    default: () => ({}),
+    default: () => ({ categories: [] }),
   },
 });
 
 const post = computed(() => props.post || {});
+
+const dateStr = computed(() =>
+  post.value.date ? new Date(post.value.date).toLocaleDateString() : '',
+);
 </script>
 
 <style scoped lang="less"></style>

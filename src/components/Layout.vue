@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-screen-lg mx-auto lg:flex">
+  <div class="w-full max-w-screen-lg mx-auto lg:flex lg:items-start">
     <!-- sidebar -->
     <div id="sidebar">
       <SideBar v-model:show="showSideBar" />

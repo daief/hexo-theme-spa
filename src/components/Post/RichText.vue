@@ -22,11 +22,12 @@ export default defineComponent({
 @import 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css';
 
 .markdown-body {
-  p {
-    margin-bottom: 1.25rem;
-  }
   ul li {
     list-style: circle;
+  }
+  ::selection {
+    background: #262a30;
+    color: #fff;
   }
 }
 </style>

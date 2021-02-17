@@ -6,6 +6,7 @@ import { computed, defineComponent, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { toBase64, formatHtmlPath } from '@shared';
 import { useStore } from 'vuex';
+import NProgress from 'nprogress';
 
 let isPreRender = true;
 
@@ -31,11 +32,20 @@ export default defineComponent({
       }
 
       cancel();
+      store.commit('global/setPageData', {});
+
+      NProgress.start();
+
       fetchPageData({
         url: '/json/' + toBase64(formatHtmlPath(to.path)) + '.json',
-      }).then(resp => {
-        store.commit('global/setPageData', resp.data || {});
-      });
+      })
+        .then(resp => {
+          store.commit('global/setPageData', resp.data || {});
+          NProgress.done();
+        })
+        .catch(() => {
+          NProgress.done();
+        });
     });
 
     return {};
