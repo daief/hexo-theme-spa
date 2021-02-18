@@ -49,8 +49,10 @@ const store = useStore();
 const pageData = computed(() => store.getters['global/page']);
 const posts = computed(() =>
   (pageData.value.posts || []).map(_ => {
-    delete _.content;
-    return _;
+    return {
+      ..._,
+      content: '',
+    };
   }),
 );
 </script>

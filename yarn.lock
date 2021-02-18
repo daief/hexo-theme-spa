@@ -3179,6 +3179,7 @@ fsevents@^2.1.2:
     fs-extra: ^9.1.0
     html-webpack-plugin: next
     jest: ^26.6.3
+    js-base64: ^3.6.0
     less: ^4.1.0
     less-loader: ^7.3.0
     lodash: ^4.17.20
@@ -4171,6 +4172,13 @@ fsevents@^2.1.2:
   bin:
     jest: bin/jest.js
   checksum: 4ffcfefa2b30999a71c205e1aacf2b3d7af10f36c17ba1baf45677684116ad5aa6a5bb162ad2dd418f9ea99d18f24b70d8c83fb317b765a3acac361a50e9db9f
+  languageName: node
+  linkType: hard
+
+"js-base64@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "js-base64@npm:3.6.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-base64%2Fdownload%2Fjs-base64-3.6.0.tgz"
+  checksum: 6959097159b3569d0ad3eab980bf4c6c7761a0522448075cde1cdc05d4f3255b0c169313d009e344f2a9d8f36d174c5e8e1ba92e7d27c69247e4e91723d44ffe
   languageName: node
   linkType: hard
 

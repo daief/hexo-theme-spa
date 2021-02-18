@@ -67,9 +67,8 @@ function saveToJsons(hexo, locals) {
     // filter only index.html, page route
     .filter(it => /index\.html$/i.test(it));
 
-  console.log(routeList);
-
   routeList.forEach(urlPath => {
+    urlPath = encodeURI(urlPath);
     urlPath = formatHtmlPath(urlPath);
     writeJsonToSource(toBase64(urlPath), renderData(urlPath, hexo, locals));
   });
@@ -108,7 +107,7 @@ function getPostPaginationData({ params }, hexo, locals) {
   return {
     posts: posts
       .slice((no - 1) * per_page, per_page * no)
-      .map(post => stringifyPost(locals, post, { content: null })),
+      .map(post => stringifyPost(locals, post)),
     total: totalPage,
     current: no,
     prev,
@@ -126,20 +125,31 @@ function getCategoriesPaginationData({ params }, hexo, locals) {
 
   const category = hexo.locals
     .get('categories')
-    .find({ name: _.last(categories) });
+    .find({ name: _.last(categories) })
+    .toArray()
+    .find(
+      it =>
+        (it.posts.first().categories || []).map(cy => cy.name).join(',') ===
+        categories.join(','),
+    );
 
-  const posts = category.length
-    ? category.toArray()[0].posts.sort(order_by)
-    : [];
+  const posts = category ? category.posts.sort(order_by) : [];
 
   return {
     posts: posts
       .slice((no - 1) * per_page, per_page * no)
-      .map(post => stringifyPost(locals, post, { content: null })),
+      .map(post => stringifyPost(locals, post, { prev: true })),
   };
 }
 
-function stringifyPost(locals, post, extra = {}) {
+function stringifyPost(locals, post, extra) {
+  extra = {
+    prev: false,
+    next: false,
+    content: false,
+    ...extra,
+  };
+  const extraData = _.omit(extra, ['prev', 'next', 'content']);
   if (!post) {
     return null;
   }
@@ -171,11 +181,11 @@ function stringifyPost(locals, post, extra = {}) {
     })),
     min2read: locals.min2read(post.content),
     wordCount: locals.wordcount(post.content),
-    prev:
-      'prev' in extra
-        ? null
-        : stringifyPost(locals, post.prev, { ...extra, prev: null }),
-    ...extra,
+    prev: extra.prev
+      ? stringifyPost(locals, post.prev, { ...extra, prev: false })
+      : null,
+    content: extra.content ? post.content : null,
+    ...extraData,
   };
 }
 

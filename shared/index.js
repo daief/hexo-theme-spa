@@ -21,7 +21,8 @@ function trimEndHtml(path) {
 function formatHtmlPath(path) {
   path = trimEndHtml(path);
   path = !path || path === '/' ? INDEX_FLAG : path;
-  return path.replace(/^\/?/, '/');
+  path = path.replace(/^\/?/, '/');
+  return path;
 }
 
 const INDEX_FLAG = '/';
