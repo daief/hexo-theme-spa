@@ -25,7 +25,7 @@ export default defineComponent({
       },
     );
 
-    router.afterEach((to, from) => {
+    router.beforeEach(async (to, from) => {
       if (__SSR__ || to.path === from.path || isPreRender) {
         isPreRender = false;
         return;
@@ -35,17 +35,17 @@ export default defineComponent({
       store.commit('global/setPageData', {});
 
       NProgress.start();
-
-      fetchPageData({
-        url: '/json/' + toBase64(formatHtmlPath(to.path)) + '.json',
-      })
-        .then(resp => {
-          store.commit('global/setPageData', resp.data || {});
-          NProgress.done();
-        })
-        .catch(() => {
-          NProgress.done();
+      try {
+        const resp = await fetchPageData({
+          url: '/json/' + toBase64(formatHtmlPath(to.path)) + '.json',
         });
+
+        await store.commit('global/setPageData', resp.data || {});
+      } catch (error) {
+        // TODO 数据加载失败
+      }
+
+      NProgress.done();
     });
 
     return {};
