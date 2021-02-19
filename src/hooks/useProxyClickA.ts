@@ -20,7 +20,7 @@ export function useProxyClickA() {
 
       const { target, href, pathname } = elA;
       const replace = !isNil(elA.getAttribute('replace'));
-      const queryString = href.split('?')[1] || 'a=1';
+      const queryString = href.split('?')[1] || '';
 
       const to = pathname + (queryString ? `?${queryString}` : '');
 

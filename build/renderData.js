@@ -1,63 +1,70 @@
 const { writeJsonToSource } = require('./utils');
-const { formatHtmlPath, INDEX_FLAG, toBase64 } = require('../shared');
+const { formatHtmlPath, toBase64 } = require('../shared');
+const { PAGE_NAME_MAP, merge, getRouteConfig } = require('../shared/route');
 const { createRouterMatcher } = require('vue-router');
 const _ = require('lodash');
 
-const pathMatcher = createRouterMatcher(
-  [
-    {
-      path: INDEX_FLAG,
-      meta: {
-        getData: getPostPaginationData,
-      },
-    },
-    {
-      path: '/page/:no',
-      meta: {
-        getData: getPostPaginationData,
-      },
-    },
-    {
-      path: '/categories/',
-      meta: {
-        getData: getCategoriesIndexData,
-      },
-    },
+let pathMatcher;
 
-    {
-      path: '/categories/:categories+',
-      redirect: to => ({
-        name: 'CategoriesPagination',
-        params: {
-          categories: to.params.categories,
-          no: 1,
+/**
+ * @return {import('vue-router').RouterMatcher}
+ */
+function getPathMatcher() {
+  pathMatcher =
+    pathMatcher ||
+    createRouterMatcher(
+      merge(getRouteConfig(), [
+        {
+          name: PAGE_NAME_MAP.index,
+          meta: {
+            getData: getPostPaginationData,
+          },
         },
-      }),
-    },
-    {
-      name: 'CategoriesPagination',
-      path: '/categories/:categories+/page/:no',
-      meta: {
-        getData: getCategoriesPaginationData,
-      },
-    },
-  ],
-  // avoid error
-  {},
-);
+        {
+          name: PAGE_NAME_MAP.indexPagination,
+          meta: {
+            getData: getPostPaginationData,
+          },
+        },
+        {
+          name: PAGE_NAME_MAP.postDetail,
+          meta: {
+            getData: () => [],
+          },
+        },
+        {
+          name: PAGE_NAME_MAP.categoryIndex,
+          meta: {
+            getData: getCategoriesIndexData,
+          },
+        },
+        {
+          name: PAGE_NAME_MAP.categoryPagination,
+          path: '/categories/:categories+/page/:no',
+          meta: {
+            getData: getCategoriesPaginationData,
+          },
+        },
+      ]),
+      // avoid error
+      {},
+    );
+  return pathMatcher;
+}
 
 // hexo.locals 只读取数据
 // locals 合并了各种 helper 的方法
 function renderData(renderUrl, hexo, locals) {
   let res = {};
   try {
-    const { matched, params } = pathMatcher.resolve({
+    const { matched, params } = getPathMatcher().resolve({
       path: renderUrl,
     });
     const { meta } = matched[0];
     res = meta.getData({ params: { ...params } }, hexo, locals);
   } catch (error) {
     // console.log('renderData error', `[${renderUrl}]`, error);
+    res = {};
   }
   return {
     pathKey: renderUrl,

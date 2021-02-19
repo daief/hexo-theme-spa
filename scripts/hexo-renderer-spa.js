@@ -9,7 +9,7 @@ const nunjucks = require('nunjucks');
 const { renderToString } = require('@vue/server-renderer');
 
 const { requireOnly } = require('../build/utils');
-const { renderData, saveToJsons } = require('../build/renderData');
+const { saveToJsons } = require('../build/renderData');
 const { formatHtmlPath } = require('../shared');
 
 const TEMPLATE_PATH = path.resolve(__dirname, '../build/app/tpl.html');

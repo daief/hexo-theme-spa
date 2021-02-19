@@ -1,3 +1,9 @@
+/**
+ * ################################################
+ * ######## 该目录保持内容纯粹，通用功能
+ * ################################################
+ */
+
 function toBase64(str) {
   if (typeof window !== 'undefined') {
     return btoa(str);
@@ -27,7 +33,7 @@ function formatHtmlPath(path) {
 
 const INDEX_FLAG = '/';
 
-exports.toBase64 = toBase64;
-exports.trimEndHtml = trimEndHtml;
-exports.formatHtmlPath = formatHtmlPath;
-exports.INDEX_FLAG = INDEX_FLAG;
+module.exports.toBase64 = toBase64;
+module.exports.trimEndHtml = trimEndHtml;
+module.exports.formatHtmlPath = formatHtmlPath;
+module.exports.INDEX_FLAG = INDEX_FLAG;

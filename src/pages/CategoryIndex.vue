@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div @click="proxyAClick.click" v-html="pageData.htmlContent || ''"></div>
+    <div>目前共计 {{ pageData.total }} 个分类。</div>
+    <div
+      v-if="pageData.total > 0"
+      @click="proxyAClick.click"
+      v-html="pageData.htmlContent || ''"
+    />
+    <div v-else>快去创建新的分类吧~</div>
   </div>
 </template>
 
