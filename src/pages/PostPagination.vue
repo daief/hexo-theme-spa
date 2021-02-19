@@ -33,8 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   name: 'PostPagination',
@@ -44,9 +43,9 @@ export default defineComponent({
 <script lang="ts" setup>
 import Post from '@/components/Post/Post.vue';
 import Pagination from '@/components/Pagination.vue';
+import { usePageData } from '@/hooks/usePageData';
 
-const store = useStore();
-const pageData = computed(() => store.getters['global/page']);
+const pageData = usePageData();
 const posts = computed(() =>
   (pageData.value.posts || []).map(_ => {
     return {

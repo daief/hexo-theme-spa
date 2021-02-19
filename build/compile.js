@@ -53,7 +53,12 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
           rules: [
             {
               test: /\.vue$/,
-              use: 'vue-loader',
+              loader: 'vue-loader',
+              options: {
+                compilerOptions: {
+                  directiveTransforms: {},
+                },
+              },
             },
             {
               test: /\.tsx?$/i,

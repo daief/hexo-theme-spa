@@ -18,6 +18,13 @@ const pathMatcher = createRouterMatcher(
       },
     },
     {
+      path: '/categories/',
+      meta: {
+        getData: getCategoriesIndexData,
+      },
+    },
+
+    {
       path: '/categories/:categories+',
       redirect: to => ({
         name: 'CategoriesPagination',
@@ -122,6 +129,7 @@ function getCategoriesPaginationData({ params }, hexo, locals) {
   const { per_page, order_by } = generator;
 
   let { categories, no } = params;
+  no = +no || 1;
 
   const category = hexo.locals
     .get('categories')
@@ -139,6 +147,13 @@ function getCategoriesPaginationData({ params }, hexo, locals) {
     posts: posts
       .slice((no - 1) * per_page, per_page * no)
       .map(post => stringifyPost(locals, post, { prev: true })),
+  };
+}
+
+function getCategoriesIndexData({ params }, hexo, locals) {
+  return {
+    htmlContent: locals.list_categories(),
+    total: hexo.locals.get('categories').length,
   };
 }
 

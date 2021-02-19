@@ -4,7 +4,8 @@ import {
   createWebHistory,
   RouteRecordRaw,
 } from 'vue-router';
-
+import CategoryIndex from './pages/CategoryIndex.vue';
+import CategoryPagination from './pages/CategoryPagination.vue';
 import Post from './pages/Post.vue';
 import PostPagination from './pages/PostPagination.vue';
 
@@ -16,6 +17,7 @@ const routes: RouteRecordRaw[] = [
   },
   { path: '/page/:no', component: PostPagination },
   { path: '/post/:id', component: Post },
+  { path: '/categories/', component: CategoryIndex },
   {
     path: '/categories/:categories+',
     redirect: to => ({
@@ -29,9 +31,7 @@ const routes: RouteRecordRaw[] = [
   {
     name: 'CategoriesPagination',
     path: '/categories/:categories+/page/:no',
-    component: {
-      template: '222',
-    },
+    component: CategoryPagination,
   },
 
   {

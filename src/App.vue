@@ -2,11 +2,15 @@
   <Analytics />
   <LoadGlobalData />
 
-  <template v-if="$route.name === '404'">
-    404
-  </template>
+  <template v-if="$route.name === '404'"> 404 </template>
   <template v-else>
     <Layout>
+      <!-- <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view> -->
+      <!-- TODO: use keep alive -->
       <router-view />
     </Layout>
   </template>
