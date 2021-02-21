@@ -2,27 +2,23 @@ import { Module } from 'vuex';
 
 const module: Module<
   {
-    pageData: any;
+    // TODO 数据淘汰
+    pageDataCache: Record<string, any>;
     loading: boolean;
   },
   any
 > = {
   namespaced: true,
   state: () => ({
-    pageData: {},
+    pageDataCache: {},
     loading: false,
   }),
   mutations: {
-    setPageData(state, newData: any) {
-      state.pageData = newData;
+    setPageData(state, { key, data }) {
+      state.pageDataCache[key] = data || {};
     },
     setLoading(state, loading: boolean) {
       state.loading = !!loading;
-    },
-  },
-  getters: {
-    page(state) {
-      return state.pageData?.page || {};
     },
   },
 };

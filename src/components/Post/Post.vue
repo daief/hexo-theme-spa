@@ -16,10 +16,10 @@
       </span>
       <span
         class="inline-block text-xs mx-1 text-gray-500"
-        v-if="post.categories.length"
+        v-if="categories.length"
       >
         <FaIcon name="folder" />
-        <template v-for="(category, index) in post.categories" :key="index">
+        <template v-for="(category, index) in categories" :key="index">
           <span v-if="index > 0">，</span>
           <router-link :to="`/categories/${category.slug}`" class="underline">
             {{ category.name }}
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineProps, computed } from 'vue';
+import { defineComponent, defineProps, computed, unref } from 'vue';
 
 export default defineComponent({
   name: 'Post',
@@ -53,6 +53,7 @@ const props = defineProps({
 });
 
 const post = computed(() => props.post || {});
+const categories = computed(() => unref(post).categories || []);
 
 const dateStr = computed(() =>
   post.value.date ? new Date(post.value.date).toLocaleDateString() : '',

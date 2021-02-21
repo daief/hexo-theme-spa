@@ -31,9 +31,14 @@ function formatHtmlPath(path) {
   return path;
 }
 
+function pathToKey(path) {
+  return toBase64(formatHtmlPath(path));
+}
+
 const INDEX_FLAG = '/';
 
 module.exports.toBase64 = toBase64;
 module.exports.trimEndHtml = trimEndHtml;
 module.exports.formatHtmlPath = formatHtmlPath;
+module.exports.pathToKey = pathToKey;
 module.exports.INDEX_FLAG = INDEX_FLAG;

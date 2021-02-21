@@ -1,4 +1,5 @@
 import { createSSRApp, createApp } from 'vue';
+import { pathToKey } from '@shared';
 import { createRouterIns } from './routes';
 import { createStoreIns } from './store';
 import './styles';
@@ -22,8 +23,11 @@ export function createBlogApp() {
 }
 
 if (!__SSR__) {
-  const { app, store } = createBlogApp();
-  store.commit('global/setPageData', __PAGE_DATA__);
+  const { app, store, router } = createBlogApp();
+  store.commit('global/setPageData', {
+    data: __PAGE_DATA__,
+    key: pathToKey(router.currentRoute.value.path),
+  });
 
   app.mount('#app');
 
