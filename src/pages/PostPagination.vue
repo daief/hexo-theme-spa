@@ -8,7 +8,7 @@
     >
       <Post :post="post" />
       <router-link
-        :to="post.path"
+        :to="post.path + '#more'"
         :class="[
           'flex justify-center items-center',
           'transition-all border-black border-2 text-gray-800 text-xs hover:bg-black hover:text-white',

@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <div>目前共计 {{ pageData.total }} 个分类。</div>
+  <div class="">
+    <div class="text-center my-4">目前共计 {{ pageData.total }} 个分类。</div>
     <div
       v-if="pageData.total > 0"
       @click="proxyAClick.click"
+      class="category-list-wrap text-sm px-10"
       v-html="pageData.htmlContent || ''"
     />
     <div v-else>快去创建新的分类吧~</div>
@@ -24,3 +25,19 @@ export default defineComponent({
 const pageData = usePageData();
 const proxyAClick = useProxyClickA();
 </script>
+
+<style lang="less">
+.category-list-wrap {
+  .category-list-item {
+    margin: 5px 0;
+  }
+  .category-list-child {
+    list-style-type: circle;
+    margin-left: 2em;
+  }
+  .category-list-count {
+    margin-left: 4px;
+    color: #555;
+  }
+}
+</style>

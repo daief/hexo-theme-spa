@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
+    "cheerio": "^1.0.0-rc.5",
     "file-loader": "^6.2.0",
+    "highlight.js": "^10.6.0",
     "js-base64": "^3.6.0",
     "lodash": "^4.17.20",
+    "mermaid": "^8.9.1",
     "nprogress": "^0.2.0",
     "prismjs": "^1.19.0",
     "url-loader": "^4.1.1",

@@ -3,6 +3,7 @@ const { formatHtmlPath, toBase64 } = require('../shared');
 const { PAGE_NAME_MAP, merge, getRouteConfig } = require('../shared/route');
 const { createRouterMatcher } = require('vue-router');
 const _ = require('lodash');
+const cheerio = require('cheerio');
 
 let pathMatcher;
 
@@ -29,7 +30,7 @@ function getPathMatcher() {
         {
           name: PAGE_NAME_MAP.postDetail,
           meta: {
-            getData: () => [],
+            getData: getPostDetail,
           },
         },
         {
@@ -63,7 +64,7 @@ function renderData(renderUrl, hexo, locals) {
     const { meta } = matched[0];
     res = meta.getData({ params: { ...params } }, hexo, locals);
   } catch (error) {
-    // console.log('renderData error', `[${renderUrl}]`, error);
+    console.log('renderData error', `[${renderUrl}]`, error);
     res = {};
   }
   return {
@@ -105,18 +106,6 @@ function getPostPaginationData({ params }, hexo, locals) {
   const formt = i => `/page/${i}/`;
   const prev = no > 1 ? no - 1 : null;
   const next = no < totalPage ? no + 1 : null;
-
-  /* [
-    'title',     'date',      'id',
-    '_content',  'source',    'raw',
-    'slug',      'published', 'updated',
-    'comments',  'layout',    'photos',
-    'link',      '_id',       'content',
-    'site',      'excerpt',   'more',
-    'path',      'permalink', 'full_source',
-    'asset_dir', 'tags',      'categories',
-    'prev',      'next',      '__post'
-  ] */
 
   return {
     posts: posts
@@ -164,20 +153,47 @@ function getCategoriesIndexData({ params }, hexo, locals) {
   };
 }
 
+function getPostDetail({ params }, hexo, locals) {
+  const { generator } = hexo.theme.config;
+  const { order_by } = generator;
+  const { id } = params;
+  const post = hexo.locals.get('posts').sort(order_by).find({ id }).first();
+  return {
+    post: stringifyPost(locals, post, {
+      more: true,
+      prev: true,
+      next: true,
+    }),
+  };
+}
+
+/* post object
+[
+  'title',     'date',      'id',
+  '_content',  'source',    'raw',
+  'slug',      'published', 'updated',
+  'comments',  'layout',    'photos',
+  'link',      '_id',       'content',
+  'site',      'excerpt',   'more',
+  'path',      'permalink', 'full_source',
+  'asset_dir', 'tags',      'categories',
+  'prev',      'next',      '__post'
+] */
 function stringifyPost(locals, post, extra) {
   extra = {
     prev: false,
     next: false,
-    content: false,
+    more: false,
     ...extra,
   };
-  const extraData = _.omit(extra, ['prev', 'next', 'content']);
+  const extraData = _.omit(extra, ['prev', 'next', 'more']);
   if (!post) {
     return null;
   }
+  // const $excerpt = cheerio.load(post.excerpt || '');
+  // const $more = cheerio.load(post.more || '');
   return {
     id: post.id,
-    excerpt: post.excerpt,
     title: post.title,
     comments: post.comments,
     link: post.link,
@@ -191,22 +207,26 @@ function stringifyPost(locals, post, extra) {
       name: tag.name,
       id: tag._id,
       slug: tag.slug,
-      path: tag.path,
+      path: formatHtmlPath(tag.path),
       // permalink: tag.permalink,
     })),
     categories: (post.categories || []).map(category => ({
       name: category.name,
       id: category._id,
       slug: category.slug,
-      path: category.path,
+      path: formatHtmlPath(category.path),
       parent: category.parent,
     })),
     min2read: locals.min2read(post.content),
     wordCount: locals.wordcount(post.content),
     prev: extra.prev
-      ? stringifyPost(locals, post.prev, { ...extra, prev: false })
+      ? stringifyPost(locals, post.prev, { ...extra, prev: false, next: false })
       : null,
-    content: extra.content ? post.content : null,
+    next: extra.next
+      ? stringifyPost(locals, post.next, { ...extra, prev: false, next: false })
+      : null,
+    excerpt: post.excerpt,
+    more: extra.more ? post.more : null,
     ...extraData,
   };
 }

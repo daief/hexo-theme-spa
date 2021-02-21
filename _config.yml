@@ -5,6 +5,7 @@ google_analytics:
 generator:
   per_page: 10
   order_by: '-date'
+  # order: -1 # not support
 
 menu:
   home:

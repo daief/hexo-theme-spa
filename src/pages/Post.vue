@@ -1,13 +1,42 @@
 <template>
-  <div>
-    post
+  <div class="py-8 px-5">
+    <Post :post="post" />
+    <!-- tags -->
+    <div class="text-center text-sm">
+      <router-link
+        v-for="(item, index) in tags"
+        :to="item.path"
+        :key="index"
+        class="transition-all leading-6 inline-block text-gray-700 border-b border-gray-400 hover:border-gray-700"
+        ># {{ item.name }}</router-link
+      >
+    </div>
+    <!-- prev & next -->
+    <hr />
+    <div class="flex justify-between">
+      <router-link v-if="post.next" :to="post.next.path">
+        {{ post.next.title }}
+      </router-link>
+      <router-link v-if="post.prev" :to="post.prev.path">
+        {{ post.prev.title }}
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent, unref } from 'vue';
 
 export default defineComponent({});
+</script>
+
+<script lang="ts" setup>
+import Post from '@/components/Post/Post.vue';
+import { usePageData } from '@/hooks/usePageData';
+
+const pageData = usePageData();
+const post = computed(() => unref(pageData).post || {});
+const tags = computed(() => unref(post).tags || []);
 </script>
 
 <style scoped lang="less"></style>

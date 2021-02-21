@@ -2,7 +2,7 @@
 
 <script lang="ts">
 import { useAxios } from '@/hooks/useAxios';
-import { computed, defineComponent, watch } from 'vue';
+import { computed, defineComponent, nextTick, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { toBase64, formatHtmlPath } from '@shared';
 import { useStore } from 'vuex';
@@ -32,20 +32,24 @@ export default defineComponent({
       }
 
       cancel();
-      store.commit('global/setPageData', {});
-
       NProgress.start();
       try {
         const resp = await fetchPageData({
           url: '/json/' + toBase64(formatHtmlPath(to.path)) + '.json',
         });
 
-        await store.commit('global/setPageData', resp.data || {});
+        await store.commit('global/setPageData', {});
+
+        // do not await
+        store.commit('global/setPageData', resp.data || {});
       } catch (error) {
-        // TODO 数据加载失败
+        // TODO 数据加载失败，提示？阻止？
+        await store.commit('global/setPageData', {});
       }
 
       NProgress.done();
+
+      await nextTick();
     });
 
     return {};

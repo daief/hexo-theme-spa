@@ -35,6 +35,11 @@ export function createRouterIns() {
     history: __SSR__ ? createMemoryHistory() : createWebHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
+      if (to.hash) {
+        return {
+          el: to.hash,
+        };
+      }
       if (savedPosition) {
         return savedPosition;
       } else {

@@ -26,6 +26,9 @@ export default {
 <script lang="ts" setup>
 import { useBreakpointPrefix } from '@/hooks/useBreakPoint';
 import SiteHeader from '@/components/SiteHeader.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const { isMobile } = useBreakpointPrefix();
 
@@ -48,6 +51,10 @@ watch(
     }
   },
 );
+
+router.afterEach(() => {
+  emit('update:show', false);
+});
 </script>
 
 <style lang="less" scoped></style>

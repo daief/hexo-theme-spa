@@ -1,5 +1,6 @@
 import { isExternalLink, isNil } from '@/utils';
 import { useRouter } from 'vue-router';
+import { PAGE_NAME_MAP } from '@shared/route';
 
 export function useProxyClickA() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export function useProxyClickA() {
       }
 
       // match 404，路由配置中未包含
-      if (router.resolve(to).matched[0]?.name === '404') {
+      if (router.resolve(to).matched[0]?.name === PAGE_NAME_MAP.$404) {
         return;
       }
 

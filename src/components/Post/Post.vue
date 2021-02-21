@@ -1,7 +1,8 @@
 <template>
   <article class="text-left">
     <h1 class="text-xl text-center break-all text-gray-900 mb-2 font-medium">
-      <router-link :to="post.path">
+      <!-- todo to sometime undefined -->
+      <router-link :to="post.path || ''">
         {{ post.title }}
       </router-link>
     </h1>
@@ -27,8 +28,8 @@
       </span>
     </div>
     <RichText v-if="!!post.excerpt" :html-text="post.excerpt" />
-    <a id="more" v-if="post.excerpt && post.content" class="w-0 h-0"></a>
-    <RichText v-if="!!post.content" :html-text="post.content" />
+    <a id="more" v-if="post.excerpt && post.more" class="w-0 h-0"></a>
+    <RichText v-if="!!post.more" :html-text="post.more" />
   </article>
 </template>
 
