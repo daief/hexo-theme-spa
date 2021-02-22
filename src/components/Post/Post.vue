@@ -21,7 +21,7 @@
         <FaIcon name="folder" />
         <template v-for="(category, index) in categories" :key="index">
           <span v-if="index > 0">，</span>
-          <router-link :to="`/categories/${category.slug}`" class="underline">
+          <router-link :to="category.path" class="underline">
             {{ category.name }}
           </router-link>
         </template>

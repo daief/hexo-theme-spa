@@ -9,10 +9,19 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 async function build(filename, { hexo, ssr, locals, baseConfig }) {
   const basename = path.basename(filename);
-  const entry = path.resolve(__dirname, '../src/main');
+  const entry = {
+    main: path.resolve(__dirname, '../src/main'),
+  };
 
   const assetPublicPath = locals.url_for('/');
   const isProd = hexo.env.env === 'production';
+
+  if (!ssr) {
+    // 根据配置加载 highlightjs 主题
+    entry['hljsTheme'] = require.resolve(
+      `highlight.js/styles/${locals.theme.highlight.theme}.css`,
+    );
+  }
 
   return new Promise((resolve, reject) => {
     webpack(
@@ -164,10 +173,12 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
           ? {}
           : {
               splitChunks: {
+                chunks: 'all',
                 cacheGroups: {
                   libs: {
                     test: /\/node_modules\//,
                     enforce: true,
+                    name: 'libs',
                   },
                 },
               },
@@ -179,9 +190,54 @@ async function build(filename, { hexo, ssr, locals, baseConfig }) {
           return reject(error);
         }
         const json = stats.toJson();
+
+        // @see https://github.com/jantimon/html-webpack-plugin/blob/v3.0.7/index.js#L106
+        const allChunks = stats
+          .toJson({ chunks: true })
+          .chunks // filter
+          .filter(chunk => {
+            const chunkName = chunk.names[0];
+            // This chunk doesn't have a name. This script can't handled it.
+            if (chunkName === undefined) {
+              return false;
+            }
+            // Skip if the chunk should be lazy loaded
+            if (typeof chunk.isInitial === 'function') {
+              if (!chunk.isInitial()) {
+                return false;
+              }
+            }
+
+            return chunk.initial;
+          });
+
+        const { js, css } = allChunks.reduce(
+          (result, chunk) => {
+            const chunkFiles = chunk.files || [];
+            const js = chunkFiles.find(chunkFile =>
+              /.js($|\?)/.test(chunkFile),
+            );
+
+            js && result.js.push(js);
+
+            // Gather all css files
+            const css = chunkFiles.filter(chunkFile =>
+              /.css($|\?)/.test(chunkFile),
+            );
+
+            result.css = [...result.css, ...css];
+
+            return result;
+          },
+          { js: [], css: [] },
+        );
+
         resolve({
           assets: json.assets,
           outputPath: json.outputPath,
+          js,
+          css,
+          publicPath: assetPublicPath,
         });
       },
     );

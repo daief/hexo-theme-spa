@@ -7,7 +7,7 @@
   >
     <div
       :class="{
-        'w-10/12 h-full bg-white': isMobile,
+        'w-80 max-w-10/12 h-full bg-white': isMobile,
       }"
     >
       <SiteHeader />
@@ -53,7 +53,9 @@ watch(
 );
 
 router.afterEach(() => {
-  emit('update:show', false);
+  if (isMobile.value) {
+    emit('update:show', false);
+  }
 });
 </script>
 

@@ -24,9 +24,12 @@ export function createBlogApp() {
 
 if (!__SSR__) {
   const { app, store, router } = createBlogApp();
-  store.commit('global/setPageData', {
-    data: __PAGE_DATA__,
-    key: pathToKey(router.currentRoute.value.path),
+
+  router.isReady().then(() => {
+    store.commit('global/setPageData', {
+      data: __PAGE_DATA__,
+      key: pathToKey(router.currentRoute.value.path),
+    });
   });
 
   app.mount('#app');

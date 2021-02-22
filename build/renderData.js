@@ -130,12 +130,14 @@ function getCategoriesPaginationData({ params }, hexo, locals) {
   const category = hexo.locals
     .get('categories')
     .find({ name: _.last(categories) })
-    .toArray()
-    .find(
-      it =>
-        (it.posts.first().categories || []).map(cy => cy.name).join(',') ===
-        categories.join(','),
-    );
+    .first();
+  // TODO 考虑重名的子分类？
+  // .toArray()
+  // .find(
+  //   it =>
+  //     (it.posts.first().categories || []).map(cy => cy.name).join(',') ===
+  //     categories.join(','),
+  // );
 
   const posts = category ? category.posts.sort(order_by) : [];
 

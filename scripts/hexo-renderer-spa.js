@@ -33,11 +33,7 @@ async function spaRenderer(data, locals) {
     hexo: this,
   });
   const { outputPath } = ssrResult;
-  const clientManifestJson = requireOnly(
-    path.resolve(outputPath, 'manifest.client.json'),
-  );
-  const ssrBundleAsset = ssrResult.assets.find(it => /.js$/i.test(it.name));
-  const ssrfile = path.resolve(outputPath, ssrBundleAsset.name);
+  const ssrfile = path.resolve(outputPath, ssrResult.js[0]);
   const renderUrl = formatHtmlPath(locals.page.path);
 
   const prerenderData = requireOnly('../build/renderData').renderData(
@@ -52,8 +48,14 @@ async function spaRenderer(data, locals) {
   const html = await renderToString(app);
   const resultHtml = env.render(TEMPLATE_PATH, {
     appHtml: html,
-    bundleScripts: `<script src="${clientManifestJson['main.js']}"></script>`,
-    headPartial: `<link href="${clientManifestJson['main.css']}" rel="stylesheet">`,
+    bundleScripts: clientResult.js
+      .map(it => `<script src="${clientResult.publicPath + it}"></script>`)
+      .join(''),
+    headPartial: clientResult.css
+      .map(
+        it => `<link href="${clientResult.publicPath + it}" rel="stylesheet">`,
+      )
+      .join(''),
     serverData: JSON.stringify(prerenderData),
     config: locals.config,
   });

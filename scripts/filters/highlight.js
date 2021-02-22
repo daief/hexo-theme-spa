@@ -31,6 +31,6 @@ hexo.extend.filter.register('marked:renderer', function (renderer) {
       ? escapeHtml(sourceCode)
       : hljs.highlight(language, sourceCode).value;
 
-    return `<pre class="line-numbers language-${language}"><code>${codeResult}</code></pre>`;
+    return `<pre class="hljs language-${language}"><code style="display:block;">${codeResult}</code></pre>`;
   };
 });

@@ -12,7 +12,7 @@
       >
     </div>
     <!-- prev & next -->
-    <hr />
+    <hr class="mt-6 mb-3 border-t-2 bg-gray-400" />
     <div class="flex justify-between">
       <router-link v-if="post.next" :to="post.next.path">
         {{ post.next.title }}

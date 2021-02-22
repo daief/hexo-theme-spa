@@ -34,7 +34,7 @@ watch(
   () => {
     if (__SSR__) return;
     nextTick(() => {
-      import('mermaid').then(mermaid => {
+      import(/* webpackPrefetch: true */ 'mermaid').then(mermaid => {
         Array.from(el.value?.querySelectorAll?.('.mermaid') || []).forEach(
           graph => {
             mermaid.init(void 0, graph);
@@ -50,9 +50,6 @@ watch(
 <style scoped lang="less"></style>
 
 <style lang="less">
-@import 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css';
-@import '~highlight.js/styles/default.css';
-
 .markdown-body {
   ul li {
     list-style: circle;
