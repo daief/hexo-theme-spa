@@ -10,7 +10,7 @@ export interface ICategory {
   id: string;
   slug: string;
   path: string;
-  parent?: ICategory;
+  parent: string;
 }
 
 export interface IPost {

@@ -2,7 +2,7 @@ import { formatHtmlPath } from '@/utils';
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
 import { createRouterMatcher } from 'vue-router';
 import _ from 'lodash';
-import { IPost } from '@/@types/entities';
+import { ICategory, IPost } from '@/@types/entities';
 
 // hexo.locals 只读取数据
 // locals 合并了各种 helper 的方法
@@ -205,13 +205,14 @@ function stringifyTag(tag) {
   };
 }
 
-function stringifyCategory(category) {
+function stringifyCategory(category): ICategory {
   if (!category) return null;
+
   return {
     name: category.name,
     id: category._id,
     slug: category.slug,
     path: formatHtmlPath(category.path),
-    parent: stringifyCategory(category.parent),
+    parent: category.parent,
   };
 }

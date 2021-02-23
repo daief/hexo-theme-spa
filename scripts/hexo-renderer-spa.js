@@ -14,22 +14,12 @@ const isDev = hexo.env.env === 'development';
 
 async function spaRenderer(data, locals) {
   const buildHandler = isDev ? buildSPA : singleInsBuild;
-  const { ssrResult, clientResult, publicPath } = await buildHandler(
-    data.path,
-    {
-      locals,
-      hexo: this,
-    },
-  );
-  const ssrfile = path.resolve(ssrResult.outputPath, ssrResult.js[0]);
+  const { clientResult, publicPath } = await buildHandler(data.path, {
+    locals,
+    hexo: this,
+  });
 
-  // const { renderHtml, generateJsons } = (isDev ? requireOnly : require)(
-  //   ssrfile,
-  // );
-
-  const { renderHtml, generateJsons } = (isDev ? requireOnly : require)(
-    '../source/ssr/main',
-  );
+  const { renderHtml, generateJsons } = loadModule('../source/ssr/main');
 
   generateJsons(this, locals);
 
@@ -73,8 +63,10 @@ function evalModuleCode(loaderContext, code, filename) {
   return module.exports;
 }
 
-function requireOnly(id) {
+function loadModule(id) {
   const result = require(id);
-  delete require.cache[require.resolve(id)];
+  if (isDev) {
+    delete require.cache[require.resolve(id)];
+  }
   return result;
 }
