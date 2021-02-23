@@ -1,14 +1,16 @@
-const PAGE_NAME_MAP = {
-  index: 'index',
-  indexPagination: 'indexPagination',
-  postDetail: 'postDetail',
-  categoryIndex: 'categoryIndex',
-  categoryPagination: 'categoryPagination',
-  categoryPaginationWithoutPage: 'categoryPaginationWithoutPage',
-  $404: '404',
-};
+import { RouteRecordRaw } from 'vue-router';
 
-function getRouteConfig() {
+export enum PAGE_NAME_MAP {
+  index = 'index',
+  indexPagination = 'indexPagination',
+  postDetail = 'postDetail',
+  categoryIndex = 'categoryIndex',
+  categoryPagination = 'categoryPagination',
+  categoryPaginationWithoutPage = 'categoryPaginationWithoutPage',
+  $404 = '404',
+}
+
+export function getRouteConfig(): Partial<RouteRecordRaw>[] {
   return [
     {
       name: PAGE_NAME_MAP.index,
@@ -39,9 +41,8 @@ function getRouteConfig() {
   ];
 }
 
-function merge(arr1 = [], arr2 = []) {
+export function merge(arr1 = [], arr2 = []) {
   const length = Math.max(arr1.length, arr2.length);
-
   const map = new Map(Object.entries(arr2));
 
   return [...Array(length).keys()]
@@ -72,7 +73,3 @@ function merge(arr1 = [], arr2 = []) {
     })
     .filter(Boolean);
 }
-
-module.exports.getRouteConfig = getRouteConfig;
-module.exports.merge = merge;
-module.exports.PAGE_NAME_MAP = PAGE_NAME_MAP;

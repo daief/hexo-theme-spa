@@ -5,59 +5,40 @@ const path = require('path');
 const NativeModule = require('module');
 const { buildSPA } = require('../build/compile');
 const memoize = require('lodash/memoize');
-const nunjucks = require('nunjucks');
-const { renderToStringWithMeta } = require('vue-meta');
-
-const { requireOnly } = require('../build/utils');
-const { saveToJsons } = require('../build/renderData');
-const { formatHtmlPath } = require('../shared');
-
-const TEMPLATE_PATH = path.resolve(__dirname, '../build/app/tpl.html');
-const env = nunjucks.configure(TEMPLATE_PATH, { autoescape: false });
 
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
 // 单例缓存
 const singleInsBuild = memoize(buildSPA, () => 'SINGLE');
-const singleInsSaveToJsons = memoize(saveToJsons, () => 'SINGLE');
 const isDev = hexo.env.env === 'development';
 
 async function spaRenderer(data, locals) {
-  const saveHandler = isDev ? saveToJsons : singleInsSaveToJsons;
-  saveHandler(this, locals);
-
-  const filename = data.path;
   const buildHandler = isDev ? buildSPA : singleInsBuild;
-  const { ssrResult, clientResult, publicPath } = await buildHandler(filename, {
-    locals,
-    hexo: this,
-  });
-  const { outputPath } = ssrResult;
-  const ssrfile = path.resolve(outputPath, ssrResult.js[0]);
-  const renderUrl = formatHtmlPath(locals.page.path);
+  const { ssrResult, clientResult, publicPath } = await buildHandler(
+    data.path,
+    {
+      locals,
+      hexo: this,
+    },
+  );
+  const ssrfile = path.resolve(ssrResult.outputPath, ssrResult.js[0]);
 
-  const prerenderData = requireOnly('../build/renderData').renderData(
-    renderUrl,
-    this,
-    locals,
+  // const { renderHtml, generateJsons } = (isDev ? requireOnly : require)(
+  //   ssrfile,
+  // );
+
+  const { renderHtml, generateJsons } = (isDev ? requireOnly : require)(
+    '../source/ssr/main',
   );
 
-  const { createSSRBlogApp } = require(ssrfile);
+  generateJsons(this, locals);
 
-  const { app } = await createSSRBlogApp(renderUrl, prerenderData);
-  const [html, ctx] = await renderToStringWithMeta(app);
-  // handle meta
-  console.log({ ctx });
-  const resultHtml = env.render(TEMPLATE_PATH, {
-    appHtml: html,
-    bundleScripts: clientResult.js
-      .map(it => `<script src="${publicPath + it}"></script>`)
-      .join(''),
-    headPartial: clientResult.css
-      .map(it => `<link href="${publicPath + it}" rel="stylesheet">`)
-      .join(''),
-    serverData: JSON.stringify(prerenderData),
-    config: locals.config,
+  const resultHtml = await renderHtml({
+    data,
+    hexo: this,
+    locals,
+    js: clientResult.js.map(it => publicPath + it),
+    css: clientResult.css.map(it => publicPath + it),
   });
 
   if (isDev) {
@@ -90,4 +71,10 @@ function evalModuleCode(loaderContext, code, filename) {
   module.filename = filename;
   module._compile(code, filename);
   return module.exports;
+}
+
+function requireOnly(id) {
+  const result = require(id);
+  delete require.cache[require.resolve(id)];
+  return result;
 }

@@ -8,7 +8,7 @@ import CategoryIndex from './pages/CategoryIndex.vue';
 import CategoryPagination from './pages/CategoryPagination.vue';
 import Post from './pages/Post.vue';
 import PostPagination from './pages/PostPagination.vue';
-import { PAGE_NAME_MAP, merge, getRouteConfig } from '@shared/route';
+import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
 
 const routes: RouteRecordRaw[] = merge(getRouteConfig(), [
   {

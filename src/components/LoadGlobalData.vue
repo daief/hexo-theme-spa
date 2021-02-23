@@ -4,9 +4,9 @@
 import { useAxios } from '@/hooks/useAxios';
 import { computed, defineComponent, nextTick, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { pathToKey } from '@shared';
 import { useStore } from 'vuex';
 import NProgress from 'nprogress';
+import { pathToKey } from '@/utils';
 
 let isPreRender = true;
 

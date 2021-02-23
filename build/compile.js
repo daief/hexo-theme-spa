@@ -12,7 +12,10 @@ function getWebpackConfig(
   { hexo, ssr, locals, baseConfig, assetPublicPath },
 ) {
   const entry = {
-    main: path.resolve(__dirname, '../src/main'),
+    main: path.resolve(
+      __dirname,
+      ssr ? '../src/main.server' : '../src/main.client',
+    ),
   };
 
   const isProd = hexo.env.env === 'production';
@@ -31,9 +34,7 @@ function getWebpackConfig(
     entry,
     output: {
       publicPath: assetPublicPath,
-      filename: ssr
-        ? `ssr/[name].[contenthash].js`
-        : `js/[name].[contenthash].js`,
+      filename: ssr ? `ssr/[name].js` : `js/[name].[contenthash].js`,
       path: path.resolve(__dirname, '../source'),
       libraryTarget: ssr ? 'commonjs2' : 'umd',
     },
@@ -149,6 +150,7 @@ function getWebpackConfig(
     plugins: [
       new VueLoaderPlugin(),
       new webpack.DefinePlugin({
+        __dirname: JSON.stringify(path.resolve(__dirname, '..')),
         __PROD__: JSON.stringify(isProd),
         __SSR__: JSON.stringify(ssr),
         __PAGE_PATH__: JSON.stringify(filename),

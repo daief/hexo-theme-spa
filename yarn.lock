@@ -674,6 +674,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bunyan@npm:*":
+  version: 1.8.6
+  resolution: "@types/bunyan@npm:1.8.6::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbunyan%2Fdownload%2F%40types%2Fbunyan-1.8.6.tgz"
+  dependencies:
+    "@types/node": "*"
+  checksum: 7bf02472b77191a393c6188f6eea856bba145c778ef982583b70e656f4f85a3a69c9cd9d2b0da6ac230161ec768b7fd37da1e7497ad41ff443fbadbc96af8ca2
+  languageName: node
+  linkType: hard
+
+"@types/connect@npm:*":
+  version: 3.4.34
+  resolution: "@types/connect@npm:3.4.34::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fconnect%2Fdownload%2F%40types%2Fconnect-3.4.34.tgz"
+  dependencies:
+    "@types/node": "*"
+  checksum: 6f712a0408ed119a42037bcbc38c12e053d3ffe11337221a3966c9e29a21c8455e331fe2116c426361c0b2c0e44cb3fb1f83594326e42ba34ce4723d726b7d30
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.0":
   version: 3.7.0
   resolution: "@types/eslint-scope@npm:3.7.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Feslint-scope%2Fdownload%2F%40types%2Feslint-scope-3.7.0.tgz"
@@ -716,6 +734,29 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: ab79ec306d51775542b94bd768162e85fe2a0d47bd2f6033e2aad65bfcae399614ee7662a1370091fc508a8b639e3de0abf6b7232c9fb52047f207ba114ff390
+  languageName: node
+  linkType: hard
+
+"@types/hexo-util@npm:*":
+  version: 0.6.2
+  resolution: "@types/hexo-util@npm:0.6.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fhexo-util%2Fdownload%2F%40types%2Fhexo-util-0.6.2.tgz"
+  dependencies:
+    "@types/node": "*"
+  checksum: 58196fa812640102745573441227a807f2922ddaee3f92c16078a8aee4ae93a6be632fe16585d7adf5853421bb7e9c55f09f1516bf0c431afa8b1059ea817681
+  languageName: node
+  linkType: hard
+
+"@types/hexo@npm:^3.8.5":
+  version: 3.8.5
+  resolution: "@types/hexo@npm:3.8.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fhexo%2Fdownload%2F%40types%2Fhexo-3.8.5.tgz"
+  dependencies:
+    "@types/bunyan": "*"
+    "@types/connect": "*"
+    "@types/hexo-util": "*"
+    "@types/minimist": "*"
+    "@types/underscore": "*"
+    moment: ^2.19.4
+  checksum: 704a6e294e3b4548cbed94f9d79433a0072d54d67b326530d72a1d0239e8b20f6acad15de085697847d939423cc0e5fd22d6c07b0938635fa476011e970b5cbd
   languageName: node
   linkType: hard
 
@@ -768,6 +809,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/minimist@npm:*":
+  version: 1.2.1
+  resolution: "@types/minimist@npm:1.2.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fminimist%2Fdownload%2F%40types%2Fminimist-1.2.1.tgz"
+  checksum: 3a6f5fe35f1656b34a4ccd5a5db1c38509d8d5b59625865b8c2b997994fcb0cfde0d9af7c5507b95dc5a0a32a22886c189e505cd2e52a7ef36d3c9982f07ed5a
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*, @types/node@npm:^14.14.22":
   version: 14.14.27
   resolution: "@types/node@npm:14.14.27::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.27.tgz"
@@ -800,6 +848,13 @@ __metadata:
   version: 2.0.0
   resolution: "@types/stack-utils@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fstack-utils%2Fdownload%2F%40types%2Fstack-utils-2.0.0.tgz"
   checksum: 662312302e07685c99a1c45c6753eb997b31d2af66e646c5937f62d593a63a111289503d0b06a8d1e6f3922b67fc2ed94889d84653a08861a7fee67b81ce5b92
+  languageName: node
+  linkType: hard
+
+"@types/underscore@npm:*":
+  version: 1.10.24
+  resolution: "@types/underscore@npm:1.10.24::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Funderscore%2Fdownload%2F%40types%2Funderscore-1.10.24.tgz"
+  checksum: 7b684baadf21759b518c7f93835843bf68e4ca3ed4a6920708197ed89ac14de34385351fae2d75045d15e5658dc99993a85b84c983329b8f3b51a84abca72ae2
   languageName: node
   linkType: hard
 
@@ -3641,6 +3696,7 @@ fsevents@^2.1.2:
   dependencies:
     "@fortawesome/fontawesome-free": ^5.15.2
     "@types/fs-extra": ^9.0.6
+    "@types/hexo": ^3.8.5
     "@types/jest": ^26.0.20
     "@types/node": ^14.14.22
     "@vue/compiler-sfc": ^3.0.0
@@ -5341,6 +5397,13 @@ fsevents@^2.1.2:
   version: 2.24.0
   resolution: "moment-mini@npm:2.24.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fmoment-mini%2Fdownload%2Fmoment-mini-2.24.0.tgz"
   checksum: 0597a6759122fbae7bb2f98488b1f2eaaa1dbcdb9d0f174a4b47cb727b710e44a582eafc57fbad006410d807d60225fbb6be5c2b0b179f106b9c709c34c57923
+  languageName: node
+  linkType: hard
+
+"moment@npm:^2.19.4":
+  version: 2.29.1
+  resolution: "moment@npm:2.29.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fmoment%2Fdownload%2Fmoment-2.29.1.tgz"
+  checksum: 86729013febf7160de5b93da69273dd304d674b0224f9544b3abd09a87671ddd2cdd57598261ce57588910d63747ffd5590965e83c790d8bf327083c0e0a06e0
   languageName: node
   linkType: hard
 

@@ -22,7 +22,7 @@ import Analytics from '@/components/Analytics/index.vue';
 import LoadGlobalData from './components/LoadGlobalData.vue';
 import { useRoute } from 'vue-router';
 import Layout from './components/Layout.vue';
-import { PAGE_NAME_MAP } from '@shared/route';
+import { PAGE_NAME_MAP } from '@/utils/route';
 
 export default defineComponent({
   components: {

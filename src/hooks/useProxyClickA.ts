@@ -1,6 +1,6 @@
 import { isExternalLink, isNil } from '@/utils';
 import { useRouter } from 'vue-router';
-import { PAGE_NAME_MAP } from '@shared/route';
+import { PAGE_NAME_MAP } from '@/utils/route';
 
 export function useProxyClickA() {
   const router = useRouter();
