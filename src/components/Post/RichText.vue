@@ -34,7 +34,7 @@ watch(
   () => {
     if (__SSR__) return;
     nextTick(() => {
-      import(/* webpackPrefetch: true */ 'mermaid').then(mermaid => {
+      import(/* webpackChunkName: "mermaid" */ 'mermaid').then(mermaid => {
         Array.from(el.value?.querySelectorAll?.('.mermaid') || []).forEach(
           graph => {
             mermaid.init(void 0, graph);

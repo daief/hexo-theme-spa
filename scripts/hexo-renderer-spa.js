@@ -28,7 +28,7 @@ async function spaRenderer(data, locals) {
 
   const filename = data.path;
   const buildHandler = isDev ? buildSPA : singleInsBuild;
-  const { ssrResult, clientResult } = await buildHandler(filename, {
+  const { ssrResult, clientResult, publicPath } = await buildHandler(filename, {
     locals,
     hexo: this,
   });
@@ -49,12 +49,10 @@ async function spaRenderer(data, locals) {
   const resultHtml = env.render(TEMPLATE_PATH, {
     appHtml: html,
     bundleScripts: clientResult.js
-      .map(it => `<script src="${clientResult.publicPath + it}"></script>`)
+      .map(it => `<script src="${publicPath + it}"></script>`)
       .join(''),
     headPartial: clientResult.css
-      .map(
-        it => `<link href="${clientResult.publicPath + it}" rel="stylesheet">`,
-      )
+      .map(it => `<link href="${publicPath + it}" rel="stylesheet">`)
       .join(''),
     serverData: JSON.stringify(prerenderData),
     config: locals.config,

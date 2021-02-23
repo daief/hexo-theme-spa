@@ -62,7 +62,9 @@ function renderData(renderUrl, hexo, locals) {
       path: renderUrl,
     });
     const { meta } = matched[0];
-    res = meta.getData({ params: { ...params } }, hexo, locals);
+    res = meta.getData
+      ? meta.getData({ params: { ...params } }, hexo, locals)
+      : {};
   } catch (error) {
     console.log('renderData error', `[${renderUrl}]`, error);
     res = {};
