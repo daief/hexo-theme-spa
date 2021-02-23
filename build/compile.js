@@ -45,7 +45,8 @@ function getWebpackConfig(
         '@components': path.resolve(__dirname, '../src/components'),
         ...(!ssr
           ? {
-              // client 部分不要包含 server render 的代码
+              // vue-meta 的 module 模块文件中 require 了 server-render，不能摇树去掉
+              // 显示指定 client 部分不要包含 server render 的代码
               'vue-meta': 'vue-meta/dist/vue-meta.esm-browser.js',
             }
           : {}),
