@@ -1,3 +1,9 @@
+# TODO
+
+- [ ] page title
+- [ ] about, others page
+- [ ] 404 page
+
 # Usage
 
 Via `git submodule`.

@@ -43,15 +43,24 @@ function getWebpackConfig(
         '@': path.resolve(__dirname, '../src'),
         '@shared': path.resolve(__dirname, '../shared'),
         '@components': path.resolve(__dirname, '../src/components'),
+        ...(!ssr
+          ? {
+              // client 部分不要包含 server render 的代码
+              'vue-meta': 'vue-meta/dist/vue-meta.esm-browser.js',
+            }
+          : {}),
       },
       extensions: ['.mjs', '.js', '.ts', '.json'],
-      mainFields: ['main', 'module'],
+      mainFields: ['module', 'main'],
     },
     externals: ssr
       ? [
           nodeExternals({
             allowlist: /\.(css|vue)$/,
-            additionalModuleDirs: [path.resolve(__dirname, '../node_modules')],
+            additionalModuleDirs: [
+              path.resolve(__dirname, '../node_modules'),
+              path.resolve(process.cwd(), 'node_modules'),
+            ],
           }),
         ]
       : [],

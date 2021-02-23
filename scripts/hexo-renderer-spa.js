@@ -6,7 +6,7 @@ const NativeModule = require('module');
 const { buildSPA } = require('../build/compile');
 const memoize = require('lodash/memoize');
 const nunjucks = require('nunjucks');
-const { renderToString } = require('@vue/server-renderer');
+const { renderToStringWithMeta } = require('vue-meta');
 
 const { requireOnly } = require('../build/utils');
 const { saveToJsons } = require('../build/renderData');
@@ -45,7 +45,9 @@ async function spaRenderer(data, locals) {
   const { createSSRBlogApp } = require(ssrfile);
 
   const { app } = await createSSRBlogApp(renderUrl, prerenderData);
-  const html = await renderToString(app);
+  const [html, ctx] = await renderToStringWithMeta(app);
+  // handle meta
+  console.log({ ctx });
   const resultHtml = env.render(TEMPLATE_PATH, {
     appHtml: html,
     bundleScripts: clientResult.js
