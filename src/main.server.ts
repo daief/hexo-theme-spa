@@ -6,7 +6,11 @@ import type Hexo from 'hexo';
 import { renderToStringWithMeta } from 'vue-meta';
 import { createBlogApp } from './main';
 import { renderData } from './server/renderData';
-import { formatHtmlPath } from './utils';
+import {
+  formatHtmlPath,
+  getPageRouteFromHexo,
+  getSimplePageFromHexo,
+} from './utils';
 import _ from 'lodash';
 import { generateJsons } from './server/generateJsons';
 
@@ -27,9 +31,11 @@ export async function renderHtml({
   js: string[];
   css: string[];
 }) {
+  const simplePageRoute = getSimplePageFromHexo(hexo);
+
   const url = formatHtmlPath(locals.page.path);
   const hexoConfig = locals.config;
-  const { app, router, store } = createBlogApp();
+  const { app, router, store } = createBlogApp({ simplePageRoute });
 
   const preRenderData = renderData(url, hexo, locals);
 
@@ -52,6 +58,7 @@ export async function renderHtml({
     ${getCtxProp('head')}
     <script>
       window.__PAGE_DATA__ = ${JSON.stringify(preRenderData)};
+      window.__SIMPLE_PAGE_ROUTE__ = ${JSON.stringify(simplePageRoute)};
     </script>
 
     ${css.map(it => `<link href="${it}" rel="stylesheet">`).join('')}

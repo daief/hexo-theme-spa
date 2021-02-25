@@ -1,4 +1,4 @@
-import { formatHtmlPath, toBase64 } from '@/utils';
+import { formatHtmlPath, getPageRouteFromHexo, toBase64 } from '@/utils';
 import fs from 'fs-extra';
 import path from 'path';
 import _ from 'lodash';
@@ -19,10 +19,7 @@ export function saveToJsons(hexo, locals) {
   /**
    * @type {string[]}
    */
-  const routeList = hexo.route
-    .list()
-    // filter only index.html, page route
-    .filter(it => /index\.html$/i.test(it));
+  const routeList = getPageRouteFromHexo(hexo);
 
   routeList.forEach(urlPath => {
     urlPath = encodeURI(urlPath);

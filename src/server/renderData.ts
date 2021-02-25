@@ -1,4 +1,4 @@
-import { formatHtmlPath } from '@/utils';
+import { formatHtmlPath, getSimplePageFromHexo } from '@/utils';
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
 import { createRouterMatcher } from 'vue-router';
 import _ from 'lodash';
@@ -9,7 +9,7 @@ import { ICategory, IPost } from '@/@types/entities';
 export function renderData(renderUrl, hexo, locals) {
   let res = {};
   try {
-    const { matched, params } = getPathMatcher().resolve({
+    const { matched, params } = getPathMatcher({ hexo }).resolve({
       path: renderUrl,
     });
     const { meta } = matched[0];
@@ -31,11 +31,11 @@ let pathMatcher;
 /**
  * @return {import('vue-router').RouterMatcher}
  */
-function getPathMatcher() {
+function getPathMatcher({ hexo }) {
   pathMatcher =
     pathMatcher ||
     createRouterMatcher(
-      merge(getRouteConfig(), [
+      merge(getRouteConfig(getSimplePageFromHexo(hexo)), [
         {
           name: PAGE_NAME_MAP.index,
           meta: {
@@ -65,6 +65,16 @@ function getPathMatcher() {
           path: '/categories/:categories+/page/:no',
           meta: {
             getData: getCategoriesPaginationData,
+          },
+        },
+        {
+          name: PAGE_NAME_MAP.simplePages,
+          meta: {
+            getData: ({ params }, hexo: any, locals: any) => {
+              const { pageName } = params;
+              console.log(pageName);
+              return {};
+            },
           },
         },
       ]),

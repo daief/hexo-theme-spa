@@ -4,16 +4,22 @@
 import { createBlogApp } from './main';
 import { pathToKey } from './utils';
 
-const { app, store, router } = createBlogApp();
-
-router.isReady().then(() => {
-  store.commit('global/setPageData', {
-    data: __PAGE_DATA__,
-    key: pathToKey(router.currentRoute.value.path),
-  });
+const { app, store, router } = createBlogApp({
+  simplePageRoute: window.__SIMPLE_PAGE_ROUTE__,
 });
 
-app.mount('#app');
+async function bootstrap() {
+  try {
+    await router.isReady();
+    await store.commit('global/setPageData', {
+      data: window.__PAGE_DATA__,
+      key: pathToKey(router.currentRoute.value.path),
+    });
+  } catch {}
+  app.mount('#app');
+}
+
+bootstrap();
 
 // @ts-ignore
 window.__app = app;

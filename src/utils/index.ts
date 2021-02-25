@@ -41,3 +41,24 @@ export function pathToKey(path: string) {
 }
 
 const INDEX_FLAG = '/';
+
+export function getPageRouteFromHexo(hexo): string[] {
+  return hexo.route
+    .list()
+    .filter(it => /index\.html$/i.test(it))
+    .map(it => formatHtmlPath(it));
+}
+
+/**
+ * 获取到如 /about、/a-page 等自定义添加的页面，但不包含 /tags、/categories 这些
+ * @param hexo
+ */
+export function getSimplePageFromHexo(hexo): string[] {
+  return getPageRouteFromHexo(hexo).filter(it => {
+    const [_, firstPathname, ...rest] = it.split('/');
+    if (rest.length || it === '/') {
+      return false;
+    }
+    return !['categories', 'tags'].includes(firstPathname);
+  });
+}

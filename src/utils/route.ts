@@ -7,10 +7,13 @@ export enum PAGE_NAME_MAP {
   categoryIndex = 'categoryIndex',
   categoryPagination = 'categoryPagination',
   categoryPaginationWithoutPage = 'categoryPaginationWithoutPage',
+  simplePages = 'simplePages',
   $404 = '404',
 }
 
-export function getRouteConfig(): Partial<RouteRecordRaw>[] {
+export function getRouteConfig(
+  simplePageRoute: string[],
+): Partial<RouteRecordRaw>[] {
   return [
     {
       name: PAGE_NAME_MAP.index,
@@ -33,6 +36,13 @@ export function getRouteConfig(): Partial<RouteRecordRaw>[] {
     {
       name: PAGE_NAME_MAP.categoryPagination,
       path: '/categories/:categories+/page/:no',
+    },
+    {
+      name: PAGE_NAME_MAP.simplePages,
+      path:
+        '/:pageName(' +
+        simplePageRoute.map(it => it.replace(/^\/?/, '')).join('|') +
+        ')',
     },
     {
       name: PAGE_NAME_MAP.$404,

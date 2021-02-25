@@ -6,10 +6,14 @@ import { createMetaIns } from './meta';
 
 export const App = require(__PAGE_PATH__).default;
 
-export function createBlogApp() {
+export function createBlogApp({
+  simplePageRoute,
+}: {
+  simplePageRoute: string[];
+}) {
   const app = __SSR__ ? createSSRApp(App) : createApp(App);
 
-  const router = createRouterIns();
+  const router = createRouterIns({ simplePageRoute });
   const store = createStoreIns();
   const metaManager = createMetaIns();
 

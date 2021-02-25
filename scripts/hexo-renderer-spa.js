@@ -9,6 +9,11 @@ fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
 const isDev = hexo.env.env === 'development';
 
+/**
+ * @this {import('hexo')}
+ * @param {*} data
+ * @param {*} locals
+ */
 async function spaRenderer(data, locals) {
   const { clientResult, publicPath } = await (isDev ? devBuildSPA : buildSPA)(
     data.path,
