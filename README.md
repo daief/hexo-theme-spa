@@ -1,8 +1,10 @@
 # TODO
 
+- [x] webpack dev 优化
 - [ ] page title
 - [ ] about, others page
 - [ ] 404 page
+- [ ] try esbuild or vite
 
 # Usage
 
@@ -34,6 +36,10 @@ $ git submodule status
 $ git rm --cached themes/spa
 
 ```
+
+# Note
+
+- Should restart `hexo server` if update `_config.yml`
 
 # Links
 

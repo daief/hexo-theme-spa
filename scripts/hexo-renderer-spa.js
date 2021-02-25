@@ -3,21 +3,20 @@
 const fs = require('fs-extra');
 const path = require('path');
 const NativeModule = require('module');
-const { buildSPA } = require('../build/compile');
-const memoize = require('lodash/memoize');
+const { devBuildSPA, buildSPA } = require('../build/compile');
 
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
-// 单例缓存
-const singleInsBuild = memoize(buildSPA, () => 'SINGLE');
 const isDev = hexo.env.env === 'development';
 
 async function spaRenderer(data, locals) {
-  const buildHandler = isDev ? buildSPA : singleInsBuild;
-  const { clientResult, publicPath } = await buildHandler(data.path, {
-    locals,
-    hexo: this,
-  });
+  const { clientResult, publicPath } = await (isDev ? devBuildSPA : buildSPA)(
+    data.path,
+    {
+      locals,
+      hexo: this,
+    },
+  );
 
   const { renderHtml, generateJsons } = loadModule('../source/ssr/main');
 

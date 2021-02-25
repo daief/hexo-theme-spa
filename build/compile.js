@@ -6,6 +6,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const memoize = require('lodash/memoize');
 
 function getWebpackConfig(
   filename,
@@ -240,33 +241,38 @@ function formatFromStats(stats) {
   };
 }
 
-async function build(filename, options) {
-  return new Promise((resolve, reject) => {
-    webpack(
-      [
-        getWebpackConfig(filename, { ssr: true, ...options }),
-        getWebpackConfig(filename, { ssr: false, ...options }),
-      ],
-      (err, multiStats) => {
-        const error = err || multiStats.hasErrors();
-        if (error) {
-          return reject(error);
-        }
-
-        resolve(multiStats);
-      },
-    );
-  });
+/**
+ *
+ * @param {*} filename
+ * @param {*} options
+ * @returns {import('webpack').Compiler}
+ */
+function getCompiler(filename, options) {
+  return webpack([
+    getWebpackConfig(filename, { ssr: true, ...options }),
+    getWebpackConfig(filename, { ssr: false, ...options }),
+  ]);
 }
 
 async function buildSPA(filename, { locals, hexo }) {
   const assetPublicPath = locals.url_for('/');
 
-  const multiStats = await build(filename, {
+  const compiler = getCompiler(filename, {
     hexo,
     locals,
     baseConfig: locals.config,
     assetPublicPath,
+  });
+
+  const multiStats = await new Promise((resolve, reject) => {
+    compiler.run((err, multiStats) => {
+      const error = err || multiStats.hasErrors();
+      if (error) {
+        return reject(error);
+      }
+
+      resolve(multiStats);
+    });
   });
 
   const [serverStats, clientStats] = multiStats.stats;
@@ -276,5 +282,38 @@ async function buildSPA(filename, { locals, hexo }) {
   return { ssrResult, clientResult, publicPath: assetPublicPath };
 }
 
-exports.build = build;
-exports.buildSPA = buildSPA;
+let devComipler;
+
+async function devBuildSPA(filename, { locals, hexo }) {
+  const assetPublicPath = locals.url_for('/');
+
+  if (!devComipler) {
+    devComipler = getCompiler(filename, {
+      hexo,
+      locals,
+      baseConfig: locals.config,
+      assetPublicPath,
+    });
+  }
+
+  const multiStats = await new Promise((resolve, reject) => {
+    devComipler.run((err, multiStats) => {
+      const error = err || multiStats.hasErrors();
+      if (error) {
+        return reject(error);
+      }
+
+      resolve(multiStats);
+    });
+  });
+
+  const [serverStats, clientStats] = multiStats.stats;
+  const ssrResult = formatFromStats(serverStats);
+  const clientResult = formatFromStats(clientStats);
+
+  return { ssrResult, clientResult, publicPath: assetPublicPath };
+}
+
+module.exports.buildSPA = memoize(buildSPA, () => 'SINGLE');
+module.exports.devBuildSPA = devBuildSPA;
+module.exports.formatFromStats = formatFromStats;
