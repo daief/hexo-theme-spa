@@ -11,18 +11,23 @@ menu:
   home:
     link: /
     icon: home
+    name: 首页
   archives:
     link: /archives/
     icon: archive
+    name: 归档
   categories:
     link: /categories/
     icon: th
+    name: 分类
   about:
     link: /about/
     icon: user
+    name: 关于
   tags:
     link: /tags/
     icon: tag
+    name: 标签
   # schedule:
   #   icon: calendar
   # sitemap:

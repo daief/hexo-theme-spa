@@ -8,8 +8,6 @@ import { useStore } from 'vuex';
 import NProgress from 'nprogress';
 import { pathToKey } from '@/utils';
 
-let isPreRender = true;
-
 export default defineComponent({
   name: 'LoadGlobalData',
   setup() {
@@ -26,8 +24,7 @@ export default defineComponent({
     );
 
     router.beforeEach(async (to, from) => {
-      if (__SSR__ || to.path === from.path || isPreRender) {
-        isPreRender = false;
+      if (__SSR__) {
         return;
       }
 

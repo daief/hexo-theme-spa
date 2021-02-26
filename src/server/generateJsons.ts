@@ -22,9 +22,11 @@ export function saveToJsons(hexo, locals) {
   const routeList = getPageRouteFromHexo(hexo);
 
   routeList.forEach(urlPath => {
-    urlPath = encodeURI(urlPath);
     urlPath = formatHtmlPath(urlPath);
-    writeJsonToSource(toBase64(urlPath), renderData(urlPath, hexo, locals));
+    writeJsonToSource(
+      toBase64(encodeURI(urlPath)),
+      renderData(urlPath, hexo, locals),
+    );
   });
 }
 

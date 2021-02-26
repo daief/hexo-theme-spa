@@ -1,6 +1,8 @@
 <template>
   <div class="">
-    <div class="text-center my-4">目前共计 {{ pageData.total }} 个分类。</div>
+    <div class="text-center my-4">
+      目前共计 {{ pageData.total || 0 }} 个分类。
+    </div>
     <div
       v-if="pageData.total > 0"
       @click="proxyAClick.click"

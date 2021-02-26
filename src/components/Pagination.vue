@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!!total">
+  <div v-if="!!total && total > 1">
     <nav class="text-center">
       <a
         v-for="(page, index) in config"
@@ -105,7 +105,7 @@ function handleClickItem(item: IItem) {
 
   if (typeof props.linkPattern === 'string') {
     const newPath = props.linkPattern.replace(/\%d/gi, newPage + '');
-    newPage && router.push(newPath);
+    router.push(newPath);
   }
 
   emit('onPageChange', newPage);

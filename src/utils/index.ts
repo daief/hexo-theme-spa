@@ -9,6 +9,11 @@ export function isNil(obj: any) {
   return [null, void 0].includes(obj);
 }
 
+export function last<T = any>(arr: T[]): T | null {
+  const res = arr[arr.length - 1];
+  return isNil(res) ? null : res;
+}
+
 export function toBase64(str: string) {
   if (!__SSR__) {
     return btoa(str);
@@ -61,4 +66,8 @@ export function getSimplePageFromHexo(hexo): string[] {
     }
     return !['categories', 'tags'].includes(firstPathname);
   });
+}
+
+export function removePathTailPage(path: string) {
+  return path.replace(/(\/page\/\d+\/?)?$/i, '');
 }

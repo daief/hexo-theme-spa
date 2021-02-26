@@ -4,11 +4,11 @@
 import { createBlogApp } from './main';
 import { pathToKey } from './utils';
 
-const { app, store, router } = createBlogApp({
-  simplePageRoute: window.__SIMPLE_PAGE_ROUTE__,
-});
-
 async function bootstrap() {
+  const { app, store, router } = createBlogApp({
+    simplePageRoute: window.__SIMPLE_PAGE_ROUTE__,
+  });
+
   try {
     await router.isReady();
     await store.commit('global/setPageData', {
@@ -19,8 +19,6 @@ async function bootstrap() {
   app.mount('#app');
 }
 
-bootstrap();
-
 // @ts-ignore
 window.__app = app;
 
@@ -29,4 +27,12 @@ if (!__PROD__) {
   window.__baseConfig = __baseConfig;
   // @ts-ignore
   window.__theme = __theme;
+}
+
+if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+  // redirect IE to Edge
+  // This browser is no longer supported
+  window.location.href = 'microsoft-edge:' + window.location.href;
+} else {
+  bootstrap();
 }

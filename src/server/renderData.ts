@@ -1,20 +1,24 @@
 import { formatHtmlPath, getSimplePageFromHexo } from '@/utils';
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
-import { createRouterMatcher } from 'vue-router';
+import { createRouterMatcher, RouterMatcher } from 'vue-router';
 import _ from 'lodash';
 import { ICategory, IPost } from '@/@types/entities';
 
 // hexo.locals 只读取数据
 // locals 合并了各种 helper 的方法
-export function renderData(renderUrl, hexo, locals) {
+export function renderData(renderUrl: string, hexo, locals) {
   let res = {};
   try {
-    const { matched, params } = getPathMatcher({ hexo }).resolve({
-      path: renderUrl,
-    });
-    const { meta } = matched[0];
+    const { matched, params } = getPathMatcher({ hexo })
+      // @ts-ignore
+      .resolve({
+        path: renderUrl,
+      });
+    const firstMatched = matched[0];
+
+    const { meta } = firstMatched;
     res = meta.getData
-      ? meta.getData({ params: { ...params } }, hexo, locals)
+      ? meta.getData({ ...firstMatched, params: { ...params } }, hexo, locals)
       : {};
   } catch (error) {
     console.log('renderData error', `[${renderUrl}]`, error);
@@ -28,10 +32,7 @@ export function renderData(renderUrl, hexo, locals) {
 
 let pathMatcher;
 
-/**
- * @return {import('vue-router').RouterMatcher}
- */
-function getPathMatcher({ hexo }) {
+function getPathMatcher({ hexo }): RouterMatcher {
   pathMatcher =
     pathMatcher ||
     createRouterMatcher(
@@ -119,27 +120,32 @@ function getCategoriesPaginationData({ params }, hexo, locals) {
   const { generator } = hexo.theme.config;
   const { per_page, order_by } = generator;
 
-  let { categories, no } = params;
-  no = +no || 1;
+  const { categories, no } = params;
 
+  // TODO 考虑重名的子分类？
   const category = hexo.locals
     .get('categories')
     .find({ name: _.last(categories) })
     .first();
-  // TODO 考虑重名的子分类？
-  // .toArray()
-  // .find(
-  //   it =>
-  //     (it.posts.first().categories || []).map(cy => cy.name).join(',') ===
-  //     categories.join(','),
-  // );
 
   const posts = category ? category.posts.sort(order_by) : [];
 
+  const pagination = dataPaginationHelper({
+    current: no,
+    pageSize: per_page,
+    data: posts,
+  });
+
   return {
-    posts: posts
-      .slice((no - 1) * per_page, per_page * no)
-      .map(post => stringifyPost(locals, post, { prev: true })),
+    category: stringifyCategory(category),
+    posts: pagination.data.map(post =>
+      stringifyPost(locals, post, { prev: true }),
+    ),
+    current: pagination.current,
+    prev: pagination.prev,
+    next: pagination.next,
+    total: pagination.total,
+    count: pagination.count,
   };
 }
 
@@ -224,5 +230,32 @@ function stringifyCategory(category): ICategory {
     slug: category.slug,
     path: formatHtmlPath(category.path),
     parent: category.parent,
+  };
+}
+
+function dataPaginationHelper({
+  current,
+  pageSize = 10,
+  data,
+}: {
+  current: number;
+  pageSize?: number;
+  data: any[];
+}) {
+  current = +current;
+  current = current || 1;
+  const { length } = data;
+  const totalPage = pageSize ? Math.ceil(length / pageSize) : 1;
+
+  const prev = current > 1 ? current - 1 : null;
+  const next = current < totalPage ? current + 1 : null;
+
+  return {
+    data: data.slice((current - 1) * pageSize, pageSize * current),
+    total: totalPage,
+    count: length,
+    current,
+    prev,
+    next,
   };
 }

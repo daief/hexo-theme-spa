@@ -15,7 +15,7 @@
         "
       >
         <FaIcon :name="item[1].icon" class="mr-1 text-xs" />
-        {{ item[1].link }}
+        {{ item[1].name }}
       </ALink>
     </nav>
   </header>
@@ -44,6 +44,7 @@ const menus: Array<
     {
       link;
       icon;
+      name;
     },
   ]
 > = Object.entries(__theme.menu);
