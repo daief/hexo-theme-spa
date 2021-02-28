@@ -6,7 +6,7 @@
     </div>
 
     <main class="max-w-full flex-grow" id="main">
-      <div class="">
+      <div class="p-7 lg:pt-20">
         <slot></slot>
       </div>
     </main>

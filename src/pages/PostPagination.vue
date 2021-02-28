@@ -1,5 +1,5 @@
 <template>
-  <section class="p-7 lg:pt-20">
+  <section class="">
     <div
       v-for="(post, index) in posts"
       :key="index"

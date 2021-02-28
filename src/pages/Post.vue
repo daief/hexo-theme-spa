@@ -1,5 +1,5 @@
 <template>
-  <div class="py-8 px-5">
+  <div class="">
     <Post :post="post" />
     <!-- tags -->
     <div class="text-center text-sm">
