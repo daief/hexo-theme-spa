@@ -5,7 +5,7 @@
       <SideBar v-model:show="showSideBar" />
     </div>
 
-    <main class="max-w-full flex-grow" id="main">
+    <main class="max-w-full lg:flex-grow lg:w-0" id="main">
       <div class="p-7 lg:pt-20">
         <slot></slot>
       </div>
@@ -43,8 +43,4 @@ const { isMobile } = useBreakpointPrefix();
 const showSideBar = ref(!isMobile.value);
 </script>
 
-<style lang="less" scoped>
-#main {
-  width: 940px;
-}
-</style>
+<style lang="less" scoped></style>

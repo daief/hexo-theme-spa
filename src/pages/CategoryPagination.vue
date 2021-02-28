@@ -28,7 +28,7 @@ export default defineComponent({
 import Pagination from '@/components/Pagination.vue';
 import { useRoute } from 'vue-router';
 import { last, removePathTailPage } from '@/utils';
-import { IPost } from '@/@types/entities';
+import type { IPost } from '@/@types/entities';
 
 const pageData = usePageData();
 const route = useRoute();

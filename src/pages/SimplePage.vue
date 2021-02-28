@@ -1,5 +1,7 @@
 <template>
-  <div>SimplePage</div>
+  <div>
+    <Post :post="page" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -10,4 +12,10 @@ export default defineComponent({
 });
 </script>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import Post from '@/components/Post/Post.vue';
+import { usePageData } from '@/hooks/usePageData';
+
+const pageData = usePageData();
+const page = computed(() => unref(pageData).page || {});
+</script>

@@ -51,7 +51,10 @@ watch(
 
 <style lang="less">
 .markdown-body {
-  ul li {
+  ul {
+    list-style: disc;
+  }
+  ul ul {
     list-style: circle;
   }
   ::selection {
