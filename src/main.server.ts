@@ -10,6 +10,7 @@ import {
   formatHtmlPath,
   getPageRouteFromHexo,
   getSimplePageFromHexo,
+  pathToKey,
 } from './utils';
 import _ from 'lodash';
 import { generateJsons } from './server/generateJsons';
@@ -39,7 +40,10 @@ export async function renderHtml({
 
   const preRenderData = renderData(url, hexo, locals);
 
-  await store.commit('global/setPageData', preRenderData);
+  await store.commit('global/setPageData', {
+    data: preRenderData,
+    key: pathToKey(url),
+  });
   router.replace(url);
   await router.isReady();
   const [html, ctx] = await renderToStringWithMeta(app);
