@@ -2,9 +2,11 @@
 
 - [x] webpack dev 优化
 - [ ] page title
-- [ ] about, others page
+- [x] about, others page, simple pages
 - [ ] 404 page
-- [ ] try esbuild or vite
+- [ ] 文章置顶 sticky
+- [ ] 文章草稿/发布/置顶状态区分
+- ~~[ ] try esbuild or vite~~
 
 # Usage
 

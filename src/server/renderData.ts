@@ -72,7 +72,7 @@ function getPathMatcher({ hexo }): RouterMatcher {
           name: PAGE_NAME_MAP.simplePages,
           meta: {
             getData: ({ params }, hexo: any, locals: any) => {
-              // const { pageName } = params;
+              const { path } = params;
               return {
                 page: stringifyPost(locals, locals.page, { more: true }),
               };

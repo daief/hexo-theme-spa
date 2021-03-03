@@ -38,7 +38,7 @@ export function createRouterIns({
     },
   ]);
 
-  return createRouter({
+  const router = createRouter({
     history: __SSR__ ? createMemoryHistory() : createWebHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
@@ -54,4 +54,6 @@ export function createRouterIns({
       }
     },
   });
+
+  return router;
 }

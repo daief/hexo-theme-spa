@@ -1,4 +1,4 @@
-import { formatHtmlPath, getPageRouteFromHexo, toBase64 } from '@/utils';
+import { toBase64 } from '@/utils';
 import fs from 'fs-extra';
 import path from 'path';
 import _ from 'lodash';
@@ -15,26 +15,9 @@ function writeJsonToSource(fileName: string, obj: any, opts: any = {}) {
   });
 }
 
-export function saveToJsons(hexo, locals) {
-  /**
-   * @type {string[]}
-   */
-  const routeList = getPageRouteFromHexo(hexo);
-
-  routeList.forEach(urlPath => {
-    urlPath = formatHtmlPath(urlPath);
-    writeJsonToSource(
-      toBase64(encodeURI(urlPath)),
-      renderData(urlPath, hexo, locals),
-    );
-  });
-}
-
-const singleInsSaveJsons = _.memoize(saveToJsons, () => 'SINGLE');
-
-export function generateJsons(hexo, locals) {
-  if (__PROD__) {
-    return singleInsSaveJsons(hexo, locals);
-  }
-  return saveToJsons(hexo, locals);
+export function saveDataToJson(url: string, { hexo, locals }) {
+  return writeJsonToSource(
+    toBase64(encodeURI(url)),
+    renderData(url, hexo, locals),
+  );
 }

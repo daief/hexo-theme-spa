@@ -25,7 +25,7 @@ async function spaRenderer(data, locals) {
 
   const { renderHtml, generateJsons } = loadModule('../source/ssr/main');
 
-  generateJsons(this, locals);
+  // generateJsons(this, locals);
 
   const resultHtml = await renderHtml({
     data,

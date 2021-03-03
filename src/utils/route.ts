@@ -38,15 +38,13 @@ export function getRouteConfig(
       path: '/categories/:categories+/page/:no',
     },
     {
-      name: PAGE_NAME_MAP.simplePages,
-      path:
-        '/:pageName(' +
-        simplePageRoute.map(it => it.replace(/^\/?/, '')).join('|') +
-        ')',
+      name: PAGE_NAME_MAP.$404,
+      path: '/404',
     },
     {
-      name: PAGE_NAME_MAP.$404,
-      path: '/:pathMatch(.*)*',
+      // 未匹配到预渲染的页面，重定向回 404
+      name: PAGE_NAME_MAP.simplePages,
+      path: '/:path(.*)*',
     },
   ];
 }

@@ -11,16 +11,25 @@ async function bootstrap() {
 
   try {
     await router.isReady();
+
+    if (!__SSR__ && !__PROD__) {
+      // !! 开发环境禁止前端路由
+      router.beforeEach(to => {
+        location.href = to.fullPath;
+        return false;
+      });
+    }
+
     await store.commit('global/setPageData', {
       data: window.__PAGE_DATA__,
       key: pathToKey(router.currentRoute.value.path),
     });
   } catch {}
-  app.mount('#app');
-}
 
-// @ts-ignore
-window.__app = app;
+  app.mount('#app');
+
+  (window as any).__app = app;
+}
 
 if (!__PROD__) {
   // @ts-ignore

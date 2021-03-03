@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import NProgress from 'nprogress';
 import { pathToKey } from '@/utils';
+import { PAGE_NAME_MAP } from '@/utils/route';
 
 export default defineComponent({
   name: 'LoadGlobalData',
@@ -40,11 +41,19 @@ export default defineComponent({
           key,
           data: resp.data,
         });
+        NProgress.done();
       } catch (error) {
-        // TODO 数据加载失败，提示？阻止？
-      }
+        NProgress.done();
 
-      NProgress.done();
+        if (error.isAxiosError && error.response.status === 404) {
+          return {
+            name: PAGE_NAME_MAP.$404,
+            query: {
+              ref: from.path,
+            },
+          };
+        }
+      }
     });
 
     return {};

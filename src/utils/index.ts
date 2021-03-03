@@ -55,16 +55,17 @@ export function getPageRouteFromHexo(hexo): string[] {
 }
 
 /**
- * 获取到如 /about、/a-page 等自定义添加的页面，但不包含 /tags、/categories 这些
+ * 获取到如 /about、/a-page 等自定义添加的页面，但不包含 /tags、/categories 这些具有特殊意义的路由
  * @param hexo
  */
 export function getSimplePageFromHexo(hexo): string[] {
   return getPageRouteFromHexo(hexo).filter(it => {
-    const [_, firstPathname, ...rest] = it.split('/');
-    if (rest.length || it === '/') {
+    if (it === '/') {
       return false;
     }
-    return !['categories', 'tags'].includes(firstPathname);
+    return !['/categories/', '/tags/', '/post/', '/404'].some(prefix =>
+      it.startsWith(prefix),
+    );
   });
 }
 

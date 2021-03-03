@@ -13,9 +13,7 @@ import {
   pathToKey,
 } from './utils';
 import _ from 'lodash';
-import { generateJsons } from './server/generateJsons';
-
-export { generateJsons };
+import { saveDataToJson } from './server/generateJsons';
 
 export async function renderHtml({
   data,
@@ -33,8 +31,10 @@ export async function renderHtml({
   css: string[];
 }) {
   const simplePageRoute = getSimplePageFromHexo(hexo);
-
   const url = formatHtmlPath(locals.page.path);
+
+  saveDataToJson(url, { hexo, locals });
+
   const hexoConfig = locals.config;
   const { app, router, store } = createBlogApp({ simplePageRoute });
 
