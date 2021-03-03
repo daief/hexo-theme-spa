@@ -23,9 +23,7 @@ async function spaRenderer(data, locals) {
     },
   );
 
-  const { renderHtml, generateJsons } = loadModule('../source/ssr/main');
-
-  // generateJsons(this, locals);
+  const { renderHtml } = loadModule('../source/ssr/main');
 
   const resultHtml = await renderHtml({
     data,

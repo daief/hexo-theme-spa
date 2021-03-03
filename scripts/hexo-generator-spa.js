@@ -9,7 +9,7 @@ hexo.extend.generator.register('spa', function (locals) {
   const { generator } = this.theme.config;
   const { per_page: perPage } = generator;
 
-  return [
+  const result = [
     // 文章分页
     {
       path: '',
@@ -32,17 +32,13 @@ hexo.extend.generator.register('spa', function (locals) {
         }),
       ];
     }, []),
-    // TODO 404 page
-    {
-      path: '404',
-    },
-    {
-      path: '404-dev',
-    },
+    // TODO 归档
   ].map(it => ({
     layout: ['index'],
     ...it,
   }));
+
+  return result;
 });
 
 function paginationUtil(dataArray = [], { perPage, pathPattern, data }) {
