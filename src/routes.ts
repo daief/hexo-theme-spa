@@ -9,6 +9,8 @@ import CategoryPagination from './pages/CategoryPagination.vue';
 import Post from './pages/Post.vue';
 import PostPagination from './pages/PostPagination.vue';
 import SimplePage from './pages/SimplePage.vue';
+import TagsIndex from './pages/TagsIndex.vue';
+import TagsPagination from './pages/TagsPagination.vue';
 import ArchivePagination from './pages/ArchivePagination.vue';
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
 
@@ -32,6 +34,14 @@ export function createRouterIns({
     {
       name: PAGE_NAME_MAP.simplePages,
       component: SimplePage,
+    },
+    {
+      name: PAGE_NAME_MAP.tagsIndex,
+      component: TagsIndex,
+    },
+    {
+      name: PAGE_NAME_MAP.tagsPagination,
+      component: TagsPagination,
     },
     {
       name: PAGE_NAME_MAP.$404,

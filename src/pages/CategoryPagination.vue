@@ -4,13 +4,12 @@
       <strong>「{{ currentCategory }}」</strong>
       分类下，共有 {{ pageData.count }} 篇
     </div>
-    <router-link v-for="(item, index) in posts" :key="index" :to="item.path">
-      {{ item.title }}
-    </router-link>
-    <Pagination
+
+    <PostList
+      :posts="posts"
       :total="pageData.total"
       :current="pageData.current"
-      :link-pattern="linkPattern"
+      :pagination-link-pattern="linkPattern"
     />
   </div>
 </template>
@@ -25,7 +24,7 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import Pagination from '@/components/Pagination.vue';
+import PostList from '@/components/PostList/index.vue';
 import { useRoute } from 'vue-router';
 import { last, removePathTailPage } from '@/utils';
 import type { IPost } from '@/@types/entities';

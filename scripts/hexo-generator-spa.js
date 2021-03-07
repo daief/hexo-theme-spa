@@ -22,14 +22,26 @@ hexo.extend.generator.register('spa', function (locals) {
     }),
     { path: 'categories/' },
     // category 分页
-    ...locals.categories.reduce((result, category) => {
-      if (!category.length) return result;
+    ...locals.categories.reduce((rs, category) => {
+      if (!category.length) return rs;
       return [
-        ...result,
+        ...rs,
         { path: category.path },
         ...paginationUtil(category.posts, {
           perPage,
           pathPattern: category.path.replace(/\/?$/, '') + '/page/%d/',
+        }),
+      ];
+    }, []),
+    // tag 分页
+    ...locals.tags.reduce((rs, tag) => {
+      if (!tag.length) return rs;
+      return [
+        ...rs,
+        { path: tag.path },
+        ...paginationUtil(tag.posts, {
+          perPage,
+          pathPattern: tag.path.replace(/\/?$/, '') + '/page/%d/',
         }),
       ];
     }, []),

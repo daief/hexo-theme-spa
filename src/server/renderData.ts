@@ -80,6 +80,60 @@ function getPathMatcher({ hexo }): RouterMatcher {
           },
         },
         {
+          name: PAGE_NAME_MAP.tagsIndex,
+          meta: {
+            getData: ({ params }, hexo: any, locals: any) => {
+              const { generator } = hexo.theme.config;
+              const tags = hexo.locals.get('tags');
+
+              return {
+                tags: tags.map(tag => ({
+                  ...stringifyTag(tag),
+                  postCount: tag.posts.length,
+                })),
+              };
+            },
+          },
+        },
+        ...[
+          PAGE_NAME_MAP.tagsPaginationWithoutPage,
+          PAGE_NAME_MAP.tagsPagination,
+        ].map(name => ({
+          name,
+          meta: {
+            getData: ({ params }, hexo: any, locals: any) => {
+              const { tag: tagName, no } = params;
+              const { generator } = hexo.theme.config;
+              const { per_page, order_by } = generator;
+
+              const tag = hexo.locals
+                .get('tags')
+                .find({ name: tagName })
+                .first();
+
+              const posts = tag ? tag.posts.sort(order_by) : [];
+
+              const pagination = dataPaginationHelper({
+                current: no,
+                pageSize: per_page,
+                data: posts,
+              });
+
+              return {
+                tag: stringifyTag(tag),
+                posts: pagination.data.map(post =>
+                  stringifyPost(locals, post, { prev: true }),
+                ),
+                current: pagination.current,
+                prev: pagination.prev,
+                next: pagination.next,
+                total: pagination.total,
+                count: pagination.count,
+              };
+            },
+          },
+        })),
+        {
           name: PAGE_NAME_MAP.simplePages,
           meta: {
             getData: ({ params }, hexo: any, locals: any) => {

@@ -1,31 +1,13 @@
 <template>
   <div>
     <h1 class="text-2xl mb-4">归档</h1>
-    <div v-if="!posts.length">快去写文章吧~</div>
-    <div v-else>
-      <section v-for="[year, list] in grouped" :key="year">
-        <div>
-          {{ year }}
-        </div>
-        <div>
-          <router-link
-            v-for="(post, index) in list"
-            :key="index"
-            :to="post.path"
-            class="block"
-          >
-            <small>
-              {{ formatDate(post.date) }}
-            </small>
-            {{ post.title }}
-          </router-link>
-        </div>
-      </section>
-    </div>
-    <Pagination
+
+    <PostList
+      :posts="posts"
       :total="pageData.total"
       :current="pageData.current"
-      link-pattern="/archives/page/%d"
+      group-by-year
+      pagination-link-pattern="/archives/page/%d"
     />
   </div>
 </template>
@@ -41,9 +23,8 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import Pagination from '@/components/Pagination.vue';
+import PostList from '@/components/PostList/index.vue';
 import { last } from '@/utils';
-import { formatDate } from '@/utils/format';
 
 const pageData = usePageData();
 
