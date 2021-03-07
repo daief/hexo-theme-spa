@@ -8,6 +8,9 @@ export enum PAGE_NAME_MAP {
   categoryPagination = 'categoryPagination',
   categoryPaginationWithoutPage = 'categoryPaginationWithoutPage',
   simplePages = 'simplePages',
+
+  archivesWithoutPage = 'archivesWithoutPage',
+  archives = 'archives',
   $404 = '404',
 }
 
@@ -22,11 +25,29 @@ export function getRouteConfig(
     { name: PAGE_NAME_MAP.indexPagination, path: '/page/:no' },
     { name: PAGE_NAME_MAP.postDetail, path: '/post/:id' },
     { name: PAGE_NAME_MAP.categoryIndex, path: '/categories/' },
+
+    {
+      name: PAGE_NAME_MAP.archivesWithoutPage,
+      path: '/archives/',
+      redirect: to => ({
+        name: PAGE_NAME_MAP.archives,
+        query: to.query,
+        params: {
+          no: 1,
+        },
+      }),
+    },
+    {
+      name: PAGE_NAME_MAP.archives,
+      path: '/archives/page/:no',
+    },
+
     {
       name: PAGE_NAME_MAP.categoryPaginationWithoutPage,
       path: '/categories/:categories+',
       redirect: to => ({
         name: PAGE_NAME_MAP.categoryPagination,
+        query: to.query,
         params: {
           categories: to.params.categories,
           no: 1,
@@ -39,7 +60,7 @@ export function getRouteConfig(
     },
     {
       name: PAGE_NAME_MAP.$404,
-      path: '/404',
+      path: '/404.html',
     },
     {
       // 未匹配到预渲染的页面，重定向回 404

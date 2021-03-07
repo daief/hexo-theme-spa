@@ -26,13 +26,23 @@ hexo.extend.generator.register('spa', function (locals) {
       if (!category.length) return result;
       return [
         ...result,
+        { path: category.path },
         ...paginationUtil(category.posts, {
           perPage,
           pathPattern: category.path.replace(/\/?$/, '') + '/page/%d/',
         }),
       ];
     }, []),
-    // TODO 归档
+    // 归档 archives
+    { path: 'archives/' },
+    ...paginationUtil(locals.posts, {
+      perPage,
+      pathPattern: 'archives/page/%d/',
+    }),
+    // 404
+    {
+      path: '404.html',
+    },
   ].map(it => ({
     layout: ['index'],
     ...it,

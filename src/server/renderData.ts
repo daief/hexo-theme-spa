@@ -50,6 +50,18 @@ function getPathMatcher({ hexo }): RouterMatcher {
           },
         },
         {
+          name: PAGE_NAME_MAP.archivesWithoutPage,
+          meta: {
+            getData: getPostPaginationData,
+          },
+        },
+        {
+          name: PAGE_NAME_MAP.archives,
+          meta: {
+            getData: getPostPaginationData,
+          },
+        },
+        {
           name: PAGE_NAME_MAP.postDetail,
           meta: {
             getData: getPostDetail,
@@ -63,7 +75,6 @@ function getPathMatcher({ hexo }): RouterMatcher {
         },
         {
           name: PAGE_NAME_MAP.categoryPagination,
-          path: '/categories/:categories+/page/:no',
           meta: {
             getData: getCategoriesPaginationData,
           },
@@ -74,7 +85,10 @@ function getPathMatcher({ hexo }): RouterMatcher {
             getData: ({ params }, hexo: any, locals: any) => {
               const { path } = params;
               return {
-                page: stringifyPost(locals, locals.page, { more: true }),
+                page: stringifyPost(locals, locals.page, {
+                  more: true,
+                  toc: true,
+                }),
               };
             },
           },
@@ -111,9 +125,7 @@ function getPostPaginationData({ params }, hexo, locals) {
     total: totalPage,
     current: no,
     prev,
-    prev_link: formt(prev || 1),
     next,
-    next_link: formt(next || totalPage),
   };
 }
 
@@ -167,18 +179,29 @@ function getPostDetail({ params }, hexo, locals) {
       more: true,
       prev: true,
       next: true,
+      toc: true,
     }),
   };
 }
 
-function stringifyPost(locals, post, extra: any = {}): IPost {
+function stringifyPost(
+  locals,
+  post,
+  extra: {
+    prev?: boolean;
+    next?: boolean;
+    more?: boolean;
+    toc?: boolean;
+  } = {},
+): IPost {
   extra = {
     prev: false,
     next: false,
     more: false,
+    toc: false,
     ...extra,
   };
-  const extraData = _.omit(extra, ['prev', 'next', 'more']);
+  const extraData = _.omit(extra, ['prev', 'next', 'more', 'toc']);
   if (!post) {
     return null;
   }
@@ -208,6 +231,7 @@ function stringifyPost(locals, post, extra: any = {}): IPost {
       : null,
     excerpt: post.excerpt,
     more: extra.more ? post.more : null,
+    tocHtml: extra.toc ? locals.toc(post.content, { class: 'nav' }) : null,
     ...extraData,
   };
 }

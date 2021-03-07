@@ -4,6 +4,11 @@ import { createStoreIns } from './store';
 import './styles';
 import { createMetaIns } from './meta';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+
+dayjs.locale('zh-ch');
+
 export const App = require(__PAGE_PATH__).default;
 
 export function createBlogApp({

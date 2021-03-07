@@ -42,6 +42,7 @@ $ git rm --cached themes/spa
 # Note
 
 - Should restart `hexo server` if update `_config.yml`
+- `Node >= 12`
 
 # Links
 

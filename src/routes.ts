@@ -9,6 +9,7 @@ import CategoryPagination from './pages/CategoryPagination.vue';
 import Post from './pages/Post.vue';
 import PostPagination from './pages/PostPagination.vue';
 import SimplePage from './pages/SimplePage.vue';
+import ArchivePagination from './pages/ArchivePagination.vue';
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
 
 export function createRouterIns({
@@ -35,6 +36,10 @@ export function createRouterIns({
     {
       name: PAGE_NAME_MAP.$404,
       component: Post,
+    },
+    {
+      name: PAGE_NAME_MAP.archives,
+      component: ArchivePagination,
     },
   ]);
 
