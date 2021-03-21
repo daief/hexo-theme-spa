@@ -1,8 +1,9 @@
 <template>
-  <div class="w-full max-w-screen-lg mx-auto lg:flex lg:items-start">
+  <div class="w-full max-w-screen-lg mx-auto lg:flex">
     <!-- sidebar -->
     <div id="sidebar">
-      <SideBar v-model:show="showSideBar" />
+      <SideBarMobile v-if="isMobile" v-model:show="showSideBar" />
+      <SideBar v-else v-model:show="showSideBar" />
     </div>
 
     <main class="max-w-full lg:flex-grow lg:w-0" id="main">
@@ -29,16 +30,17 @@
 <script lang="ts">
 import { useBreakpointPrefix } from '@/hooks/useBreakPoint';
 import { ref, watch } from 'vue';
-import SideBar from './SideBar/index.vue';
-import FaIcon from './FaIcon.vue';
 
 export default {
-  components: { SideBar, FaIcon },
   name: 'Layout',
 };
 </script>
 
 <script lang="ts" setup>
+import SideBar from './SideBar/index.vue';
+import FaIcon from './FaIcon.vue';
+import SideBarMobile from './SideBar/Mobile.vue';
+
 const { isMobile } = useBreakpointPrefix();
 const showSideBar = ref(!isMobile.value);
 </script>

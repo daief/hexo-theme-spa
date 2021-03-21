@@ -6,10 +6,10 @@ import { ICategory, IPost } from '@/@types/entities';
 
 // hexo.locals 只读取数据
 // locals 合并了各种 helper 的方法
-export function renderData(renderUrl: string, hexo, locals) {
+export function renderData(renderUrl: string, locals) {
   let res = {};
   try {
-    const { matched, params } = getPathMatcher({ hexo })
+    const { matched, params } = getPathMatcher()
       // @ts-ignore
       .resolve({
         path: renderUrl,
@@ -18,7 +18,7 @@ export function renderData(renderUrl: string, hexo, locals) {
 
     const { meta } = firstMatched;
     res = meta.getData
-      ? meta.getData({ ...firstMatched, params: { ...params } }, hexo, locals)
+      ? meta.getData({ ...firstMatched, params: { ...params } }, locals)
       : {};
   } catch (error) {
     console.log('renderData error', `[${renderUrl}]`, error);
@@ -32,11 +32,11 @@ export function renderData(renderUrl: string, hexo, locals) {
 
 let pathMatcher;
 
-function getPathMatcher({ hexo }): RouterMatcher {
+function getPathMatcher(): RouterMatcher {
   pathMatcher =
     pathMatcher ||
     createRouterMatcher(
-      merge(getRouteConfig(getSimplePageFromHexo(hexo)), [
+      merge(getRouteConfig(getSimplePageFromHexo()), [
         {
           name: PAGE_NAME_MAP.index,
           meta: {
@@ -82,14 +82,14 @@ function getPathMatcher({ hexo }): RouterMatcher {
         {
           name: PAGE_NAME_MAP.tagsIndex,
           meta: {
-            getData: ({ params }, hexo: any, locals: any) => {
+            getData: ({ params }, locals: any) => {
               const { generator } = hexo.theme.config;
               const tags = hexo.locals.get('tags');
 
               return {
                 tags: tags.map(tag => ({
                   ...stringifyTag(tag),
-                  postCount: tag.posts.length,
+                  postCount: tag.posts.count(),
                 })),
               };
             },
@@ -101,13 +101,14 @@ function getPathMatcher({ hexo }): RouterMatcher {
         ].map(name => ({
           name,
           meta: {
-            getData: ({ params }, hexo: any, locals: any) => {
+            getData: ({ params }, locals: any) => {
               const { tag: tagName, no } = params;
               const { generator } = hexo.theme.config;
               const { per_page, order_by } = generator;
 
               const tag = hexo.locals
                 .get('tags')
+                // @ts-ignore
                 .find({ name: tagName })
                 .first();
 
@@ -136,7 +137,7 @@ function getPathMatcher({ hexo }): RouterMatcher {
         {
           name: PAGE_NAME_MAP.simplePages,
           meta: {
-            getData: ({ params }, hexo: any, locals: any) => {
+            getData: ({ params }, locals: any) => {
               const { path } = params;
               return {
                 page: stringifyPost(locals, locals.page, {
@@ -154,10 +155,13 @@ function getPathMatcher({ hexo }): RouterMatcher {
   return pathMatcher;
 }
 
-function getPostPaginationData({ params }, hexo, locals) {
+function getPostPaginationData({ params }, locals) {
   const { generator } = hexo.theme.config;
   const { per_page, order_by } = generator;
-  const posts = hexo.locals.get('posts').sort(order_by);
+  const posts = hexo.locals
+    .get('posts')
+    // @ts-ignore
+    .sort(order_by);
   const length = posts.length;
   let { no } = params;
   no = +no;
@@ -183,7 +187,7 @@ function getPostPaginationData({ params }, hexo, locals) {
   };
 }
 
-function getCategoriesPaginationData({ params }, hexo, locals) {
+function getCategoriesPaginationData({ params }, locals) {
   const { generator } = hexo.theme.config;
   const { per_page, order_by } = generator;
 
@@ -192,6 +196,8 @@ function getCategoriesPaginationData({ params }, hexo, locals) {
   // TODO 考虑重名的子分类？
   const category = hexo.locals
     .get('categories')
+    // @ts-ignore
+
     .find({ name: _.last(categories) })
     .first();
 
@@ -216,18 +222,24 @@ function getCategoriesPaginationData({ params }, hexo, locals) {
   };
 }
 
-function getCategoriesIndexData({ params }, hexo, locals) {
+function getCategoriesIndexData({ params }, locals) {
   return {
     htmlContent: locals.list_categories(),
-    total: hexo.locals.get('categories').length,
+    total: hexo.locals.get('categories').count(),
   };
 }
 
-function getPostDetail({ params }, hexo, locals) {
+function getPostDetail({ params }, locals) {
   const { generator } = hexo.theme.config;
   const { order_by } = generator;
   const { id } = params;
-  const post = hexo.locals.get('posts').sort(order_by).find({ id }).first();
+  const post = hexo.locals
+    .get('posts')
+    // @ts-ignore
+
+    .sort(order_by)
+    .find({ id })
+    .first();
   return {
     post: stringifyPost(locals, post, {
       more: true,

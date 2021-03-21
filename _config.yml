@@ -18,11 +18,11 @@ menu:
     name: 归档
   categories:
     link: /categories/
-    icon: th
+    icon: category
     name: 分类
   about:
     link: /about/
-    icon: user
+    icon: person
     name: 关于
   tags:
     link: /tags/

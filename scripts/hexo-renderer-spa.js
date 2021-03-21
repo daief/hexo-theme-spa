@@ -3,11 +3,12 @@
 const fs = require('fs-extra');
 const path = require('path');
 const NativeModule = require('module');
-const { devBuildSPA, buildSPA } = require('../build/compile');
 
 fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
 const isDev = hexo.env.env === 'development';
+
+global.hexo = global.hexo || hexo;
 
 /**
  * @this {import('hexo')}
@@ -15,11 +16,11 @@ const isDev = hexo.env.env === 'development';
  * @param {*} locals
  */
 async function spaRenderer(data, locals) {
+  const { devBuildSPA, buildSPA } = require('../build/compile');
   const { clientResult, publicPath } = await (isDev ? devBuildSPA : buildSPA)(
     data.path,
     {
       locals,
-      hexo: this,
     },
   );
 
@@ -27,7 +28,6 @@ async function spaRenderer(data, locals) {
 
   const resultHtml = await renderHtml({
     data,
-    hexo: this,
     locals,
     js: clientResult.js.map(it => publicPath + it),
     css: clientResult.css.map(it => publicPath + it),

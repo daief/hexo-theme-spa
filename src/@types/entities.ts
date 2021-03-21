@@ -31,4 +31,5 @@ export interface IPost {
   next?: IPost;
   excerpt: string;
   more: string;
+  tocHtml?: string;
 }

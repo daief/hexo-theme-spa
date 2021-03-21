@@ -10,7 +10,7 @@ const memoize = require('lodash/memoize');
 
 function getWebpackConfig(
   filename,
-  { hexo, ssr, locals, baseConfig, assetPublicPath },
+  { ssr, locals, baseConfig, assetPublicPath },
 ) {
   const entry = {
     main: path.resolve(
@@ -254,11 +254,10 @@ function getCompiler(filename, options) {
   ]);
 }
 
-async function buildSPA(filename, { locals, hexo }) {
+async function buildSPA(filename, { locals }) {
   const assetPublicPath = locals.url_for('/');
 
   const compiler = getCompiler(filename, {
-    hexo,
     locals,
     baseConfig: locals.config,
     assetPublicPath,
@@ -284,12 +283,11 @@ async function buildSPA(filename, { locals, hexo }) {
 
 let devComipler;
 
-async function devBuildSPA(filename, { locals, hexo }) {
+async function devBuildSPA(filename, { locals }) {
   const assetPublicPath = locals.url_for('/');
 
   if (!devComipler) {
     devComipler = getCompiler(filename, {
-      hexo,
       locals,
       baseConfig: locals.config,
       assetPublicPath,

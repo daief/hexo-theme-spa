@@ -15,9 +15,6 @@ function writeJsonToSource(fileName: string, obj: any, opts: any = {}) {
   });
 }
 
-export function saveDataToJson(url: string, { hexo, locals }) {
-  return writeJsonToSource(
-    toBase64(encodeURI(url)),
-    renderData(url, hexo, locals),
-  );
+export function saveDataToJson(url: string, { locals }) {
+  return writeJsonToSource(toBase64(encodeURI(url)), renderData(url, locals));
 }

@@ -58,7 +58,7 @@ export function getPageRouteFromHexo(hexo): string[] {
  * 获取到如 /about、/a-page 等自定义添加的页面，但不包含 /tags、/categories 这些具有特殊意义的路由
  * @param hexo
  */
-export function getSimplePageFromHexo(hexo): string[] {
+export function getSimplePageFromHexo(): string[] {
   return getPageRouteFromHexo(hexo).filter(it => {
     if (it === '/') {
       return false;

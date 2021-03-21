@@ -1,6 +1,6 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-export type IBreakpointPrefix = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type IBreakpointPrefix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 /**
  * @see https://tailwindcss.com/docs/responsive-design
@@ -8,9 +8,11 @@ export type IBreakpointPrefix = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 export function getBreakpointPrefix(): IBreakpointPrefix {
   if (__SSR__) return 'lg';
   const w = document.body.clientWidth;
+  if (w < 640) return 'xs';
   if (w < 768) return 'sm';
   if (w < 1024) return 'md';
-  if (w < 1280) return 'xl';
+  if (w < 1280) return 'lg';
+  if (w < 1536) return 'xl';
   return '2xl';
 }
 
@@ -32,6 +34,6 @@ export function useBreakpointPrefix() {
 
   return {
     prefix: value,
-    isMobile: computed(() => ['sm', 'md'].includes(value.value)),
+    isMobile: computed(() => ['xs', 'sm', 'md'].includes(value.value)),
   };
 }

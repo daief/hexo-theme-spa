@@ -2,7 +2,6 @@
  * server only
  */
 
-import type Hexo from 'hexo';
 import { renderToStringWithMeta } from 'vue-meta';
 import { createBlogApp } from './main';
 import { renderData } from './server/renderData';
@@ -20,25 +19,23 @@ export async function renderHtml({
   locals,
   js,
   css,
-  hexo,
 }: {
   data: {
     path: string;
   };
   locals;
-  hexo: Hexo;
   js: string[];
   css: string[];
 }) {
-  const simplePageRoute = getSimplePageFromHexo(hexo);
+  const simplePageRoute = getSimplePageFromHexo();
   const url = formatHtmlPath(locals.page.path);
 
-  saveDataToJson(url, { hexo, locals });
+  saveDataToJson(url, { locals });
 
   const hexoConfig = locals.config;
   const { app, router, store } = createBlogApp({ simplePageRoute });
 
-  const preRenderData = renderData(url, hexo, locals);
+  const preRenderData = renderData(url, locals);
 
   await store.commit('global/setPageData', {
     data: preRenderData,
