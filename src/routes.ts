@@ -2,6 +2,7 @@ import {
   createMemoryHistory,
   createRouter,
   createWebHistory,
+  Router,
   RouteRecordRaw,
 } from 'vue-router';
 import CategoryIndex from './pages/CategoryIndex.vue';
@@ -13,13 +14,14 @@ import TagsIndex from './pages/TagsIndex.vue';
 import TagsPagination from './pages/TagsPagination.vue';
 import ArchivePagination from './pages/ArchivePagination.vue';
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
+import { useAxios } from './hooks/useAxios';
+import { Store } from 'vuex';
+import NProgress from 'nprogress';
+import { watch } from 'vue';
+import { clientPathChangeGuard, pathToKey } from './utils';
 
-export function createRouterIns({
-  simplePageRoute,
-}: {
-  simplePageRoute: string[];
-}) {
-  const routes: RouteRecordRaw[] = merge(getRouteConfig(simplePageRoute), [
+export function createRouterIns() {
+  const routes: RouteRecordRaw[] = merge(getRouteConfig(), [
     {
       name: PAGE_NAME_MAP.index,
       component: PostPagination,
@@ -62,13 +64,66 @@ export function createRouterIns({
           el: to.hash,
         };
       }
+
       if (savedPosition) {
         return savedPosition;
-      } else {
-        return { top: 0 };
       }
+
+      return { top: 0 };
     },
   });
 
   return router;
 }
+
+export function addRouteGuards(router: Router, store: Store<any>) {
+  // ------------------------------------------------------------------------ load page data
+  const [resp, fetchPageData, { cancel }] = useAxios('');
+
+  watch(
+    () => resp.value.loading,
+    loading => {
+      // sync loading state
+      store.commit('global/setLoading', loading);
+    },
+  );
+
+  router.beforeEach(
+    clientPathChangeGuard(async (to, from) => {
+      cancel();
+      NProgress.start();
+      try {
+        const key = pathToKey(to.path);
+        const resp = await fetchPageData({
+          url: '/json/' + key + '.json',
+        });
+
+        await store.commit('global/setPageData', {
+          key,
+          data: resp.data,
+        });
+        NProgress.done();
+      } catch (error) {
+        NProgress.done();
+
+        if (error.isAxiosError && error.response.status === 404) {
+          return {
+            name: PAGE_NAME_MAP.$404,
+            query: {
+              ref: from.path,
+            },
+          };
+        }
+      }
+    }),
+  );
+
+  // ------------------------------------------------------------------------ !! 开发环境禁掉前端路由
+  if (!__PROD__) {
+    router.beforeEach((to, from) => {
+      if (to.path === from.path) return true;
+      location.href = to.fullPath;
+      return false;
+    });
+  }
+} // addRouteGuards

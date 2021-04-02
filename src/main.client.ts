@@ -2,31 +2,26 @@
  * client only
  */
 import { createBlogApp } from './main';
+import { addRouteGuards } from './routes';
 import { pathToKey } from './utils';
 
 async function bootstrap() {
-  const { app, store, router } = createBlogApp({
-    simplePageRoute: window.__SIMPLE_PAGE_ROUTE__,
-  });
+  const { app, store, router } = createBlogApp();
 
   try {
-    await router.isReady();
+    app.mount('#app');
 
-    if (!__SSR__ && !__PROD__) {
-      // !! 开发环境禁止前端路由
-      router.beforeEach(to => {
-        location.href = to.fullPath;
-        return false;
-      });
-    }
+    await router.isReady();
 
     await store.commit('global/setPageData', {
       data: window.__PAGE_DATA__,
-      key: pathToKey(router.currentRoute.value.path),
+      key: pathToKey(router.currentRoute.value.path), // after router ready
     });
-  } catch {}
 
-  app.mount('#app');
+    addRouteGuards(router, store);
+  } catch (e) {
+    console.error('bootstrap fail', e);
+  }
 
   (window as any).__app = app;
 }

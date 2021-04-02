@@ -3,5 +3,5 @@
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
-  "volar.tsPlugin": true
+  "volar.tsPlugin": false
 }

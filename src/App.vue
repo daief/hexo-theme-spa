@@ -1,6 +1,5 @@
 <template>
   <Analytics />
-  <LoadGlobalData />
 
   <template v-if="is404"> 404 </template>
   <template v-else>
@@ -19,7 +18,6 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import Analytics from '@/components/Analytics/index.vue';
-import LoadGlobalData from './components/LoadGlobalData.vue';
 import { useRoute } from 'vue-router';
 import Layout from './components/Layout.vue';
 import { PAGE_NAME_MAP } from '@/utils/route';
@@ -27,7 +25,6 @@ import { PAGE_NAME_MAP } from '@/utils/route';
 export default defineComponent({
   components: {
     Analytics,
-    LoadGlobalData,
     Layout,
   },
   setup() {

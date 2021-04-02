@@ -20,9 +20,7 @@ export enum PAGE_NAME_MAP {
   postDetail = 'postDetail',
 }
 
-export function getRouteConfig(
-  simplePageRoute: string[],
-): Partial<RouteRecordRaw>[] {
+export function getRouteConfig(): Partial<RouteRecordRaw>[] {
   return [
     // ------ index pagination
     {

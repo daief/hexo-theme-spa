@@ -894,6 +894,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/compiler-core@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@vue/compiler-core@npm:3.0.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fcompiler-core%2Fdownload%2F%40vue%2Fcompiler-core-3.0.9.tgz"
+  dependencies:
+    "@babel/parser": ^7.12.0
+    "@babel/types": ^7.12.0
+    "@vue/shared": 3.0.9
+    estree-walker: ^2.0.1
+    source-map: ^0.6.1
+  checksum: eced7a4d4fb7bc498a515f6c21831215d79ad3cedabbd77429da8288b2dd254355be17296be15410f957202da9891641f97ffff33598f9593a8dc0c61c16c81a
+  languageName: node
+  linkType: hard
+
 "@vue/compiler-dom@npm:3.0.5":
   version: 3.0.5
   resolution: "@vue/compiler-dom@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fcompiler-dom%2Fdownload%2F%40vue%2Fcompiler-dom-3.0.5.tgz"
@@ -901,6 +914,16 @@ __metadata:
     "@vue/compiler-core": 3.0.5
     "@vue/shared": 3.0.5
   checksum: b2320f953e8ab585425cfdcb9cbe3ecca4fef3e7d4f1200bf806b81b29cb863c24e08f4310fbcb4843b8304e515680c58e0e018d8f3edc484768428f51ca704c
+  languageName: node
+  linkType: hard
+
+"@vue/compiler-dom@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@vue/compiler-dom@npm:3.0.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fcompiler-dom%2Fdownload%2F%40vue%2Fcompiler-dom-3.0.9.tgz"
+  dependencies:
+    "@vue/compiler-core": 3.0.9
+    "@vue/shared": 3.0.9
+  checksum: 7053d3b197bffaaa042ad879e2e9a24101b52bc5a6a9082ad3b1bbf7f53071749c202148e14092c8fd848213cbb7e60d9ca91881231ff6d9a0e777cff3d770f6
   languageName: node
   linkType: hard
 
@@ -940,33 +963,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/reactivity@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@vue/reactivity@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Freactivity%2Fdownload%2F%40vue%2Freactivity-3.0.5.tgz"
+"@vue/reactivity@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@vue/reactivity@npm:3.0.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Freactivity%2Fdownload%2F%40vue%2Freactivity-3.0.9.tgz"
   dependencies:
-    "@vue/shared": 3.0.5
-  checksum: 7ea18fbf2ebfaf2f6038a8741d1a5848bb06b1db0fafc2ddf87984160c368b4cc484d7edb7efeef0724cf2497f2123693b708ad2d85f89d37ad28f3d0b16d29b
+    "@vue/shared": 3.0.9
+  checksum: d0a618552170a71edbb6149197626d83ba4edb02029c19bf334a6345a06c6f5b53c9aa2d04c0d7251f66bdc368ad4ecb49ba85d1731d56aa2487f5f97ee068cd
   languageName: node
   linkType: hard
 
-"@vue/runtime-core@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@vue/runtime-core@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fruntime-core%2Fdownload%2F%40vue%2Fruntime-core-3.0.5.tgz"
+"@vue/runtime-core@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@vue/runtime-core@npm:3.0.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fruntime-core%2Fdownload%2F%40vue%2Fruntime-core-3.0.9.tgz"
   dependencies:
-    "@vue/reactivity": 3.0.5
-    "@vue/shared": 3.0.5
-  checksum: 801120943f2c93f5c1cad79b89acf58e9d90b8bda4c4c79f8f646dac26f50bae491897efe59955b984432480ee4ff19fce123f5190b7630424baeba7f4a95dc3
+    "@vue/reactivity": 3.0.9
+    "@vue/shared": 3.0.9
+  checksum: f3aa22f7cb5300877b63beb48aedaa8f61a17a8744cbc5596f7ea2845afb975af792674ec1d6b34606cd31d3d6a5ffef89eadf3e308983f5ab8e0b611f72cdb0
   languageName: node
   linkType: hard
 
-"@vue/runtime-dom@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@vue/runtime-dom@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fruntime-dom%2Fdownload%2F%40vue%2Fruntime-dom-3.0.5.tgz"
+"@vue/runtime-dom@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@vue/runtime-dom@npm:3.0.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fruntime-dom%2Fdownload%2F%40vue%2Fruntime-dom-3.0.9.tgz"
   dependencies:
-    "@vue/runtime-core": 3.0.5
-    "@vue/shared": 3.0.5
+    "@vue/runtime-core": 3.0.9
+    "@vue/shared": 3.0.9
     csstype: ^2.6.8
-  checksum: 74db9cb3c6934e4f66e6bb787873e67cdaa234b43ec21d19456571a00419d9a6f6ff7cc71d705271fcecf51d6fd9fdda5b9e6aaf9284c4b20c4550e2a7fb8ec6
+  checksum: a45e1ac524e55e0977da169cb346bbae43decc8d3ce836b2eb11b32e5ff616ccb28c6ef30a457a7a9183ecba82ff36d81a050d73c955c95f424a287ebbf97352
   languageName: node
   linkType: hard
 
@@ -986,6 +1009,13 @@ __metadata:
   version: 3.0.5
   resolution: "@vue/shared@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fshared%2Fdownload%2F%40vue%2Fshared-3.0.5.tgz"
   checksum: 9305884d862787fd05b0689accf4a70cd0cbc9c026cb60210fa7fcf0fb05e207575ac82b1962be77575544ae2fb2d56d1835e5e44f15f9a32fceea4db5e35f6a
+  languageName: node
+  linkType: hard
+
+"@vue/shared@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@vue/shared@npm:3.0.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fshared%2Fdownload%2F%40vue%2Fshared-3.0.9.tgz"
+  checksum: a469974b7fd073de6875f8d420e62e25c5cc47e1d69c182122b0d60c4122a1d501d780c57928764cc995e6e82d812d1d9e4959ac965eeaee564da940b08145cb
   languageName: node
   linkType: hard
 
@@ -3748,7 +3778,7 @@ fsevents@^2.1.2:
     url-loader: ^4.1.1
     url-pattern: ^1.0.3
     uuid: ^3.0.0
-    vue: ^3.0.5
+    vue: ^3.0.6
     vue-loader: ^16.1.0
     vue-meta: ^3.0.0-alpha.1
     vue-router: ^4.0.0
@@ -7809,22 +7839,22 @@ typescript@^4.1.3:
   linkType: hard
 
 "vue-router@npm:^4.0.0":
-  version: 4.0.3
-  resolution: "vue-router@npm:4.0.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-4.0.3.tgz"
+  version: 4.0.5
+  resolution: "vue-router@npm:4.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-4.0.5.tgz"
   peerDependencies:
     vue: ^3.0.0
-  checksum: 4ef0de5b18a9d76ba29dc23c68ea4ed6d02347a1dc19887f8a328ffa088dd90a62e2bc8279507a844c9dd4a70545d97325cfa9a66bc6b0cf0ddf6aa520abfe5f
+  checksum: 9d3459baae6290169cd525125f5eafe30bae62a5c7f657e948674fa0248607a7b7a3eeed8e83a4f98ff8db7753279727e8cb29b40e9b4a236da1c6696b71d035
   languageName: node
   linkType: hard
 
-"vue@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "vue@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue%2Fdownload%2Fvue-3.0.5.tgz"
+"vue@npm:^3.0.6":
+  version: 3.0.9
+  resolution: "vue@npm:3.0.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue%2Fdownload%2Fvue-3.0.9.tgz"
   dependencies:
-    "@vue/compiler-dom": 3.0.5
-    "@vue/runtime-dom": 3.0.5
-    "@vue/shared": 3.0.5
-  checksum: ed84a0afcfdb74d4f39efe8ef8eaba803ba94e9164bad97cd343b7a2d806f94eee6b3c471a39e80e8ef7df05fc9bc915f68e1cf964d651a8c9bef9063b4d180f
+    "@vue/compiler-dom": 3.0.9
+    "@vue/runtime-dom": 3.0.9
+    "@vue/shared": 3.0.9
+  checksum: fcce42dfc77a7d7819478badcd06f159d2bc153935ac955ef643cb08fdcbb809e5c78977ec3423bf52ddcae88f305d3fa2b92bdf218e1dca06329db1c0e6f689
   languageName: node
   linkType: hard
 

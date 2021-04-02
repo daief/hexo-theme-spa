@@ -8,6 +8,5 @@ declare const __PAGE_PATH__: string;
 declare module '*.vue';
 
 interface Window {
-  __SIMPLE_PAGE_ROUTE__: string[];
   __PAGE_DATA__: any;
 }

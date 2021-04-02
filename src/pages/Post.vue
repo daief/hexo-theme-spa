@@ -32,11 +32,14 @@ export default defineComponent({});
 
 <script lang="ts" setup>
 import Post from '@/components/Post/Post.vue';
-import { usePageData } from '@/hooks/usePageData';
+import { usePageData, useSetPageToc } from '@/hooks/usePageData';
 
 const pageData = usePageData();
 const post = computed(() => unref(pageData).post || {});
 const tags = computed(() => unref(post).tags || []);
+const toc = computed(() => post.value.tocHtml);
+
+useSetPageToc(toc);
 </script>
 
 <style scoped lang="less"></style>

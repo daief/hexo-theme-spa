@@ -1,8 +1,20 @@
+import { NavigationGuardWithThis } from 'vue-router';
+
+/**
+ * 从简考虑，凡是跨域链接，均认为站外链接
+ * @param link
+ * @returns
+ */
 export function isExternalLink(link: string) {
-  const url = new URL(link);
   const siteUrl = new URL(__baseConfig.url);
+
+  if (!/^\w+:\/\//i.test(link)) {
+    link = link.replace(/^\/?/, siteUrl.origin + '/');
+  }
+
+  const url = new URL(link);
   const localUrl = __SSR__ ? siteUrl : new URL(location.href);
-  return url.hostname !== localUrl.hostname;
+  return url.origin !== localUrl.origin;
 }
 
 export function isNil(obj: any) {
@@ -58,17 +70,26 @@ export function getPageRouteFromHexo(hexo): string[] {
  * 获取到如 /about、/a-page 等自定义添加的页面，但不包含 /tags、/categories 这些具有特殊意义的路由
  * @param hexo
  */
-export function getSimplePageFromHexo(): string[] {
-  return getPageRouteFromHexo(hexo).filter(it => {
-    if (it === '/') {
-      return false;
-    }
-    return !['/categories/', '/tags/', '/post/', '/404'].some(prefix =>
-      it.startsWith(prefix),
-    );
-  });
-}
+// export function getSimplePageFromHexo(): string[] {
+//   return getPageRouteFromHexo(hexo).filter(it => {
+//     if (it === '/') {
+//       return false;
+//     }
+//     return !['/categories/', '/tags/', '/post/', '/404'].some(prefix =>
+//       it.startsWith(prefix),
+//     );
+//   });
+// }
 
 export function removePathTailPage(path: string) {
   return path.replace(/(\/page\/\d+\/?)?$/i, '');
 }
+
+export const clientPathChangeGuard = (
+  g: NavigationGuardWithThis<void>,
+): NavigationGuardWithThis<void> => {
+  return (to, from, ...args) => {
+    if (__SSR__ || to.path === from.path) return;
+    return g(to, from, ...args);
+  };
+};

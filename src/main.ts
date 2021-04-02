@@ -11,14 +11,10 @@ dayjs.locale('zh-ch');
 
 export const App = require(__PAGE_PATH__).default;
 
-export function createBlogApp({
-  simplePageRoute,
-}: {
-  simplePageRoute: string[];
-}) {
+export function createBlogApp() {
   const app = __SSR__ ? createSSRApp(App) : createApp(App);
 
-  const router = createRouterIns({ simplePageRoute });
+  const router = createRouterIns();
   const store = createStoreIns();
   const metaManager = createMetaIns();
 

@@ -1,4 +1,4 @@
-import { formatHtmlPath, getSimplePageFromHexo } from '@/utils';
+import { formatHtmlPath } from '@/utils';
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
 import { createRouterMatcher, RouterMatcher } from 'vue-router';
 import _ from 'lodash';
@@ -36,7 +36,7 @@ function getPathMatcher(): RouterMatcher {
   pathMatcher =
     pathMatcher ||
     createRouterMatcher(
-      merge(getRouteConfig(getSimplePageFromHexo()), [
+      merge(getRouteConfig(), [
         {
           name: PAGE_NAME_MAP.index,
           meta: {
