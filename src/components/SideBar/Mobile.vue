@@ -5,18 +5,17 @@
     @click.self="handleOnClickMask"
   >
     <div class="w-80 max-w-10/12 h-full bg-white overflow-y-auto p-2">
-      <SiteTitle />
       <div v-if="!hasTocHtml">
+        <SiteTitle />
         <SiteNav />
       </div>
       <div v-else>
         <Tabs>
           <Tab title="文章目录">
             <SiteToc />
-            <SiteToc />
           </Tab>
-          <Tab title="站点概况"> 站点概况 </Tab>
-          <Tab title="导航">
+          <Tab title="站点概况">
+            <SiteTitle />
             <SiteNav />
           </Tab>
         </Tabs>

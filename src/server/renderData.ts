@@ -16,7 +16,7 @@ export function renderData(renderUrl: string, locals) {
       });
     const firstMatched = matched[0];
 
-    const { meta } = firstMatched;
+    const { meta } = firstMatched as any;
     res = meta.getData
       ? meta.getData({ ...firstMatched, params: { ...params } }, locals)
       : {};

@@ -319,6 +319,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:7.x":
+  version: 7.13.10
+  resolution: "@babel/runtime@npm:7.13.10::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.13.10.tgz"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 22014226b96a8c8e8d4e8bcdb011f317d1b32881aef424a669dc6ceaee14993d3609172967853cbf9c25c724c25145d45885b6c9df56ba241c12820776607f1f
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.12.13, @babel/template@npm:^7.3.3":
   version: 7.12.13
   resolution: "@babel/template@npm:7.12.13::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Ftemplate%2Fdownload%2F%40babel%2Ftemplate-7.12.13.tgz"
@@ -878,6 +887,15 @@ __metadata:
   dependencies:
     "@types/yargs-parser": "*"
   checksum: fa1a5b0a07dbbff1657a27d1191d586632412d170321000f6f417f279547a8c191d7058dbf4d4187c188a5a1aeb2473ddb25fe316b206fccdfe1de6fad976619
+  languageName: node
+  linkType: hard
+
+"@vant/use@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@vant/use@npm:1.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vant%2Fuse%2Fdownload%2F%40vant%2Fuse-1.0.5.tgz"
+  dependencies:
+    "@babel/runtime": 7.x
+  checksum: 8cda251defeefdf46ca7bf1cdd22edafe0b2e8561e2cf5f3ef7494ea03729672e054744c13221041b0b1258659d1d885d1e2bafda28461425481d4903095a24b
   languageName: node
   linkType: hard
 
@@ -3744,6 +3762,7 @@ fsevents@^2.1.2:
     "@types/jest": ^26.0.20
     "@types/lodash": ^4.14.168
     "@types/node": ^14.14.22
+    "@vant/use": ^1.0.5
     "@vue/compiler-sfc": ^3.0.0
     "@vue/server-renderer": ^3.0.5
     autoprefixer: ^10.2.4
@@ -6464,6 +6483,13 @@ fsevents@^2.1.2:
     css-unit-converter: ^1.1.1
     postcss-value-parser: ^3.3.0
   checksum: 9db44f858fcad6dc58e55d269b639b2225a9ec9753307d5bc55db4115bcf3692d8697027559e7350b9253420249f049e1b5a0e30a51b57a76e650d876003d175
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.4":
+  version: 0.13.8
+  resolution: "regenerator-runtime@npm:0.13.8::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fregenerator-runtime%2Fdownload%2Fregenerator-runtime-0.13.8.tgz"
+  checksum: 20178f5753f181d59691e5c3b4c59a2769987f75c7ccf325777673b5478acca61a553b10e895585086c222f72f5ee428090acf50320264de4b79f630f7388653
   languageName: node
   linkType: hard
 

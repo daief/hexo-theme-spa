@@ -13,7 +13,7 @@ export function isExternalLink(link: string) {
   }
 
   const url = new URL(link);
-  const localUrl = __SSR__ ? siteUrl : new URL(location.href);
+  const localUrl = __SSR__ || !__PROD__ ? siteUrl : new URL(location.href);
   return url.origin !== localUrl.origin;
 }
 

@@ -43,6 +43,7 @@ $ git rm --cached themes/spa
 
 - Should restart `hexo server` if update `_config.yml`
 - `Node >= 12`
+- 一些 `after_post_render` 处理 HTML 的 filter 并不会有效果
 
 # Links
 
