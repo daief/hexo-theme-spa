@@ -53,7 +53,10 @@ export async function renderHtml({
     />
     ${getCtxProp('head')}
     <script>
-      window.__PAGE_DATA__ = ${JSON.stringify(preRenderData)};
+      window.__PAGE_DATA__ = JSON.parse(unescape(${
+        // 有些东西直接用正则匹配标签进行处理，故编码一下避免意外地被处理
+        JSON.stringify(escape(JSON.stringify(preRenderData)))
+      }));
     </script>
 
     ${css.map(it => `<link href="${it}" rel="stylesheet">`).join('')}
