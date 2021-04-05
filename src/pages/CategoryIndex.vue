@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="text-center my-4">
+    <div class="text-center my-4 text-lg">
       目前共计 {{ pageData.total || 0 }} 个分类。
     </div>
     <div
