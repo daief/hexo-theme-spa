@@ -57,7 +57,7 @@ const hasTocHtml = computed(() => !!store.state.global.pageTocHtml);
 
 <style lang="less" scoped>
 .pc-sider-bar {
-  /deep/ .tabs-title {
+  ::v-deep(.tabs-title) {
     @apply mb-5;
   }
 }

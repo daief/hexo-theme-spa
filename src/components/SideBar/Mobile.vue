@@ -79,7 +79,7 @@ router.afterEach(() => {
 
 <style lang="less" scoped>
 .mobile-sider-bar {
-  /deep/ .tabs-title {
+  ::v-deep(.tabs-title) {
     @apply sticky;
     @apply top-0;
     @apply mb-2;

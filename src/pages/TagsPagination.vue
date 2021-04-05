@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="mb-6">
-      <strong>{{ tag.name }}</strong>
+      <strong>「{{ tag.name }}」</strong>
       标签下，共有 {{ pageData.count }} 篇
     </h1>
 

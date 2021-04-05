@@ -8,6 +8,8 @@ fs.emptyDirSync(path.resolve(__dirname, '../source'));
 
 const isDev = hexo.env.env === 'development';
 
+let savedLocals;
+
 global.hexo = global.hexo || hexo;
 
 /**
@@ -16,6 +18,8 @@ global.hexo = global.hexo || hexo;
  * @param {*} locals
  */
 async function spaRenderer(data, locals) {
+  savedLocals = locals;
+
   const { devBuildSPA, buildSPA } = require('../build/compile');
   const { clientResult, publicPath } = await (isDev ? devBuildSPA : buildSPA)(
     data.path,
@@ -46,6 +50,24 @@ async function spaRenderer(data, locals) {
 }
 
 hexo.extend.renderer.register('vue', 'html', spaRenderer);
+
+hexo.extend.filter.register('server_middleware', function (app) {
+  app.use(function (req, res, next) {
+    if (/^\/json\/.*\.json$/i.test(req.url)) {
+      const key = req.url.replace(/^\/json\//i, '').replace(/\.json$/i, '');
+      const { renderData } = loadModule('../source/ssr/main');
+      const path = Buffer.from(key, 'base64').toString();
+      const data = renderData(path, savedLocals);
+      res.writeHead(200, {
+        'Content-type': 'application/json',
+      });
+      res.write(JSON.stringify(data));
+      res.end();
+      return;
+    }
+    next();
+  });
+});
 
 if (hexo.env.env === 'production') {
   hexo.extend.filter.register('before_exit', function () {

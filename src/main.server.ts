@@ -9,6 +9,8 @@ import { formatHtmlPath, pathToKey } from './utils';
 import _ from 'lodash';
 import { saveDataToJson } from './server/generateJsons';
 
+export { renderData };
+
 export async function renderHtml({
   data,
   locals,
@@ -25,12 +27,16 @@ export async function renderHtml({
   // const simplePageRoute = getSimplePageFromHexo();
   const url = formatHtmlPath(locals.page.path);
 
-  saveDataToJson(url, { locals });
+  if (__PROD__) {
+    saveDataToJson(url, { locals });
+  }
 
   const hexoConfig = locals.config;
   const { app, router, store } = createBlogApp();
 
   const preRenderData = renderData(url, locals);
+
+  console.log(1111122222);
 
   await store.commit('global/setPageData', {
     data: preRenderData,
