@@ -23,12 +23,9 @@
         </a>
       </span>
       <span class="mx-2"> | </span>
-      <span class="text-xs inline-flex">
-        <ColorPicker
-          :value="themeColor"
-          @update:value="handleColorChange"
-          class="inline-block"
-        />
+      <span class="text-xs inline-flex items-center">
+        设置主题：
+        <ColorPicker :value="themeColor" @update:value="handleColorChange" />
       </span>
     </div>
     <div class="footer-inner"></div>

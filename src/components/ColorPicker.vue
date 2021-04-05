@@ -32,6 +32,12 @@ const props = defineProps({
 
 const emit = defineEmit(['update:value']);
 
+const updateColorFromIns = () => {
+  if (!picker) return;
+  const rgba = picker.getColor().toRGBA();
+  emit('update:value', rgba.toString(), rgba);
+};
+
 onMounted(async () => {
   const Pickr = (await import('@simonwep/pickr')).default;
   picker = Pickr.create({
@@ -75,10 +81,7 @@ onMounted(async () => {
     .on('init', instance => {
       // console.log('Event: "init"', instance);
     })
-    .on('hide', () => {
-      const rgba = picker.getColor().toRGBA();
-      emit('update:value', rgba.toString(), rgba);
-    })
+    .on('hide', updateColorFromIns)
     .on('show', (color, instance) => {
       // console.log('Event: "show"', color, instance);
     })
@@ -91,15 +94,11 @@ onMounted(async () => {
     .on('change', (color, source, instance) => {
       // console.log('Event: "change"', color, source, instance);
     })
-    .on('changestop', (source, instance) => {
-      // console.log('Event: "changestop"', source, instance);
-    })
+    .on('changestop', updateColorFromIns)
     .on('cancel', instance => {
       // console.log('Event: "cancel"', instance);
     })
-    .on('swatchselect', (color, instance) => {
-      // console.log('Event: "swatchselect"', color, instance);
-    });
+    .on('swatchselect', updateColorFromIns);
 });
 
 watch(
