@@ -13,13 +13,7 @@
       <div class="main-page-content p-7 lg:pt-20">
         <slot></slot>
       </div>
-      <footer class="footer">
-        <div class="footer-inner">
-          footer
-
-          <router-link to="/404.html">404</router-link>
-        </div>
-      </footer>
+      <Footer />
     </main>
   </div>
 
@@ -56,6 +50,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import Footer from './Footer.vue';
 import Icon from './Icon.vue';
 import SideBarMobile from './SideBar/Mobile.vue';
 import SideBarPc from './SideBar/PC.vue';

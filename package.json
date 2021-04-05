@@ -7,6 +7,7 @@
     "hexo": "^5.0.0"
   },
   "dependencies": {
+    "@simonwep/pickr": "^1.8.0",
     "@vant/use": "^1.0.5",
     "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.10.4",

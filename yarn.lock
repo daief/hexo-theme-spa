@@ -617,6 +617,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@simonwep/pickr@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "@simonwep/pickr@npm:1.8.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40simonwep%2Fpickr%2Fdownload%2F%40simonwep%2Fpickr-1.8.0.tgz"
+  dependencies:
+    core-js: ^3.8.0
+    nanopop: ^2.1.0
+  checksum: 363a72c3a54498c5d575d8a51015c40e160182575ca476e34f76a2dc0fbd5aff7562974754df2f9de19119f8d887b71c6c2a373d6eff492cb5617d34c47cc61a
+  languageName: node
+  linkType: hard
+
 "@sinonjs/commons@npm:^1.7.0":
   version: 1.8.2
   resolution: "@sinonjs/commons@npm:1.8.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sinonjs%2Fcommons%2Fdownload%2F%40sinonjs%2Fcommons-1.8.2.tgz"
@@ -2128,6 +2138,13 @@ __metadata:
   version: 0.1.1
   resolution: "copy-descriptor@npm:0.1.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcopy-descriptor%2Fdownload%2Fcopy-descriptor-0.1.1.tgz"
   checksum: c052cf571ff6b69b604607a3d41f03cb742af9472026013e690ab33e1bef5e64930c53a5f881dc79c7e4f5ccc3cea0ebb9f420315d3690989329088976b68ee9
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.8.0":
+  version: 3.10.0
+  resolution: "core-js@npm:3.10.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.10.0.tgz"
+  checksum: d8bb20f7da9fdd944057cb41938153a7c4e471fb7d529e37958e32c7a20ab9506abbd03932750c27c8fd02de03a8e4775ba68252506a0dd42dda5404901ae9f1
   languageName: node
   linkType: hard
 
@@ -3756,6 +3773,7 @@ fsevents@^2.1.2:
   version: 0.0.0-use.local
   resolution: "hexo-theme-spa@workspace:."
   dependencies:
+    "@simonwep/pickr": ^1.8.0
     "@types/fs-extra": ^9.0.6
     "@types/hexo": ^3.8.5
     "@types/jest": ^26.0.20
@@ -5518,6 +5536,13 @@ fsevents@^2.1.2:
     snapdragon: ^0.8.1
     to-regex: ^3.0.1
   checksum: 2e1440c5705f0192b9d9b46bb682a1832052974dad359ed473b9f555abb5c55a08b3d5ba45d7d37c53a83f64b7f93866292824d3086a150ff7980e71874feb3b
+  languageName: node
+  linkType: hard
+
+"nanopop@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "nanopop@npm:2.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fnanopop%2Fdownload%2Fnanopop-2.1.0.tgz"
+  checksum: c817be67a2bfd2440932605e1ea90b07ef31aad7c40e2768bbc79e40532074cf53168f059f63b481ec9cc1891eb7efd0f84cb49fcc0f5a1027656e2e6d2e8c61
   languageName: node
   linkType: hard
 

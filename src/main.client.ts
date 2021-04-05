@@ -4,8 +4,11 @@
 import { createBlogApp } from './main';
 import { addRouteGuards } from './routes';
 import { pathToKey } from './utils';
+import { initTheme } from './utils/theme';
 
 async function bootstrap() {
+  initTheme();
+
   const { app, store, router } = createBlogApp();
 
   try {
