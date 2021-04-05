@@ -4,7 +4,7 @@
       v-for="item in menus"
       :key="item[0]"
       :to="item[1].link"
-      class="block relative px-4 text-sm text-gray-700 leading-7"
+      class="block relative text-sm text-gray-700 leading-7"
       :class="item[1].link === route.path ? 'bg-gray-200' : 'hover:bg-gray-200'"
     >
       <Icon :name="item[1].icon" class="mr-1 text-xs" />

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, defineEmit, ref, watch } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({});
@@ -111,11 +111,19 @@ useEventListener(
 .site-toc-wrap {
   .nav-item {
     ol {
-      padding-left: 1em;
+      @apply pl-3;
+    }
+    a {
+      @apply text-gray-700;
+
+      &:hover {
+        @apply text-primary;
+        @apply text-opacity-70;
+      }
     }
     &.active > a {
-      color: red;
-      transition: all 0.3s;
+      @apply transition-all;
+      @apply text-primary;
     }
   }
 }

@@ -7,7 +7,28 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: ({ opacityVariable, opacityValue }) => {
+          if (opacityValue !== undefined) {
+            return `rgba(var(--base-primary), ${opacityValue})`;
+          }
+          if (opacityVariable !== undefined) {
+            return `rgba(var(--base-primary), var(${opacityVariable}, 1))`;
+          }
+          return `rgb(var(--base-primary))`;
+        },
+        secondary: ({ opacityVariable, opacityValue }) => {
+          if (opacityValue !== undefined) {
+            return `rgba(var(--color-secondary), ${opacityValue})`;
+          }
+          if (opacityVariable !== undefined) {
+            return `rgba(var(--color-secondary), var(${opacityVariable}, 1))`;
+          }
+          return `rgb(var(--color-secondary))`;
+        },
+      },
+    },
   },
   variants: {},
   plugins: [],

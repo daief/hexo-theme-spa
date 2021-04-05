@@ -1,3 +1,9 @@
+# 头像
+avatar: '/images/avatar.jpg'
+
+# 关闭一言
+disableHitokoto: false
+
 # 谷歌分析
 google_analytics:
   ga_measurement_id: 'UA-146082840-1'
@@ -38,3 +44,20 @@ menu:
 highlight:
   # @see https://github.com/highlightjs/highlight.js/tree/master/src/styles
   theme: solarized-dark
+
+# 社交
+social:
+  enable: true
+  GitHub:
+    link: https://github.com/daief
+    icon: github
+    name: GitHub
+  WeChat:
+    link: /images/wechat.jpg
+    icon: wechat
+    name: WeChat
+  Email:
+    link: mailto:defeng_mail@163.com
+    icon: email
+    name: Email
+  #Weibo: https://github.com/daief

@@ -159,6 +159,13 @@ function getWebpackConfig(
         // some data inject
         __baseConfig: JSON.stringify(baseConfig),
         __theme: JSON.stringify(locals.theme),
+        __site: JSON.stringify({
+          count: {
+            post: locals.site.posts.length,
+            category: locals.site.categories.length,
+            tag: locals.site.tags.length,
+          },
+        }),
       }),
       new FriendlyErrorsWebpackPlugin(),
       new WebpackManifestPlugin({

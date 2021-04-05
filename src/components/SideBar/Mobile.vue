@@ -1,22 +1,23 @@
 <template>
   <div
-    class="fixed z-20 inset-0 bg-black bg-opacity-60"
+    class="mobile-sider-bar fixed z-20 inset-0 bg-black bg-opacity-60"
     v-show="show"
     @click.self="handleOnClickMask"
   >
-    <div class="w-80 max-w-10/12 h-full bg-white overflow-y-auto p-2">
+    <div class="w-80 max-w-10/12 h-full bg-white overflow-y-auto px-6 pb-6">
       <div v-if="!hasTocHtml">
         <SiteTitle />
         <SiteNav />
+        <SiteProfile />
       </div>
       <div v-else>
-        <Tabs>
+        <Tabs title-class="tabs-title">
           <Tab title="文章目录">
             <SiteToc />
           </Tab>
           <Tab title="站点概况">
-            <SiteTitle />
             <SiteNav />
+            <SiteProfile />
           </Tab>
         </Tabs>
       </div>
@@ -41,6 +42,7 @@ export default defineComponent({});
 import SiteNav from '@/components/site/SiteNav.vue';
 import SiteTitle from '@/components/site/SiteTitle.vue';
 import SiteToc from '@/components/site/SiteToc.vue';
+import SiteProfile from '@/components/site/SiteProfile.vue';
 import { Tabs, Tab } from '@/components/Tabs';
 import { useBreakpointPrefix } from '@/hooks/useBreakPoint';
 import { useRouter } from 'vue-router';
@@ -75,4 +77,14 @@ router.afterEach(() => {
 });
 </script>
 
-<style scoped lang="less"></style>
+<style lang="less" scoped>
+.mobile-sider-bar {
+  /deep/ .tabs-title {
+    @apply sticky;
+    @apply top-0;
+    @apply mb-2;
+    @apply pt-6;
+    @apply bg-white;
+  }
+}
+</style>

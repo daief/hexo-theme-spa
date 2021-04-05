@@ -1,18 +1,16 @@
 <template>
   <Analytics />
 
-  <template v-if="is404"> 404 </template>
+  <!-- <template v-if="is404"> 404 </template>
   <template v-else>
     <Layout>
-      <!-- <router-view v-slot="{ Component }">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
-      </router-view> -->
-      <!-- TODO: use keep alive -->
       <router-view />
     </Layout>
-  </template>
+  </template> -->
+
+  <Layout>
+    <router-view />
+  </Layout>
 </template>
 
 <script lang="ts">

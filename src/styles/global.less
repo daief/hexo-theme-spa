@@ -1,0 +1,18 @@
+:root {
+  --base-primary: 255, 140, 50;
+
+  --primary: rgba(var(var(--base-primary)));
+}
+
+html {
+  @apply bg-primary;
+  @apply bg-opacity-10;
+}
+
+a {
+  @apply text-primary;
+
+  &:hover {
+    @apply text-opacity-75;
+  }
+}

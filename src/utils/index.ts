@@ -6,6 +6,7 @@ import { NavigationGuardWithThis } from 'vue-router';
  * @returns
  */
 export function isExternalLink(link: string) {
+  if (typeof link !== 'string') return false;
   const siteUrl = new URL(__baseConfig.url);
 
   if (!/^\w+:\/\//i.test(link)) {

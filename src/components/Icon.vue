@@ -11,7 +11,7 @@ if (!__SSR__) {
   const script = document.createElement('script');
   script.async = true;
   script.defer = true;
-  script.src = '//at.alicdn.com/t/font_2433925_q2m8ompfk9.js';
+  script.src = '//at.alicdn.com/t/font_2433925_764yz1k2lvj.js';
   document.body.append(script);
 }
 
@@ -19,11 +19,21 @@ export default defineComponent({
   name: 'Icon',
   props: {
     name: {
-      type: String,
+      type: String as any,
       required: true,
     },
   },
 });
+
+type IName =
+  | 'email'
+  | 'wechat'
+  | 'github'
+  | 'tag'
+  | 'home'
+  | 'person'
+  | 'archive'
+  | 'category';
 </script>
 
 <style scoped lang="less">
