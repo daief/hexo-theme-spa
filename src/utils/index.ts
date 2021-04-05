@@ -6,15 +6,16 @@ import { NavigationGuardWithThis } from 'vue-router';
  * @returns
  */
 export function isExternalLink(link: string) {
-  if (typeof link !== 'string') return false;
+  if (typeof link !== 'string') return true;
   const siteUrl = new URL(__baseConfig.url);
 
+  // 不是协议开头的拼上 site 的协议
   if (!/^\w+:\/\//i.test(link)) {
     link = link.replace(/^\/?/, siteUrl.origin + '/');
   }
 
   const url = new URL(link);
-  const localUrl = __SSR__ || !__PROD__ ? siteUrl : new URL(location.href);
+  const localUrl = !__SSR__ && !__PROD__ ? new URL(location.href) : siteUrl;
   return url.origin !== localUrl.origin;
 }
 

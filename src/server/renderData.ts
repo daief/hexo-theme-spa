@@ -12,7 +12,7 @@ export function renderData(renderUrl: string, locals) {
     const { matched, params } = getPathMatcher()
       // @ts-ignore
       .resolve({
-        path: renderUrl,
+        path: decodeURI(renderUrl),
       });
     const firstMatched = matched[0];
 
@@ -193,12 +193,10 @@ function getCategoriesPaginationData({ params }, locals) {
 
   const { categories, no } = params;
 
-  // TODO 考虑重名的子分类？
   const category = hexo.locals
     .get('categories')
     // @ts-ignore
-
-    .find({ name: _.last(categories) })
+    .find({ slug: categories.join('/') })
     .first();
 
   const posts = category ? category.posts.sort(order_by) : [];
