@@ -1,7 +1,9 @@
 <template>
   <li class="flex">
-    <small class="w-24 flex-shrink-0">{{ formatDate(post.date) }}</small>
-    <router-link :to="post.path" class="break-all">
+    <small class="w-24 flex-shrink-0 text-gray-700">{{
+      formatDate(post.date)
+    }}</small>
+    <router-link :to="post.path" class="a-normal break-all">
       {{ post.title }}
     </router-link>
   </li>

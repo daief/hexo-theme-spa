@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>
+    <h1 class="mb-6">
       <strong>{{ tag.name }}</strong>
-      标签，共有 {{ pageData.count }} 篇
+      标签下，共有 {{ pageData.count }} 篇
     </h1>
 
     <PostList
@@ -33,6 +33,6 @@ const tag = computed<ITag>(() => unref(pageData).tag || {});
 const posts = computed<IPost[]>(() => unref(pageData).posts || []);
 
 const linkPattern = computed(
-  () => removePathTailPage(unref(tag).path) + '/page/%d/',
+  () => removePathTailPage(unref(tag).path || '') + '/page/%d/',
 );
 </script>

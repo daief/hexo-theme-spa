@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-2xl mb-4">归档</h1>
+    <h1 class="text-2xl mb-6">归档</h1>
 
     <PostList
       :posts="posts"

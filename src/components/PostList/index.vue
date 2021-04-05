@@ -3,7 +3,7 @@
     <div v-if="!posts.length">快去写文章吧~</div>
     <div v-else-if="groupByYear">
       <section v-for="[year, list] in grouped" :key="year">
-        <div>
+        <div class="text-black">
           {{ year }}
         </div>
         <div>
@@ -14,6 +14,8 @@
     <div v-else>
       <Item v-for="(post, index) in posts" :post="post" :key="index" />
     </div>
+
+    <div class="mt-8" />
 
     <Pagination
       :total="total"
@@ -39,7 +41,7 @@ import Item from './Item.vue';
 
 const props = defineProps({
   posts: {
-    type: Array as any,
+    type: (Array as unknown) as any[],
     default: [],
   },
   total: Number,

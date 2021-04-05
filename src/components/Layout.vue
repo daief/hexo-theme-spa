@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isMobile">
+  <div v-show="isMobile" class="mobile-top-title bg-primary bg-opacity-25">
     <SiteTitle />
   </div>
   <div class="w-full max-w-screen-lg mx-auto lg:flex">
@@ -25,7 +25,7 @@
   <!-- fixed buttons -->
   <div class="fixed bottom-2 right-2 text-2xl">
     <button @click="showSideBar = true" v-if="isMobile">
-      <FaIcon name="bars" />
+      <Icon name="home" />
     </button>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import FaIcon from './FaIcon.vue';
+import Icon from './Icon.vue';
 import SideBarMobile from './SideBar/Mobile.vue';
 import SideBarPc from './SideBar/PC.vue';
 import SiteTitle from '@/components/site/SiteTitle.vue';

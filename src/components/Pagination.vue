@@ -1,17 +1,19 @@
 <template>
   <div v-if="!!total && total > 1">
-    <nav class="text-center">
+    <nav class="flex justify-center">
       <a
         v-for="(page, index) in config"
         :key="index"
         class="inline-flex justify-center items-center mx-1 w-7 h-7 cursor-pointer"
-        :class="{
-          'text-blue-400': page === current,
-        }"
+        :class="page === current ? 'text-primary' : 'a-normal'"
         @click="handleClickItem(page)"
       >
-        <FaIcon name="angle-double-left" v-if="page === 'pre'" />
-        <FaIcon name="angle-double-right" v-else-if="page === 'next'" />
+        <Icon name="arrow-double-left" class="mt-0" v-if="page === 'pre'" />
+        <Icon
+          name="arrow-double-right"
+          class="mt-0"
+          v-else-if="page === 'next'"
+        />
         <span v-else-if="page === 'dot'"> ... </span>
         <span v-else>
           {{ page }}
@@ -31,7 +33,7 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import FaIcon from '@/components/FaIcon.vue';
+import Icon from '@/components/Icon.vue';
 
 const props = defineProps({
   total: Number,

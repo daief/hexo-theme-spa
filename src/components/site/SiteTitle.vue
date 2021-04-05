@@ -2,7 +2,7 @@
   <div>
     <router-link
       :to="root"
-      class="block text-lg text-center py-4 text-gray-700"
+      class="block text-xl text-center py-4 text-gray-700 font-medium"
     >
       {{ title }}
     </router-link>

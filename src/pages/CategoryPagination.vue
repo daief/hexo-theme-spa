@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="mb-6">
       <strong>「{{ currentCategory }}」</strong>
       分类下，共有 {{ pageData.count }} 篇
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <Post :post="post" />
+    <Post :post="post" is-detail />
     <!-- tags -->
     <div class="text-center text-sm">
       <router-link
