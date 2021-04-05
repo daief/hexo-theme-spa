@@ -41,5 +41,12 @@ const proxyAClick = useProxyClickA();
     margin-left: 4px;
     color: #555;
   }
+  .category-list-link {
+    @apply text-gray-700;
+
+    &:hover {
+      @apply text-primary;
+    }
+  }
 }
 </style>

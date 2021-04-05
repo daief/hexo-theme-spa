@@ -13,6 +13,8 @@ import SimplePage from './pages/SimplePage.vue';
 import TagsIndex from './pages/TagsIndex.vue';
 import TagsPagination from './pages/TagsPagination.vue';
 import ArchivePagination from './pages/ArchivePagination.vue';
+import Page404 from './pages/404.vue';
+
 import { getRouteConfig, merge, PAGE_NAME_MAP } from '@/utils/route';
 import { useAxios } from './hooks/useAxios';
 import { Store } from 'vuex';
@@ -47,7 +49,7 @@ export function createRouterIns() {
     },
     {
       name: PAGE_NAME_MAP.$404,
-      component: Post,
+      component: Page404,
     },
     {
       name: PAGE_NAME_MAP.archives,

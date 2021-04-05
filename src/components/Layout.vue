@@ -10,17 +10,18 @@
     </div>
 
     <main class="max-w-full lg:flex-grow lg:w-0" id="main">
-      <div class="p-7 lg:pt-20">
+      <div class="main-page-content p-7 lg:pt-20">
         <slot></slot>
       </div>
+      <footer class="footer">
+        <div class="footer-inner">
+          footer
+
+          <router-link to="/404.html">404</router-link>
+        </div>
+      </footer>
     </main>
   </div>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <!-- {% include '_partials/languages.swig' %} -->
-    </div>
-  </footer>
 
   <!-- fixed buttons -->
   <div class="fixed bottom-2 right-2 text-2xl">
@@ -55,4 +56,8 @@ watch(isMobile, () => {
 });
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.main-page-content {
+  min-height: calc(~'100vh - 90px');
+}
+</style>
