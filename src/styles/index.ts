@@ -1,6 +1,6 @@
 import 'nprogress/nprogress.css';
-import './github-markdown.css';
 import './tailwind.css';
+import './github-markdown.css';
 import './global.less';
 
 // const highlightTheme = __theme.highlight.theme;
