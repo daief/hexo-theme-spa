@@ -29,7 +29,7 @@
     </div>
     <RichText v-if="!!post.excerpt" :html-text="post.excerpt" />
     <a id="more" v-if="post.excerpt && post.more" class="w-0 h-0"></a>
-    <RichText v-if="!!post.more" :html-text="post.more" />
+    <RichText v-if="!!post.more" :html-text="post.more" insert-el-before />
   </article>
 </template>
 
@@ -53,7 +53,7 @@ const props = defineProps({
 });
 
 const post = computed(() => props.post || {});
-const categories = computed(() => unref(post).categories || []);
+const categories = computed<any[]>(() => unref(post).categories || []);
 
 const dateStr = computed(() =>
   post.value.date ? new Date(post.value.date).toLocaleDateString() : '',
