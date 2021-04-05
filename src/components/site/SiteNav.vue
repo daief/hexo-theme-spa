@@ -4,8 +4,8 @@
       v-for="item in menus"
       :key="item[0]"
       :to="item[1].link"
-      class="block relative text-sm text-gray-700 leading-7"
-      :class="item[1].link === route.path ? 'bg-gray-200' : 'hover:bg-gray-200'"
+      class="block relative text-sm text-gray-700 leading-8 border-b border-transparent border-solid"
+      :class="item[1].link === route.path ? 'text-primary border-primary' : ''"
     >
       <Icon :name="item[1].icon" class="mr-1 text-xs" />
       {{ item[1].name }}

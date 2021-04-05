@@ -2,7 +2,7 @@
   <div
     v-html="tocHtml"
     ref="wrapEl"
-    class="site-toc-wrap leading-normal break-all text-sm"
+    class="site-toc-wrap leading-6 break-all text-sm"
   ></div>
 </template>
 

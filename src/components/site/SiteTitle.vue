@@ -1,6 +1,9 @@
 <template>
   <div>
-    <router-link :to="root" class="block text-lg text-center py-4">
+    <router-link
+      :to="root"
+      class="block text-lg text-center py-4 text-gray-700"
+    >
       {{ title }}
     </router-link>
   </div>

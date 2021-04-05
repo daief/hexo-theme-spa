@@ -8,7 +8,7 @@
       <div v-if="!hasTocHtml">
         <SiteTitle />
         <SiteNav />
-        <SiteProfile />
+        <SiteProfile class="mt-4" />
       </div>
       <div v-else>
         <Tabs title-class="tabs-title">

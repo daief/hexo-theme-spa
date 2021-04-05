@@ -3,7 +3,7 @@
     class="pc-sider-bar z-20 inset-0 relative w-64 px-2 mr-2 h-full"
     v-show="show"
   >
-    <div class="mb-10">
+    <div class="pt-6 pb-8">
       <SiteTitle />
       <SiteNav />
     </div>
