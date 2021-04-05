@@ -11,7 +11,7 @@ if (!__SSR__) {
   const script = document.createElement('script');
   script.async = true;
   script.defer = true;
-  script.src = '//at.alicdn.com/t/font_2433925_4kmoqm3yvw2.js';
+  script.src = '//at.alicdn.com/t/font_2433925_4gal9ckxxra.js';
   document.body.append(script);
 }
 

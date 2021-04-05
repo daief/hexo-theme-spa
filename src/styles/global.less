@@ -26,3 +26,14 @@ a.a-normal {
     @apply text-opacity-75;
   }
 }
+
+// vue transition
+// fade
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
