@@ -71,9 +71,11 @@ export function useAxios<T = any>(
     }
   };
 
-  onMounted(() => {
-    !skip && call();
-  });
+  if (!skip) {
+    onMounted(() => {
+      call();
+    });
+  }
 
   return [
     res,

@@ -36,8 +36,6 @@ export async function renderHtml({
 
   const preRenderData = renderData(url, locals);
 
-  console.log(1111122222);
-
   await store.commit('global/setPageData', {
     data: preRenderData,
     key: pathToKey(url),

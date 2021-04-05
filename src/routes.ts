@@ -77,6 +77,16 @@ export function createRouterIns() {
 }
 
 export function addRouteGuards(router: Router, store: Store<any>) {
+  // ------------------------------------------------------------------------ !! 开发环境禁掉简单类型页面的前端路由
+  if (!__PROD__) {
+    router.beforeEach((to, from) => {
+      if (to.path === from.path) return true;
+      if (to.name === PAGE_NAME_MAP.simplePages) {
+        location.href = to.fullPath;
+        return false;
+      }
+    });
+  }
   // ------------------------------------------------------------------------ load page data
   const [resp, fetchPageData, { cancel }] = useAxios('');
 

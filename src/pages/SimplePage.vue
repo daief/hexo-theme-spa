@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Post :post="page" />
+    <Post :post="page" is-detail />
   </div>
 </template>
 

@@ -11,7 +11,10 @@ export function isExternalLink(link: string) {
 
   // 不是协议开头的拼上 site 的协议
   if (!/^\w+:\/\//i.test(link)) {
-    link = link.replace(/^\/?/, siteUrl.origin + '/');
+    link = link.replace(
+      /^\/?/,
+      __SSR__ ? siteUrl.origin : location.origin + '/',
+    );
   }
 
   const url = new URL(link);
