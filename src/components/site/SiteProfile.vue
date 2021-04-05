@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <HImage
-      class="avatar block rounded-full w-32 h-32 mx-auto border-white p-0.5 border border-solid"
+      class="avatar block rounded-full w-32 h-32 mx-auto border-white p-0.5 border border-solid shadow"
       :src="src"
       :alt="author"
       :title="author"

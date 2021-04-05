@@ -86,7 +86,7 @@ const handleClickToTop = () => {
 
 <style lang="less" scoped>
 .main-page-content {
-  min-height: calc(~'100vh - 90px');
+  min-height: calc(~'100vh - 110px');
 }
 .fixed-side-button {
   @apply rounded-full;
