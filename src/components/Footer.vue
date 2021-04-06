@@ -42,13 +42,13 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import ColorPicker from '@/components/ColorPicker.vue';
-import { getThemeColor, setTheme } from '@/utils/theme';
+import { getThemeColorRgb, setTheme } from '@/utils/theme';
 import Icon from '@/components/Icon.vue';
 
 const themeColor = ref('');
 
 if (!__SSR__) {
-  themeColor.value = getThemeColor();
+  themeColor.value = `rgb(${getThemeColorRgb()})`;
 }
 
 const handleColorChange: any = (color: string, [r, g, b]: number[]) => {

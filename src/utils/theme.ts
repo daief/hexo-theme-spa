@@ -2,9 +2,9 @@ const defaultTheme = '255, 140, 22';
 
 const storageThemeKey = '__def__theme__';
 
-export function getThemeColor() {
+export function getThemeColorRgb() {
   if (__SSR__) return '';
-  return `rgb(${localStorage.getItem(storageThemeKey) || defaultTheme})`;
+  return localStorage.getItem(storageThemeKey) || defaultTheme;
 }
 
 let styleEl: HTMLStyleElement | null = null;
@@ -26,5 +26,5 @@ export function setTheme(rgbString: string) {
 }
 
 export function initTheme() {
-  setTheme(defaultTheme);
+  setTheme(getThemeColorRgb());
 }
