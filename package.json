@@ -12,7 +12,10 @@
     "deploy": "hexo deploy",
     "new": "hexo new",
     "minify": "gulp",
-    "b:d": "yarn clean && yarn build && yarn minify && yarn deploy"
+    "b:d": "yarn clean && yarn build && yarn minify && yarn deploy",
+    "st:pull": "git subtree pull --prefix=themes/spa https://github.com/daief/hexo-theme-spa.git master --squash",
+    "st:split": "git subtree split --rejoin --prefix=themes/spa HEAD",
+    "st:push": "git subtree push --prefix=themes/spa https://github.com/daief/hexo-theme-spa.git master"
   },
   "saveDeps": {
     "hexo-generator-archive": "^1.0.0",
