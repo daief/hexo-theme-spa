@@ -1,52 +1,79 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
-  "private": true,
-  "hexo": {
-    "version": "5.2.0"
-  },
-  "scripts": {
-    "start": "hexo server --draft --port",
-    "clean": "hexo clean",
-    "build": "NODE_ENV=production hexo generate --concurrency 3",
-    "deploy": "hexo deploy",
-    "new": "hexo new",
-    "minify": "gulp",
-    "b:d": "yarn clean && yarn build && yarn minify && yarn deploy",
-    "st:add": "git subtree add --prefix=themes/spa git@github.com:daief/hexo-theme-spa.git main --squash",
-    "st:pull": "git subtree pull --prefix=themes/spa git@github.com:daief/hexo-theme-spa.git master --squash",
-    "st:split": "git subtree split --rejoin --prefix=themes/spa HEAD",
-    "st:push": "git subtree push --prefix=themes/spa git@github.com:daief/hexo-theme-spa.git master"
-  },
-  "saveDeps": {
-    "hexo-generator-archive": "^1.0.0",
-    "hexo-generator-baidu-sitemap": "^0.1.2",
-    "hexo-generator-category": "^1.0.0",
-    "hexo-generator-feed": "^2.0.0",
-    "hexo-generator-index": "^1.0.0",
-    "hexo-generator-search": "^2.3.0",
-    "hexo-generator-searchdb": "^1.0.8",
-    "hexo-generator-sitemap": "^1.2.0",
-    "hexo-generator-tag": "^1.0.0"
+  "name": "hexo-theme-spa",
+  "version": "0.0.1",
+  "author": "daief <defeng_mail@163.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "hexo": "^5.0.0"
   },
   "dependencies": {
-    "cross-env": "^6.0.0",
-    "hexo": "~5.2.0",
-    "hexo-deployer-git": "^0.3.1",
-    "hexo-renderer-ejs": "^1.0.0",
-    "hexo-renderer-marked": "^3.3.0",
-    "hexo-renderer-stylus": "^1.0.0",
-    "hexo-server": "^2.0.0",
-    "hexo-wordcount": "^6.0.1",
+    "@simonwep/pickr": "^1.8.0",
+    "@vant/use": "^1.0.5",
+    "cheerio": "^1.0.0-rc.5",
+    "dayjs": "^1.10.4",
+    "file-loader": "^6.2.0",
+    "highlight.js": "^10.6.0",
+    "js-base64": "^3.6.0",
     "lodash": "^4.17.20",
-    "prismjs": "^1.19.0"
+    "mermaid": "^8.9.1",
+    "nprogress": "^0.2.0",
+    "prismjs": "^1.19.0",
+    "query-string": "^7.0.0",
+    "url-loader": "^4.1.1",
+    "vue": "^3.0.6",
+    "vue-meta": "^3.0.0-alpha.1",
+    "vue-router": "^4.0.0",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.2.0",
-    "gulp-cli": "^2.2.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-terser": "^1.2.0",
-    "prettier": "^2.0.5"
+    "@types/fs-extra": "^9.0.6",
+    "@types/hexo": "^3.8.5",
+    "@types/jest": "^26.0.20",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^14.14.22",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/server-renderer": "^3.0.5",
+    "autoprefixer": "^10.2.4",
+    "axios": "^0.21.1",
+    "css-loader": "^5.0.1",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "fs-extra": "^9.1.0",
+    "html-webpack-plugin": "next",
+    "jest": "^26.6.3",
+    "less": "^4.1.0",
+    "less-loader": "^7.3.0",
+    "mini-css-extract-plugin": "^1.3.6",
+    "null-loader": "^4.0.1",
+    "postcss": "^8.2.6",
+    "postcss-loader": "^5.0.0",
+    "prettier": "^2.0.5",
+    "style-loader": "^2.0.0",
+    "tailwindcss": "^2.0.3",
+    "terser": "^4.6.3",
+    "ts-jest": "^26.4.4",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "url-pattern": "^1.0.3",
+    "uuid": "^3.0.0",
+    "vue-loader": "^16.1.0",
+    "webpack": "^5.17.0",
+    "webpack-manifest-plugin": "^3.0.0",
+    "webpack-node-externals": "^2.5.2",
+    "webpackbar": "^5.0.0-3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx",
+      "ts",
+      "tsx",
+      "node",
+      "d.ts"
+    ]
+  },
+  "engines": {
+    "node": ">= 12.0.0"
   }
 }

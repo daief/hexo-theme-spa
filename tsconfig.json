@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["DOM", "ESNext"],
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@shared": ["shared"],
+      "@shared/*": ["shared/*"],
+      "@components/*": ["src/components/*"]
+    },
+    "importsNotUsedAsValues": "remove"
+  },
+  "include": ["src/**/*", "layout/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+}
