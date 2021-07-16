@@ -2,5 +2,6 @@
   "editor.formatOnSave": true,
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
-  }
+  },
+  "volar.tsPlugin": true
 }

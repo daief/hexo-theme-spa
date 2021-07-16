@@ -5,9 +5,6 @@
   "hexo": {
     "version": "5.2.0"
   },
-  "workspaces": [
-    "themes/spa"
-  ],
   "scripts": {
     "start": "hexo server --draft --port",
     "clean": "hexo clean",

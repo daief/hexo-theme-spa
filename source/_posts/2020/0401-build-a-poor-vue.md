@@ -29,7 +29,7 @@ description:
 - 实现基本是按照参考资料以及自己的理解来着；
 - 尤其是指令、事件绑定那里，自己瞎写写的；
 - 实现了：
-  - 在模板中使用 `{% raw %}{{}}{% endraw %}` 并绑定值，支持表达式，但一个节点还只能有一个双大括号插值
+  - 在模板中使用 `{{variable}}` 并绑定值，支持表达式，但一个节点还只能有一个双大括号插值
   - v-model 指令
   - v-show、@click 指令，支持表达式
 
@@ -218,9 +218,7 @@ export class Compile {
       // 一些特殊字符需要转义处理
       const regExpression = expression.replace(/\+|\?|\(|\)/g, _ => '\\' + _);
 
-      const replaceReg = new RegExp(
-        '{% raw %}{{{% endraw %}\\s*' + regExpression + '\\s*}}',
-      );
+      const replaceReg = new RegExp('{{\\s*' + regExpression + '\\s*}}');
       node.nodeValue = nodeValue.replace(replaceReg, newV);
     });
   }
