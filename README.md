@@ -1,43 +1,8 @@
-# TODO
+# hexo-theme-spa
 
-- [x] webpack dev 优化
-- [ ] page title
-- [x] about, others page, simple pages
-- [ ] 404 page
-- [ ] 文章置顶 sticky
-- [ ] 文章草稿/发布/置顶状态区分
-- ~~[ ] try esbuild or vite~~
+Hexo 单页应用主题，Vue3 + Tailwind CSS。
 
-# Usage
-
-Via `git submodule`.
-
-First install this theme.
-
-```bash
-$ git submodule add git@github.com:daief/hexo-theme-spa.git themes/spa
-```
-
-Update this theme.
-
-```bash
-# init submodule
-$ git submodule init
-
-# update submodules
-$ git submodule update
-```
-
-Some git submodule commands.
-
-```bash
-# check current submodule status
-$ git submodule status
-
-# rm cache of submodules
-$ git rm --cached themes/spa
-
-```
+练手，仅在功能上初步实现了基于 Vue3 的单页应用，SSR、SSG 技术的实践。
 
 # Note
 
