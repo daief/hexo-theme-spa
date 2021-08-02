@@ -89,6 +89,16 @@ function getWebpackConfig(
             },
           },
         },
+        {
+          test: /vue-meta.*js$/i,
+          use: {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              configFile: path.resolve(__dirname, '../tsconfig.json'),
+            },
+          },
+        },
         !ssr && {
           test: /\.less$/i,
           use: [

@@ -1,8 +1,8 @@
 /**
  * server only
  */
-
-import { renderToStringWithMeta } from 'vue-meta';
+import { renderToString } from '@vue/server-renderer';
+// import { renderMetaToString } from 'vue-meta/ssr';
 import { createBlogApp } from './main';
 import { renderData } from './server/renderData';
 import { formatHtmlPath, pathToKey } from './utils';
@@ -42,7 +42,10 @@ export async function renderHtml({
   });
   router.replace(url);
   await router.isReady();
-  const [html, ctx] = await renderToStringWithMeta(app);
+
+  let ctx: any = {};
+  const html = renderToString(app, ctx);
+  // await renderMetaToString(app, ctx);
 
   const getCtxProp = (prop: string) => ctx?.teleports?.[prop] || '';
 
